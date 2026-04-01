@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScentMatch AI - Find Your Perfect Fragrance</title>
+    <meta name="description" content="Snap a photo of your outfit or room and get instant AI-powered scent recommendations. 510+ curated fragrances from 5 cultures.">
+    <meta property="og:title" content="ScentMatch AI - Photo to Fragrance Match">
+    <meta property="og:description" content="Snap, match, discover. AI-powered scent recommendations from 510+ curated fragrances.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scentmatch.app">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0A0F14;
+            --surface: #141A21;
+            --surface-elevated: #1E242C;
+            --emerald: #33A673;
+            --emerald-light: #4DCC8A;
+            --teal: #145C61;
+            --deep-teal: #0D3840;
+            --gold: #D9B866;
+            --gold-light: #F2D98A;
+            --text-primary: #F2F2EE;
+            --text-secondary: #A6ADB2;
+            --text-tertiary: #737880;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 15, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(51, 166, 115, 0.1);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--emerald); }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--emerald), var(--teal));
+            color: var(--bg) !important; padding: 0.5rem 1.2rem;
+            border-radius: 8px; font-weight: 600 !important;
+            text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(51, 166, 115, 0.3); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -50%; right: -30%; width: 80%; height: 120%;
+            background: radial-gradient(ellipse, rgba(51, 166, 115, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: -30%; left: -20%; width: 60%; height: 80%;
+            background: radial-gradient(ellipse, rgba(13, 56, 64, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 1200px; width: 100%;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+            position: relative; z-index: 1;
+        }
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.15; margin-bottom: 1.5rem;
+        }
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-text p {
+            font-size: 1.15rem; color: var(--text-secondary);
+            margin-bottom: 2rem; max-width: 480px; line-height: 1.7;
+        }
+        .hero-badges { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.6rem 1rem; border-radius: 10px;
+            font-size: 0.85rem; font-weight: 600;
+        }
+        .badge-emerald { background: rgba(51, 166, 115, 0.12); color: var(--emerald); }
+        .badge-gold { background: rgba(217, 184, 102, 0.12); color: var(--gold); }
+        .app-store-btn {
+            display: inline-block; margin-top: 1.5rem;
+            padding: 1rem 2.5rem; border-radius: 14px;
+            background: linear-gradient(135deg, var(--emerald), var(--teal));
+            color: var(--bg); font-weight: 700; font-size: 1.1rem;
+            text-decoration: none; transition: all 0.3s;
+            box-shadow: 0 4px 30px rgba(51, 166, 115, 0.2);
+        }
+        .app-store-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(51, 166, 115, 0.35);
+        }
+
+        /* Phone mockup */
+        .hero-phone { display: flex; justify-content: center; position: relative; }
+        .phone-frame {
+            width: 280px; border-radius: 36px;
+            border: 3px solid rgba(51, 166, 115, 0.15);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 60px rgba(51, 166, 115, 0.08);
+            overflow: hidden;
+        }
+        .phone-frame img { width: 100%; display: block; }
+        .phone-glow {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(51, 166, 115, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Sections common */
+        section { padding: 6rem 2rem; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            text-align: center; margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--text-secondary);
+            font-size: 1.1rem; max-width: 600px; margin: 0 auto 3.5rem;
+        }
+
+        /* How it works */
+        .how-it-works { background: var(--surface); }
+        .steps {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 2rem; max-width: 960px; margin: 0 auto;
+        }
+        .step {
+            text-align: center; padding: 2rem 1.5rem;
+            border-radius: 20px;
+            background: var(--surface-elevated);
+            border: 1px solid rgba(51, 166, 115, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .step-number {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--emerald), var(--teal));
+            color: var(--bg); font-weight: 700; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.2rem;
+        }
+        .step-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .step h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+        .step p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Features */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; max-width: 1000px; margin: 0 auto;
+        }
+        .feature {
+            padding: 1.8rem; border-radius: 16px;
+            background: var(--surface);
+            border: 1px solid rgba(51, 166, 115, 0.06);
+            transition: border-color 0.3s;
+        }
+        .feature:hover { border-color: rgba(51, 166, 115, 0.2); }
+        .feature-icon {
+            font-size: 1.8rem; margin-bottom: 1rem;
+            width: 48px; height: 48px; border-radius: 12px;
+            background: rgba(51, 166, 115, 0.1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .feature h3 { font-size: 1rem; margin-bottom: 0.4rem; font-weight: 600; }
+        .feature p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; }
+
+        /* Screenshots */
+        .screenshots { background: var(--surface); overflow: hidden; }
+        .screenshots-row {
+            display: flex; gap: 2rem; justify-content: center;
+            align-items: flex-start; flex-wrap: wrap;
+            max-width: 900px; margin: 0 auto;
+        }
+        .screenshot-item { text-align: center; }
+        .screenshot-item img {
+            width: 220px; border-radius: 28px;
+            border: 2px solid rgba(51, 166, 115, 0.1);
+            box-shadow: 0 12px 50px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+        }
+        .screenshot-item img:hover { transform: scale(1.03); }
+        .screenshot-item p {
+            margin-top: 1rem; color: var(--text-secondary);
+            font-size: 0.9rem; font-weight: 500;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex; justify-content: center; gap: 4rem;
+            padding: 4rem 2rem;
+            flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--emerald), var(--gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.3rem; }
+
+        /* Pricing */
+        .pricing { background: var(--surface); }
+        .pricing-cards {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; max-width: 900px; margin: 0 auto;
+        }
+        .pricing-card {
+            padding: 2rem; border-radius: 20px;
+            background: var(--surface-elevated);
+            border: 1px solid rgba(51, 166, 115, 0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .pricing-card:hover { transform: translateY(-4px); }
+        .pricing-card.featured {
+            border-color: var(--emerald);
+            box-shadow: 0 0 40px rgba(51, 166, 115, 0.1);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--emerald); color: var(--bg);
+            padding: 0.3rem 1rem; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700;
+        }
+        .pricing-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .pricing-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; font-weight: 700; margin: 1rem 0 0.3rem;
+        }
+        .pricing-period { color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 1.5rem; }
+        .pricing-features li {
+            padding: 0.4rem 0; font-size: 0.9rem; color: var(--text-secondary);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .pricing-features li::before { content: '\2713'; color: var(--emerald); font-weight: 700; }
+        .pricing-btn {
+            display: block; width: 100%; padding: 0.8rem;
+            border-radius: 10px; border: none; cursor: pointer;
+            font-weight: 600; font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .pricing-btn-primary {
+            background: linear-gradient(135deg, var(--emerald), var(--teal));
+            color: var(--bg);
+        }
+        .pricing-btn-secondary {
+            background: transparent;
+            border: 1.5px solid var(--emerald);
+            color: var(--emerald);
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center; padding: 6rem 2rem;
+            position: relative;
+        }
+        .cta::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(51, 166, 115, 0.06) 0%, transparent 70%);
+        }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; position: relative; }
+        .cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; position: relative; }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem; text-align: center;
+            border-top: 1px solid rgba(51, 166, 115, 0.08);
+        }
+        .footer-links { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-tertiary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--emerald); }
+        .footer-copy { color: var(--text-tertiary); font-size: 0.8rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { margin: 0 auto 2rem; }
+            .hero-badges { justify-content: center; }
+            .hero-phone { margin-top: 2rem; }
+            .phone-frame { width: 220px; }
+            .steps { grid-template-columns: 1fr; max-width: 400px; }
+            .features-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .screenshots-row { gap: 1.5rem; }
+            .screenshot-item img { width: 160px; }
+            .stats { gap: 2rem; }
+            .pricing-cards { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+            .nav-links { display: none; }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .hero-phone { animation: float 6s ease-in-out infinite; }
+
+        .fade-in {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+    <div class="nav-logo">ScentMatch AI</div>
+    <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">Download</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="serif">Your Style.<br><span>Your Scent.</span></h1>
+            <p>Snap a photo of your outfit or room and get instant AI-powered fragrance recommendations. Matched from 510+ curated scents across 5 cultures.</p>
+            <div class="hero-badges">
+                <span class="badge badge-emerald">510+ Fragrances</span>
+                <span class="badge badge-gold">5 Regions</span>
+                <span class="badge badge-emerald">AI-Powered</span>
+            </div>
+            <a href="#cta" class="app-store-btn">Download on the App Store</a>
+        </div>
+        <div class="hero-phone">
+            <div class="phone-glow"></div>
+            <div class="phone-frame">
+                <img src="img/results.png" alt="ScentMatch AI Results Screen" loading="eager">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+    <div class="stat fade-in">
+        <div class="stat-number">510+</div>
+        <div class="stat-label">Curated Fragrances</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Cultural Regions</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Matching Factors</div>
+    </div>
+    <div class="stat fade-in">
+        <div class="stat-number">< 3s</div>
+        <div class="stat-label">Instant Results</div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<section class="how-it-works" id="how-it-works">
+    <h2 class="section-title serif fade-in">How It Works</h2>
+    <p class="section-subtitle fade-in">Three steps to your perfect scent match</p>
+    <div class="steps">
+        <div class="step fade-in">
+            <div class="step-number">1</div>
+            <div class="step-icon">&#128247;</div>
+            <h3>Snap Your Style</h3>
+            <p>Take a photo of your outfit, room, or any visual scene. The AI analyzes colors, mood, brightness, and style.</p>
+        </div>
+        <div class="step fade-in">
+            <div class="step-number">2</div>
+            <div class="step-icon">&#10024;</div>
+            <h3>Instant Match</h3>
+            <p>Our 6-factor engine scores 510+ fragrances against your visual profile. Get ranked results with match percentages.</p>
+        </div>
+        <div class="step fade-in">
+            <div class="step-number">3</div>
+            <div class="step-icon">&#128142;</div>
+            <h3>Discover & Shop</h3>
+            <p>Read detailed explanations of why each scent matches, explore fragrance notes, and shop your favorites instantly.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+    <h2 class="section-title serif fade-in">Features</h2>
+    <p class="section-subtitle fade-in">Everything you need to find your signature scent</p>
+    <div class="features-grid">
+        <div class="feature fade-in">
+            <div class="feature-icon">&#127758;</div>
+            <h3>5 Cultural Regions</h3>
+            <p>Western, German, Mexican, Brazilian, and French fragrances. From Dior to Natura, Tom Ford to O Boticario.</p>
+        </div>
+        <div class="feature fade-in">
+            <div class="feature-icon">&#129504;</div>
+            <h3>AI Vision Analysis</h3>
+            <p>On-device Vision framework extracts dominant colors, scene type, mood, and style from your photos.</p>
+        </div>
+        <div class="feature fade-in">
+            <div class="feature-icon">&#128200;</div>
+            <h3>Vibe Score</h3>
+            <p>Every match gets a 0-100 vibe score showing exactly how well your style pairs with each fragrance.</p>
+        </div>
+        <div class="feature fade-in">
+            <div class="feature-icon">&#128172;</div>
+            <h3>"Why It Matches"</h3>
+            <p>Detailed template-driven explanations tell you exactly why each scent was chosen for your visual profile.</p>
+        </div>
+        <div class="feature fade-in">
+            <div class="feature-icon">&#128274;</div>
+            <h3>Works Offline</h3>
+            <p>All 510+ fragrances stored locally. Vision analysis runs on-device. No internet needed after install.</p>
+        </div>
+        <div class="feature fade-in">
+            <div class="feature-icon">&#127757;</div>
+            <h3>5 Languages</h3>
+            <p>Fully localized in English, German, Spanish (Mexico), Portuguese (Brazil), and French.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Screenshots -->
+<section class="screenshots" id="screenshots">
+    <h2 class="section-title serif fade-in">See It In Action</h2>
+    <p class="section-subtitle fade-in">Beautiful dark luxury interface designed for fragrance lovers</p>
+    <div class="screenshots-row">
+        <div class="screenshot-item fade-in">
+            <img src="img/onboarding.png" alt="Onboarding">
+            <p>Animated Onboarding</p>
+        </div>
+        <div class="screenshot-item fade-in">
+            <img src="img/scan.png" alt="Scan Screen">
+            <p>Scan Your Style</p>
+        </div>
+        <div class="screenshot-item fade-in">
+            <img src="img/results.png" alt="Results Screen">
+            <p>Instant Results</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+    <h2 class="section-title serif fade-in">Simple Pricing</h2>
+    <p class="section-subtitle fade-in">Start free. Upgrade when you're hooked.</p>
+    <div class="pricing-cards">
+        <div class="pricing-card fade-in">
+            <h3>Free</h3>
+            <div class="pricing-price">$0</div>
+            <div class="pricing-period">Forever</div>
+            <ul class="pricing-features">
+                <li>5 scent matches</li>
+                <li>510+ fragrance library</li>
+                <li>Full AI analysis</li>
+                <li>Match explanations</li>
+            </ul>
+            <button class="pricing-btn pricing-btn-secondary">Get Started</button>
+        </div>
+        <div class="pricing-card featured fade-in">
+            <h3>Yearly</h3>
+            <div class="pricing-price" style="background:linear-gradient(135deg,var(--emerald),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$29.99</div>
+            <div class="pricing-period">per year &middot; Save 50%</div>
+            <ul class="pricing-features">
+                <li>Unlimited matches</li>
+                <li>Scent wardrobe</li>
+                <li>Enhanced explanations</li>
+                <li>Priority new fragrances</li>
+            </ul>
+            <button class="pricing-btn pricing-btn-primary">Best Value</button>
+        </div>
+        <div class="pricing-card fade-in">
+            <h3>Lifetime</h3>
+            <div class="pricing-price">$49.99</div>
+            <div class="pricing-period">one-time payment</div>
+            <ul class="pricing-features">
+                <li>Everything in Yearly</li>
+                <li>Pay once, own forever</li>
+                <li>All future updates</li>
+                <li>Early access to features</li>
+            </ul>
+            <button class="pricing-btn pricing-btn-secondary">Go Lifetime</button>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+    <h2 class="serif">Ready to Find <span style="color:var(--emerald)">Your Scent?</span></h2>
+    <p>Download ScentMatch AI and discover the fragrance that matches your style.</p>
+    <a href="#" class="app-store-btn">Download on the App Store</a>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-links">
+        <a href="https://scentmatch.app/privacy">Privacy Policy</a>
+        <a href="https://scentmatch.app/terms">Terms of Use</a>
+        <a href="mailto:support@scentmatch.app">Support</a>
+        <a href="https://github.com/ClawdBonzo/ScentMatch">GitHub</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 ScentMatch AI. All rights reserved.</p>
+</footer>
+
+<!-- Scroll animations -->
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
