@@ -37,7 +37,7 @@ struct ResultsRevealView: View {
                         // Fragrance cards
                         Text("Your Scent Matches")
                             .font(SMFont.headline(20))
-                            .foregroundStyle(.smTextPrimary)
+                            .foregroundStyle(Color.smTextPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                             .opacity(showCards ? 1 : 0)
@@ -57,7 +57,7 @@ struct ResultsRevealView: View {
                         Button(action: { dismiss() }) {
                             Text("Done")
                                 .font(SMFont.headline(18))
-                                .foregroundStyle(.smEmerald)
+                                .foregroundStyle(Color.smEmerald)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: SMTheme.buttonHeight)
                                 .background(Color.smEmerald.opacity(0.12))
@@ -75,7 +75,7 @@ struct ResultsRevealView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundStyle(.smTextSecondary)
+                            .foregroundStyle(Color.smTextSecondary)
                     }
                 }
             }
@@ -117,16 +117,16 @@ struct ResultsRevealView: View {
                 VStack(spacing: 2) {
                     Text(String(format: "%.0f", matchResult.vibeScore))
                         .font(SMFont.display(40))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                     Text("Vibe Score")
                         .font(SMFont.label())
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
             }
 
             Text(vibeDescription)
                 .font(SMFont.body())
-                .foregroundStyle(.smEmerald)
+                .foregroundStyle(Color.smEmerald)
         }
         .padding(.top, 20)
     }
@@ -179,7 +179,7 @@ struct ResultsRevealView: View {
                 ForEach(matchResult.detectedMoodTags.prefix(6), id: \.self) { mood in
                     Text(mood)
                         .font(SMFont.label())
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(Color.smTeal.opacity(0.2))
@@ -202,16 +202,16 @@ struct ResultsRevealView: View {
                         .frame(width: 36, height: 36)
                     Text("\(index + 1)")
                         .font(SMFont.headline(16))
-                        .foregroundStyle(index == 0 ? .smBackground : .smTextPrimary)
+                        .foregroundStyle(index == 0 ? Color.smBackground : Color.smTextPrimary)
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(fragrance.name)
                         .font(SMFont.headline(18))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                     Text(fragrance.house)
                         .font(SMFont.caption())
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
 
                 Spacer()
@@ -219,23 +219,23 @@ struct ResultsRevealView: View {
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(String(format: "%.0f%%", rec.score * 100))
                         .font(SMFont.mono(18))
-                        .foregroundStyle(.smEmerald)
+                        .foregroundStyle(Color.smEmerald)
                     Text(fragrance.priceTier.priceRange)
                         .font(SMFont.label(10))
-                        .foregroundStyle(.smTextTertiary)
+                        .foregroundStyle(Color.smTextTertiary)
                 }
             }
 
             Text(rec.explanation)
                 .font(SMFont.body(14))
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
                 .lineLimit(2)
 
             HStack(spacing: 6) {
                 ForEach(fragrance.accords.prefix(3), id: \.self) { accord in
                     Text(accord.rawValue)
                         .font(SMFont.label(10))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 3)
                         .background(Color.smTeal.opacity(0.2))
@@ -244,7 +244,7 @@ struct ResultsRevealView: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(.system(size: 12))
-                    .foregroundStyle(.smTextTertiary)
+                    .foregroundStyle(Color.smTextTertiary)
             }
         }
         .padding(16)

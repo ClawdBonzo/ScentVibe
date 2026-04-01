@@ -41,7 +41,7 @@ struct ScanView: View {
                             Text("\(profile.remainingFreeMatches) left")
                                 .font(SMFont.label())
                         }
-                        .foregroundStyle(.smGold)
+                        .foregroundStyle(Color.smGold)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
                         .background(Color.smGold.opacity(0.15))
@@ -94,18 +94,18 @@ struct ScanView: View {
 
                 Image(systemName: "camera.viewfinder")
                     .font(.system(size: 72, weight: .thin))
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
             }
 
             VStack(spacing: 12) {
                 Text("Find Your Scent Match")
                     .font(SMFont.display(28))
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
                     .multilineTextAlignment(.center)
 
                 Text("Snap a photo of your outfit or room\nand discover your perfect fragrance")
                     .font(SMFont.body())
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
                     .multilineTextAlignment(.center)
             }
 
@@ -122,7 +122,7 @@ struct ScanView: View {
                 }) {
                     Label("Take Photo", systemImage: "camera.fill")
                         .font(SMFont.headline(18))
-                        .foregroundStyle(.smBackground)
+                        .foregroundStyle(Color.smBackground)
                         .frame(maxWidth: .infinity)
                         .frame(height: SMTheme.buttonHeight)
                         .background(LinearGradient.smPrimaryGradient)
@@ -132,7 +132,7 @@ struct ScanView: View {
                 PhotosPicker(selection: $selectedPhoto, matching: .images) {
                     Label("Choose from Library", systemImage: "photo.on.rectangle")
                         .font(SMFont.headline(18))
-                        .foregroundStyle(.smEmerald)
+                        .foregroundStyle(Color.smEmerald)
                         .frame(maxWidth: .infinity)
                         .frame(height: SMTheme.buttonHeight)
                         .background(Color.smEmerald.opacity(0.12))
@@ -155,7 +155,7 @@ struct ScanView: View {
                 NavigationLink(destination: TestMatchView()) {
                     Label("Engine Test Harness", systemImage: "wrench.and.screwdriver")
                         .font(SMFont.caption())
-                        .foregroundStyle(.smTextTertiary)
+                        .foregroundStyle(Color.smTextTertiary)
                 }
                 #endif
             }

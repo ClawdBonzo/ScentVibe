@@ -24,7 +24,7 @@ struct TestMatchView: View {
 
                     if isAnalyzing {
                         ProgressView("Analyzing...")
-                            .foregroundStyle(.smTextPrimary)
+                            .foregroundStyle(Color.smTextPrimary)
                             .padding()
                     }
 
@@ -71,10 +71,10 @@ struct TestMatchView: View {
                         VStack(spacing: 8) {
                             Image(systemName: "photo.on.rectangle")
                                 .font(.system(size: 40))
-                                .foregroundStyle(.smTextTertiary)
+                                .foregroundStyle(Color.smTextTertiary)
                             Text("Select a test photo")
                                 .font(SMFont.body())
-                                .foregroundStyle(.smTextSecondary)
+                                .foregroundStyle(Color.smTextSecondary)
                         }
                     }
             }
@@ -82,7 +82,7 @@ struct TestMatchView: View {
             PhotosPicker(selection: $selectedPhoto, matching: .images) {
                 Label("Choose Photo", systemImage: "photo.badge.plus")
                     .font(SMFont.headline(18))
-                    .foregroundStyle(.smBackground)
+                    .foregroundStyle(Color.smBackground)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.smEmerald)
@@ -110,7 +110,7 @@ struct TestMatchView: View {
             HStack {
                 Text("Region Filter:")
                     .font(SMFont.caption())
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
                 Spacer()
                 Picker("Region", selection: $selectedRegion) {
                     Text("All").tag(nil as FragranceRegion?)
@@ -119,13 +119,13 @@ struct TestMatchView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .tint(.smEmerald)
+                .tint(Color.smEmerald)
             }
 
             HStack {
                 Text("Gender Filter:")
                     .font(SMFont.caption())
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
                 Spacer()
                 Picker("Gender", selection: $selectedGender) {
                     Text("All").tag(nil as Gender?)
@@ -134,13 +134,13 @@ struct TestMatchView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .tint(.smEmerald)
+                .tint(Color.smEmerald)
             }
 
             Button(action: runAnalysis) {
                 Label("Run Analysis", systemImage: "play.fill")
                     .font(SMFont.headline(18))
-                    .foregroundStyle(.smBackground)
+                    .foregroundStyle(Color.smBackground)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(testImage != nil ? Color.smGold : Color.smTextTertiary)
@@ -174,17 +174,17 @@ struct TestMatchView: View {
                         .frame(width: 24, height: 24)
                     Text("#\(idx + 1)")
                         .font(SMFont.mono(14))
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                     Text(color.colorName)
                         .font(SMFont.body(14))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                     Text(color.hexString)
                         .font(SMFont.mono(12))
-                        .foregroundStyle(.smTextTertiary)
+                        .foregroundStyle(Color.smTextTertiary)
                     Spacer()
                     Text(String(format: "%.0f%%", color.weight * 100))
                         .font(SMFont.mono(14))
-                        .foregroundStyle(.smEmerald)
+                        .foregroundStyle(Color.smEmerald)
                 }
             }
 
@@ -195,7 +195,7 @@ struct TestMatchView: View {
                     ForEach(result.sceneClassifications, id: \.self) { label in
                         Text(label)
                             .font(SMFont.label())
-                            .foregroundStyle(.smTextPrimary)
+                            .foregroundStyle(Color.smTextPrimary)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(Color.smTeal.opacity(0.3))
@@ -211,7 +211,7 @@ struct TestMatchView: View {
                 HStack {
                     Text(mood.rawValue)
                         .font(SMFont.body(14))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .frame(width: 100, alignment: .leading)
                     GeometryReader { geo in
                         RoundedRectangle(cornerRadius: 4)
@@ -221,7 +221,7 @@ struct TestMatchView: View {
                     .frame(height: 16)
                     Text(String(format: "%.2f", score))
                         .font(SMFont.mono(12))
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                         .frame(width: 40)
                 }
             }
@@ -230,7 +230,7 @@ struct TestMatchView: View {
             sectionHeader("Vibe Score", icon: "sparkles")
             Text(String(format: "%.0f / 100", vibeScore))
                 .font(SMFont.display(28))
-                .foregroundStyle(.smGold)
+                .foregroundStyle(Color.smGold)
         }
         .padding()
         .background(Color.smSurfaceElevated)
@@ -249,23 +249,23 @@ struct TestMatchView: View {
                         HStack {
                             Text("#\(idx + 1)")
                                 .font(SMFont.mono(16))
-                                .foregroundStyle(.smGold)
+                                .foregroundStyle(Color.smGold)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(fragrance.name)
                                     .font(SMFont.headline(16))
-                                    .foregroundStyle(.smTextPrimary)
+                                    .foregroundStyle(Color.smTextPrimary)
                                 Text(fragrance.house)
                                     .font(SMFont.caption())
-                                    .foregroundStyle(.smTextSecondary)
+                                    .foregroundStyle(Color.smTextSecondary)
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
                                 Text(String(format: "%.1f%%", rec.score * 100))
                                     .font(SMFont.mono(16))
-                                    .foregroundStyle(.smEmerald)
+                                    .foregroundStyle(Color.smEmerald)
                                 Text(fragrance.priceTier.rawValue)
                                     .font(SMFont.label())
-                                    .foregroundStyle(.smTextTertiary)
+                                    .foregroundStyle(Color.smTextTertiary)
                             }
                         }
 
@@ -274,7 +274,7 @@ struct TestMatchView: View {
                             ForEach(fragrance.accords.prefix(3), id: \.self) { accord in
                                 Text(accord.rawValue)
                                     .font(SMFont.label(10))
-                                    .foregroundStyle(.smTextPrimary)
+                                    .foregroundStyle(Color.smTextPrimary)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 2)
                                     .background(Color.smTeal.opacity(0.3))
@@ -283,13 +283,13 @@ struct TestMatchView: View {
                             Spacer()
                             Text("\(fragrance.region.flag) \(fragrance.region.displayName)")
                                 .font(SMFont.label(10))
-                                .foregroundStyle(.smTextSecondary)
+                                .foregroundStyle(Color.smTextSecondary)
                         }
 
                         // Explanation
                         Text(rec.explanation)
                             .font(SMFont.body(13))
-                            .foregroundStyle(.smTextSecondary)
+                            .foregroundStyle(Color.smTextSecondary)
                             .lineLimit(3)
 
                         // Matched moods
@@ -297,11 +297,11 @@ struct TestMatchView: View {
                             HStack(spacing: 4) {
                                 Text("Matched moods:")
                                     .font(SMFont.label(10))
-                                    .foregroundStyle(.smTextTertiary)
+                                    .foregroundStyle(Color.smTextTertiary)
                                 ForEach(rec.matchedMoods, id: \.self) { mood in
                                     Text(mood)
                                         .font(SMFont.label(10))
-                                        .foregroundStyle(.smEmerald)
+                                        .foregroundStyle(Color.smEmerald)
                                 }
                             }
                         }
@@ -325,10 +325,10 @@ struct TestMatchView: View {
         HStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.system(size: 14))
-                .foregroundStyle(.smEmerald)
+                .foregroundStyle(Color.smEmerald)
             Text(title)
                 .font(SMFont.headline(16))
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
         }
     }
 
@@ -336,11 +336,11 @@ struct TestMatchView: View {
         HStack {
             Text(label)
                 .font(SMFont.body(14))
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
             Spacer()
             Text(value)
                 .font(SMFont.mono(14))
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
         }
     }
 

@@ -37,7 +37,7 @@ struct PaywallView: View {
                         Button(action: restore) {
                             Text("Restore Purchases")
                                 .font(SMFont.caption())
-                                .foregroundStyle(.smTextTertiary)
+                                .foregroundStyle(Color.smTextTertiary)
                         }
 
                         // Legal
@@ -54,7 +54,7 @@ struct PaywallView: View {
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 24))
-                            .foregroundStyle(.smTextSecondary)
+                            .foregroundStyle(Color.smTextSecondary)
                     }
                 }
             }
@@ -93,13 +93,13 @@ struct PaywallView: View {
 
             Text("Unlock ScentMatch Pro")
                 .font(SMFont.display(28))
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
                 .multilineTextAlignment(.center)
 
             if let profile = profile {
                 Text("You've used \(profile.totalMatchesUsed) of \(UserProfile.freeMatchLimit) free matches")
                     .font(SMFont.body(14))
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
             }
         }
     }
@@ -119,7 +119,7 @@ struct PaywallView: View {
         HStack(spacing: 14) {
             Image(systemName: icon)
                 .font(.system(size: 20))
-                .foregroundStyle(.smEmerald)
+                .foregroundStyle(Color.smEmerald)
                 .frame(width: 36, height: 36)
                 .background(Color.smEmerald.opacity(0.1))
                 .clipShape(Circle())
@@ -127,10 +127,10 @@ struct PaywallView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(SMFont.headline(15))
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
                 Text(subtitle)
                     .font(SMFont.caption(12))
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
             }
 
             Spacer()
@@ -171,12 +171,12 @@ struct PaywallView: View {
                     HStack(spacing: 6) {
                         Text(tier.title)
                             .font(SMFont.headline(16))
-                            .foregroundStyle(.smTextPrimary)
+                            .foregroundStyle(Color.smTextPrimary)
 
                         if let savings = tier.savings {
                             Text(savings)
                                 .font(SMFont.label(10))
-                                .foregroundStyle(tier.isPopular ? .smBackground : .smEmerald)
+                                .foregroundStyle(tier.isPopular ? Color.smBackground : Color.smEmerald)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(tier.isPopular ? Color.smEmerald : Color.smEmerald.opacity(0.15))
@@ -185,14 +185,14 @@ struct PaywallView: View {
                     }
                     Text(tier.pricePerMonth)
                         .font(SMFont.caption(12))
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
 
                 Spacer()
 
                 Text(tier.price)
                     .font(SMFont.headline(18))
-                    .foregroundStyle(isSelected ? .smEmerald : .smTextSecondary)
+                    .foregroundStyle(isSelected ? Color.smEmerald : Color.smTextSecondary)
             }
             .padding(14)
             .background(Color.smSurfaceElevated)
@@ -211,13 +211,13 @@ struct PaywallView: View {
             HStack {
                 if isPurchasing {
                     ProgressView()
-                        .tint(.smBackground)
+                        .tint(Color.smBackground)
                 } else {
                     Text("Continue with \(selectedTier.title)")
                         .font(SMFont.headline(17))
                 }
             }
-            .foregroundStyle(.smBackground)
+            .foregroundStyle(Color.smBackground)
             .frame(maxWidth: .infinity)
             .frame(height: SMTheme.buttonHeight)
             .background(LinearGradient.smGoldGradient)
@@ -232,16 +232,16 @@ struct PaywallView: View {
         VStack(spacing: 6) {
             Text("Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless it is canceled at least 24 hours before the end of the current period.")
                 .font(SMFont.label(9))
-                .foregroundStyle(.smTextTertiary)
+                .foregroundStyle(Color.smTextTertiary)
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 12) {
                 Button("Terms of Use") {}
                     .font(SMFont.label(10))
-                    .foregroundStyle(.smTextTertiary)
+                    .foregroundStyle(Color.smTextTertiary)
                 Button("Privacy Policy") {}
                     .font(SMFont.label(10))
-                    .foregroundStyle(.smTextTertiary)
+                    .foregroundStyle(Color.smTextTertiary)
             }
         }
     }

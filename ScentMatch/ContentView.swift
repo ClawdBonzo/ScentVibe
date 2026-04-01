@@ -40,7 +40,7 @@ struct ContentView: View {
                     }
                     .tag(2)
             }
-            .tint(.smEmerald)
+            .tint(Color.smEmerald)
         }
         .preferredColorScheme(.dark)
         .onAppear {

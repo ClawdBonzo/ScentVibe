@@ -194,28 +194,21 @@ final class VisionAnalyzer {
     // MARK: - Scene Classification
 
     private func classifyScene(cgImage: CGImage) async throws -> [String] {
-        try await withCheckedThrowingContinuation { continuation in
-            let request = VNClassifyImageRequest { request, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        let request = VNClassifyImageRequest()
 
-                let observations = request.results as? [VNClassificationObservation] ?? []
-                let labels = observations
-                    .filter { $0.confidence > 0.3 }
-                    .prefix(10)
-                    .map { $0.identifier }
-                continuation.resume(returning: Array(labels))
-            }
-
-            let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
-            do {
-                try handler.perform([request])
-            } catch {
-                continuation.resume(throwing: error)
-            }
+        do {
+            try handler.perform([request])
+        } catch {
+            // Vision classification failed — return empty labels rather than crashing
+            return []
         }
+
+        let observations = request.results as? [VNClassificationObservation] ?? []
+        return observations
+            .filter { $0.confidence > 0.3 }
+            .prefix(10)
+            .map { $0.identifier }
     }
 
     // MARK: - Aggregate Metrics

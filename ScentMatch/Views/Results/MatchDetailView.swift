@@ -41,13 +41,13 @@ struct MatchDetailView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundStyle(.smTextSecondary)
+                            .foregroundStyle(Color.smTextSecondary)
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: toggleFavorite) {
                         Image(systemName: matchResult.isFavorited ? "heart.fill" : "heart")
-                            .foregroundStyle(matchResult.isFavorited ? .smEmerald : .smTextSecondary)
+                            .foregroundStyle(matchResult.isFavorited ? Color.smEmerald : Color.smTextSecondary)
                     }
                 }
             }
@@ -81,10 +81,10 @@ struct MatchDetailView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Vibe Score")
                             .font(SMFont.label())
-                            .foregroundStyle(.smTextSecondary)
+                            .foregroundStyle(Color.smTextSecondary)
                         Text(String(format: "%.0f%% match", recommendation.score * 100))
                             .font(SMFont.headline(18))
-                            .foregroundStyle(.smEmerald)
+                            .foregroundStyle(Color.smEmerald)
                     }
                     Spacer()
                     // Region flag
@@ -102,15 +102,15 @@ struct MatchDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
                 Image(systemName: "wand.and.stars")
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
                 Text("Why It Matches")
                     .font(SMFont.headline(18))
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
             }
 
             Text(recommendation.explanation)
                 .font(SMFont.body())
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
                 .lineSpacing(4)
 
             // Matched moods
@@ -119,7 +119,7 @@ struct MatchDetailView: View {
                     ForEach(recommendation.matchedMoods, id: \.self) { mood in
                         Text(mood)
                             .font(SMFont.label())
-                            .foregroundStyle(.smTextPrimary)
+                            .foregroundStyle(Color.smTextPrimary)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
                             .background(Color.smEmerald.opacity(0.15))
@@ -142,20 +142,20 @@ struct MatchDetailView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(fragrance.name)
                         .font(SMFont.display(24))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                     Text("by \(fragrance.house)")
                         .font(SMFont.body())
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
                 Spacer()
                 Image(systemName: fragrance.iconName)
                     .font(.system(size: 28))
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
             }
 
             Text(fragrance.shortDescription)
                 .font(SMFont.body())
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
                 .italic()
 
             // Accords
@@ -163,7 +163,7 @@ struct MatchDetailView: View {
                 ForEach(fragrance.accords, id: \.self) { accord in
                     Text(accord.rawValue)
                         .font(SMFont.label())
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
                         .background(Color.smTeal.opacity(0.2))
@@ -190,15 +190,15 @@ struct MatchDetailView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 6) {
                 Image(systemName: "triangle.fill")
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
                     .font(.system(size: 14))
                 Text("Fragrance Notes")
                     .font(SMFont.headline(18))
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
             }
 
             notesRow("Top", notes: fragrance.topNotes, color: .smLightEmerald)
-            notesRow("Heart", notes: fragrance.heartNotes, color: .smEmerald)
+            notesRow("Heart", notes: fragrance.heartNotes, color: Color.smEmerald)
             notesRow("Base", notes: fragrance.baseNotes, color: .smTeal)
         }
         .padding()
@@ -216,7 +216,7 @@ struct MatchDetailView: View {
                 ForEach(notes, id: \.self) { note in
                     Text(note)
                         .font(SMFont.caption(12))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(color.opacity(0.12))
@@ -239,7 +239,7 @@ struct MatchDetailView: View {
                     Image(systemName: "arrow.up.right")
                         .font(.system(size: 14))
                 }
-                .foregroundStyle(.smBackground)
+                .foregroundStyle(Color.smBackground)
                 .padding()
                 .background(LinearGradient.smGoldGradient)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -247,7 +247,7 @@ struct MatchDetailView: View {
 
             Text("As an Amazon Associate, we earn from qualifying purchases")
                 .font(SMFont.label(9))
-                .foregroundStyle(.smTextTertiary)
+                .foregroundStyle(Color.smTextTertiary)
                 .multilineTextAlignment(.center)
         }
         .padding(.horizontal)
@@ -259,7 +259,7 @@ struct MatchDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Other Matches")
                 .font(SMFont.headline(18))
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
                 .padding(.horizontal)
 
             ForEach(matchResult.recommendations.dropFirst(), id: \.id) { rec in
@@ -267,7 +267,7 @@ struct MatchDetailView: View {
                     HStack(spacing: 12) {
                         Image(systemName: frag.iconName)
                             .font(.system(size: 20))
-                            .foregroundStyle(.smEmerald)
+                            .foregroundStyle(Color.smEmerald)
                             .frame(width: 36, height: 36)
                             .background(Color.smEmerald.opacity(0.1))
                             .clipShape(Circle())
@@ -275,17 +275,17 @@ struct MatchDetailView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(frag.name)
                                 .font(SMFont.headline(14))
-                                .foregroundStyle(.smTextPrimary)
+                                .foregroundStyle(Color.smTextPrimary)
                             Text(frag.house)
                                 .font(SMFont.label(11))
-                                .foregroundStyle(.smTextSecondary)
+                                .foregroundStyle(Color.smTextSecondary)
                         }
 
                         Spacer()
 
                         Text(String(format: "%.0f%%", rec.score * 100))
                             .font(SMFont.mono(14))
-                            .foregroundStyle(.smEmerald)
+                            .foregroundStyle(Color.smEmerald)
                     }
                     .padding(.horizontal)
                 }
@@ -299,10 +299,10 @@ struct MatchDetailView: View {
         HStack(spacing: 4) {
             Image(systemName: icon)
                 .font(.system(size: 12))
-                .foregroundStyle(.smEmerald)
+                .foregroundStyle(Color.smEmerald)
             Text(text)
                 .font(SMFont.label(11))
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
         }
     }
 

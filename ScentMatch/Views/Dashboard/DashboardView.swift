@@ -43,15 +43,15 @@ struct DashboardView: View {
         VStack(spacing: 16) {
             Image(systemName: "sparkles")
                 .font(.system(size: 48, weight: .light))
-                .foregroundStyle(.smEmerald.opacity(0.5))
+                .foregroundStyle(Color.smEmerald.opacity(0.5))
 
             Text("No Matches Yet")
                 .font(SMFont.headline(20))
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
 
             Text("Scan your first outfit or room\nto discover your scent match")
                 .font(SMFont.body())
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
                 .multilineTextAlignment(.center)
         }
     }

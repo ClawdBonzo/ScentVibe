@@ -20,14 +20,14 @@ struct MatchCardView: View {
                         .overlay {
                             Image(systemName: "photo")
                                 .font(.system(size: 24))
-                                .foregroundStyle(.smTextTertiary)
+                                .foregroundStyle(Color.smTextTertiary)
                         }
                 }
 
                 // Vibe score badge
                 Text(String(format: "%.0f", match.vibeScore))
                     .font(SMFont.mono(14))
-                    .foregroundStyle(.smBackground)
+                    .foregroundStyle(Color.smBackground)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(vibeColor)
@@ -41,11 +41,11 @@ struct MatchCardView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(fragrance.name)
                         .font(SMFont.headline(14))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                         .lineLimit(1)
                     Text(fragrance.house)
                         .font(SMFont.label(11))
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                         .lineLimit(1)
                 }
             }
@@ -64,7 +64,7 @@ struct MatchCardView: View {
 
             Text(match.timestamp, style: .relative)
                 .font(SMFont.label(10))
-                .foregroundStyle(.smTextTertiary)
+                .foregroundStyle(Color.smTextTertiary)
         }
         .padding(10)
         .background(Color.smSurfaceElevated)

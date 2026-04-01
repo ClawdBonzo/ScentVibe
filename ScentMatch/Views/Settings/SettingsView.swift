@@ -76,22 +76,22 @@ struct SettingsView: View {
                         Link(destination: URL(string: "https://scentmatch.app/privacy")!) {
                             HStack {
                                 Text("Privacy Policy")
-                                    .foregroundStyle(.smTextPrimary)
+                                    .foregroundStyle(Color.smTextPrimary)
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
                                     .font(.system(size: 12))
-                                    .foregroundStyle(.smTextTertiary)
+                                    .foregroundStyle(Color.smTextTertiary)
                             }
                         }
 
                         Link(destination: URL(string: "https://scentmatch.app/terms")!) {
                             HStack {
                                 Text("Terms of Use")
-                                    .foregroundStyle(.smTextPrimary)
+                                    .foregroundStyle(Color.smTextPrimary)
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
                                     .font(.system(size: 12))
-                                    .foregroundStyle(.smTextTertiary)
+                                    .foregroundStyle(Color.smTextTertiary)
                             }
                         }
                     } header: {
@@ -130,16 +130,16 @@ struct SettingsView: View {
                 HStack(spacing: 6) {
                     if profile?.isPremium == true {
                         Image(systemName: "crown.fill")
-                            .foregroundStyle(.smGold)
+                            .foregroundStyle(Color.smGold)
                             .font(.system(size: 14))
                     }
                     Text(profile?.isPremium == true ? "ScentMatch Pro" : "Free Plan")
                         .font(SMFont.headline(16))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
                 }
                 Text("\(profile?.totalMatchesUsed ?? 0) matches used")
                     .font(SMFont.caption())
-                    .foregroundStyle(.smTextSecondary)
+                    .foregroundStyle(Color.smTextSecondary)
             }
 
             Spacer()
@@ -149,7 +149,7 @@ struct SettingsView: View {
                     showPaywall = true
                 }
                 .font(SMFont.label())
-                .foregroundStyle(.smBackground)
+                .foregroundStyle(Color.smBackground)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(LinearGradient.smGoldGradient)
@@ -163,7 +163,7 @@ struct SettingsView: View {
     private var regionPicker: some View {
         HStack {
             Text("Preferred Region")
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
             Spacer()
             Picker("Region", selection: $selectedRegion) {
                 Text("All Regions").tag(nil as FragranceRegion?)
@@ -172,7 +172,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.menu)
-            .tint(.smEmerald)
+            .tint(Color.smEmerald)
         }
         .onChange(of: selectedRegion) { _, newValue in
             profile?.preferredRegion = newValue?.rawValue
@@ -185,7 +185,7 @@ struct SettingsView: View {
     private var genderPicker: some View {
         HStack {
             Text("Fragrance Style")
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
             Spacer()
             Picker("Style", selection: $selectedGender) {
                 Text("All Styles").tag(nil as Gender?)
@@ -194,7 +194,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.menu)
-            .tint(.smEmerald)
+            .tint(Color.smEmerald)
         }
         .onChange(of: selectedGender) { _, newValue in
             profile?.preferredGender = newValue?.rawValue
@@ -210,13 +210,13 @@ struct SettingsView: View {
         Button(action: exportMatchHistory) {
             HStack {
                 Image(systemName: "square.and.arrow.up")
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
                 Text("Export Match History")
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
                 Spacer()
                 Text("\(matches.count) matches")
                     .font(SMFont.caption())
-                    .foregroundStyle(.smTextTertiary)
+                    .foregroundStyle(Color.smTextTertiary)
             }
         }
     }
@@ -225,13 +225,13 @@ struct SettingsView: View {
         Button(action: exportAnalytics) {
             HStack {
                 Image(systemName: "chart.bar")
-                    .foregroundStyle(.smEmerald)
+                    .foregroundStyle(Color.smEmerald)
                 Text("Export Analytics")
-                    .foregroundStyle(.smTextPrimary)
+                    .foregroundStyle(Color.smTextPrimary)
                 Spacer()
                 Text("\(events.count) events")
                     .font(SMFont.caption())
-                    .foregroundStyle(.smTextTertiary)
+                    .foregroundStyle(Color.smTextTertiary)
             }
         }
     }
@@ -242,9 +242,9 @@ struct SettingsView: View {
         Button(action: { showDeleteConfirmation = true }) {
             HStack {
                 Image(systemName: "trash")
-                    .foregroundStyle(.smError)
+                    .foregroundStyle(Color.smError)
                 Text("Delete All Matches")
-                    .foregroundStyle(.smError)
+                    .foregroundStyle(Color.smError)
             }
         }
     }
@@ -254,21 +254,21 @@ struct SettingsView: View {
     private func statsRow(_ label: String, value: String) -> some View {
         HStack {
             Text(label)
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
             Spacer()
             Text(value)
                 .font(SMFont.mono(14))
-                .foregroundStyle(.smEmerald)
+                .foregroundStyle(Color.smEmerald)
         }
     }
 
     private func aboutRow(_ label: String, value: String) -> some View {
         HStack {
             Text(label)
-                .foregroundStyle(.smTextPrimary)
+                .foregroundStyle(Color.smTextPrimary)
             Spacer()
             Text(value)
-                .foregroundStyle(.smTextSecondary)
+                .foregroundStyle(Color.smTextSecondary)
         }
     }
 

@@ -66,11 +66,11 @@ struct ScanningAnimationView: View {
                 VStack(spacing: 8) {
                     Text("Analyzing Your Vibe")
                         .font(SMFont.headline(20))
-                        .foregroundStyle(.smTextPrimary)
+                        .foregroundStyle(Color.smTextPrimary)
 
                     Text("Detecting colors, mood & style...")
                         .font(SMFont.body(14))
-                        .foregroundStyle(.smTextSecondary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
 
                 // Progress dots
