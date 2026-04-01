@@ -1,0 +1,249 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "onboarding_title_1": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Snap Your Style" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fange deinen Stil ein" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Captura tu Estilo" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Capture seu Estilo" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Captez votre Style" } }
+      }
+    },
+    "onboarding_subtitle_1": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Take a photo of your outfit or room and let AI analyze your visual vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Mach ein Foto deines Outfits oder Raums und lass die KI deine visuelle Stimmung analysieren" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Toma una foto de tu outfit o habitacion y deja que la IA analice tu vibra visual" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tire uma foto do seu look ou ambiente e deixe a IA analisar sua vibe visual" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Prenez une photo de votre tenue ou piece et laissez l'IA analyser votre ambiance visuelle" } }
+      }
+    },
+    "onboarding_title_2": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Instant Scent Match" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Sofortiger Duft-Match" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Match de Aroma Instantaneo" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacao de Aroma Instantanea" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Match Parfum Instantane" } }
+      }
+    },
+    "onboarding_subtitle_2": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Our engine matches your colors, mood, and style to the perfect fragrance from 86+ curated scents" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Unsere Engine matched deine Farben, Stimmung und Stil mit dem perfekten Duft aus 86+ kuratierten Duften" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Nuestro motor combina tus colores, estado de animo y estilo con la fragancia perfecta de mas de 86 aromas curados" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Nosso motor combina suas cores, humor e estilo com a fragrancia perfeita de mais de 86 aromas curados" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Notre moteur associe vos couleurs, humeur et style au parfum parfait parmi plus de 86 fragrances selectionnees" } }
+      }
+    },
+    "onboarding_title_3": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Discover & Collect" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Entdecken & Sammeln" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Descubre y Colecciona" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Descubra e Colecione" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Decouvrez et Collectionnez" } }
+      }
+    },
+    "onboarding_subtitle_3": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Build your scent wardrobe, explore fragrances from 5 cultures, and shop your favorites" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erstelle deine Duft-Garderobe, entdecke Duefte aus 5 Kulturen und kaufe deine Favoriten" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Construye tu guardarropa de aromas, explora fragancias de 5 culturas y compra tus favoritos" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Monte seu guarda-roupa de aromas, explore fragancias de 5 culturas e compre seus favoritos" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Construisez votre garde-robe olfactive, explorez des parfums de 5 cultures et achetez vos favoris" } }
+      }
+    },
+    "onboarding_start": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Start Scanning" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Jetzt scannen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Comenzar a Escanear" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Comecar a Escanear" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Commencer le Scan" } }
+      }
+    },
+    "onboarding_next": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Next" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Weiter" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Siguiente" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Proximo" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Suivant" } }
+      }
+    },
+    "onboarding_skip": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Skip" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Uberspringen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Omitir" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Pular" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Passer" } }
+      }
+    },
+    "tab_matches": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Matches" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Matches" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Coincidencias" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacoes" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Matchs" } }
+      }
+    },
+    "tab_scan": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Scan" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Scannen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Escanear" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escanear" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Scanner" } }
+      }
+    },
+    "tab_settings": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Settings" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Einstellungen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Ajustes" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Configuracoes" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Reglages" } }
+      }
+    },
+    "scan_title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Find Your Scent Match" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Finde deinen Duft-Match" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Encuentra tu Aroma Ideal" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Encontre seu Aroma Ideal" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Trouvez votre Parfum Ideal" } }
+      }
+    },
+    "scan_subtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Snap a photo of your outfit or room\nand discover your perfect fragrance" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Mach ein Foto deines Outfits oder Raums\nund entdecke deinen perfekten Duft" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Toma una foto de tu outfit o habitacion\ny descubre tu fragancia perfecta" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tire uma foto do seu look ou ambiente\ne descubra sua fragrancia perfeita" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Prenez une photo de votre tenue ou piece\net decouvrez votre parfum ideal" } }
+      }
+    },
+    "scan_take_photo": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Take Photo" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Foto aufnehmen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Tomar Foto" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tirar Foto" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Prendre une Photo" } }
+      }
+    },
+    "scan_choose_library": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Choose from Library" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Aus Mediathek wahlen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Elegir de la Biblioteca" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escolher da Biblioteca" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Choisir dans la Bibliotheque" } }
+      }
+    },
+    "scanning_title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Analyzing Your Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Analysiere deine Stimmung" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Analizando tu Vibra" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Analisando sua Vibe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Analyse de votre Ambiance" } }
+      }
+    },
+    "paywall_title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Unlock ScentMatch Pro" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentMatch Pro freischalten" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Desbloquea ScentMatch Pro" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Desbloqueie o ScentMatch Pro" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Debloquez ScentMatch Pro" } }
+      }
+    },
+    "paywall_unlimited": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Unlimited Scent Matches" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Unbegrenzte Duft-Matches" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Matches de Aromas Ilimitados" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacoes de Aromas Ilimitadas" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Matchs de Parfums Illimites" } }
+      }
+    },
+    "paywall_restore": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Restore Purchases" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kaufe wiederherstellen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Restaurar Compras" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Restaurar Compras" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Restaurer les Achats" } }
+      }
+    },
+    "matches_empty_title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "No Matches Yet" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Noch keine Matches" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Sin Coincidencias Aun" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Nenhuma Combinacao Ainda" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Aucun Match Encore" } }
+      }
+    },
+    "matches_empty_subtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Scan your first outfit or room\nto discover your scent match" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Scanne dein erstes Outfit oder deinen Raum\num deinen Duft-Match zu entdecken" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Escanea tu primer outfit o habitacion\npara descubrir tu aroma ideal" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escaneie seu primeiro look ou ambiente\npara descobrir seu aroma ideal" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Scannez votre premiere tenue ou piece\npour decouvrir votre parfum ideal" } }
+      }
+    },
+    "detail_why_matches": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Why It Matches" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Warum es passt" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Por que Combina" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Por que Combina" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Pourquoi ca Matche" } }
+      }
+    },
+    "detail_shop_amazon": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Shop on Amazon" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Auf Amazon kaufen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Comprar en Amazon" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Comprar na Amazon" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Acheter sur Amazon" } }
+      }
+    },
+    "settings_title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Settings" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Einstellungen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Ajustes" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Configuracoes" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Reglages" } }
+      }
+    },
+    "settings_export": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Export Match History" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Match-Verlauf exportieren" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Exportar Historial" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Exportar Historico" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Exporter l'Historique" } }
+      }
+    },
+    "settings_delete_all": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Delete All Matches" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Alle Matches loschen" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Eliminar Todos los Matches" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Excluir Todas as Combinacoes" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Supprimer tous les Matchs" } }
+      }
+    }
+  },
+  "version": "1.0"
+}
