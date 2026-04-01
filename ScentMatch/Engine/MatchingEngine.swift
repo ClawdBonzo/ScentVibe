@@ -255,6 +255,8 @@ final class MatchingEngine {
         guard candidates.count > targetCount else { return candidates }
 
         var result = [(Fragrance, Double)]()
+        var usedNames = Set<String>()      // Deduplicate by name (same scent in multiple regions)
+        var usedHouses = [String: Int]()    // Limit per house
         var usedAccords = Set<AccordFamily>()
         var usedTiers = Set<PriceTier>()
         var usedRegions = Set<FragranceRegion>()
@@ -262,6 +264,8 @@ final class MatchingEngine {
         // Always include #1
         if let first = candidates.first {
             result.append(first)
+            usedNames.insert(first.0.name.lowercased())
+            usedHouses[first.0.house, default: 0] += 1
             first.0.accords.forEach { usedAccords.insert($0) }
             usedTiers.insert(first.0.priceTier)
             usedRegions.insert(first.0.region)
@@ -269,6 +273,14 @@ final class MatchingEngine {
 
         // Fill remaining with diversity preference
         for candidate in candidates.dropFirst() where result.count < targetCount {
+            let nameLower = candidate.0.name.lowercased()
+
+            // Skip if same fragrance name already included (cross-region duplicates)
+            if usedNames.contains(nameLower) { continue }
+
+            // Limit max 2 fragrances per house
+            if (usedHouses[candidate.0.house] ?? 0) >= 2 { continue }
+
             let hasNewAccord = !candidate.0.accords.allSatisfy { usedAccords.contains($0) }
             let hasNewTier = !usedTiers.contains(candidate.0.priceTier)
             let hasNewRegion = !usedRegions.contains(candidate.0.region)
@@ -279,16 +291,20 @@ final class MatchingEngine {
             let scoreThreshold = (result.first?.1 ?? 0) * 0.7
             if candidate.1 >= scoreThreshold || diversityBonus >= 2 {
                 result.append(candidate)
+                usedNames.insert(nameLower)
+                usedHouses[candidate.0.house, default: 0] += 1
                 candidate.0.accords.forEach { usedAccords.insert($0) }
                 usedTiers.insert(candidate.0.priceTier)
                 usedRegions.insert(candidate.0.region)
             }
         }
 
-        // Fill any remaining slots from top candidates
+        // Fill any remaining slots — still enforce name uniqueness
         for candidate in candidates where result.count < targetCount {
-            if !result.contains(where: { $0.0.id == candidate.0.id }) {
+            let nameLower = candidate.0.name.lowercased()
+            if !usedNames.contains(nameLower) {
                 result.append(candidate)
+                usedNames.insert(nameLower)
             }
         }
 
