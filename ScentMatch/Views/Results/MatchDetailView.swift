@@ -24,10 +24,8 @@ struct MatchDetailView: View {
                     // Notes pyramid
                     notesPyramid
 
-                    // Affiliate CTA
-                    if fragrance.affiliateURL != nil {
-                        affiliateSection
-                    }
+                    // Affiliate CTA — all fragrances get links via search fallback
+                    affiliateSection
 
                     // All recommendations
                     allRecommendationsSection
@@ -148,9 +146,7 @@ struct MatchDetailView: View {
                         .foregroundStyle(Color.smTextSecondary)
                 }
                 Spacer()
-                Image(systemName: fragrance.iconName)
-                    .font(.system(size: 28))
-                    .foregroundStyle(Color.smEmerald)
+                FragranceBottleView(fragrance: fragrance, size: 56)
             }
 
             Text(fragrance.shortDescription)
@@ -265,12 +261,7 @@ struct MatchDetailView: View {
             ForEach(matchResult.recommendations.dropFirst(), id: \.id) { rec in
                 if let frag = rec.fragrance() {
                     HStack(spacing: 12) {
-                        Image(systemName: frag.iconName)
-                            .font(.system(size: 20))
-                            .foregroundStyle(Color.smEmerald)
-                            .frame(width: 36, height: 36)
-                            .background(Color.smEmerald.opacity(0.1))
-                            .clipShape(Circle())
+                        FragranceBottleView(fragrance: frag, size: 36)
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(frag.name)

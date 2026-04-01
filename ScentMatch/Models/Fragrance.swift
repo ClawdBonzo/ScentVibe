@@ -123,6 +123,14 @@ struct ColorAssociation: Codable, Hashable {
     }
 }
 
+enum BottleShape: String, Codable, CaseIterable {
+    case tall = "tall"          // Slim tall bottle (Chanel, Dior)
+    case round = "round"        // Round/spherical (Viktor & Rolf)
+    case square = "square"      // Square/rectangular (Tom Ford)
+    case flacon = "flacon"      // Classic ornate flacon (Guerlain)
+    case modern = "modern"      // Angular modern (YSL, Paco Rabanne)
+}
+
 // MARK: - Fragrance
 
 struct Fragrance: Identifiable, Codable, Hashable {
@@ -142,6 +150,8 @@ struct Fragrance: Identifiable, Codable, Hashable {
     let amazonASIN: String?
     let iconName: String
     let shortDescription: String
+    let bottleColor: String     // Hex color for bottle visualization
+    let bottleShape: BottleShape
 
     var allNotes: [String] {
         topNotes + heartNotes + baseNotes
@@ -151,16 +161,15 @@ struct Fragrance: Identifiable, Codable, Hashable {
         accords.first ?? .fresh
     }
 
+    /// Region-aware affiliate URL: uses ASIN if available, otherwise Amazon search
     var affiliateURL: URL? {
-        guard let asin = amazonASIN else { return nil }
-        return URL(string: "https://www.amazon.com/dp/\(asin)?tag=scentmatch-20")
+        AffiliateManager.shared.affiliateURL(for: self)
     }
 
     // Mood vector for matching (normalized 0-1 values for each mood dimension)
     var moodVector: [MoodTag: Double] {
         var vec = [MoodTag: Double]()
         for (index, tag) in moodTags.enumerated() {
-            // Primary mood gets higher weight, secondary moods get decreasing weights
             let weight = 1.0 - (Double(index) * 0.15)
             vec[tag] = max(weight, 0.3)
         }

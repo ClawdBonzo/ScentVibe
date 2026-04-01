@@ -7,13 +7,8 @@ struct FragranceCard: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Icon
-            Image(systemName: fragrance.iconName)
-                .font(.system(size: compact ? 18 : 22))
-                .foregroundStyle(Color.smEmerald)
-                .frame(width: compact ? 36 : 44, height: compact ? 36 : 44)
-                .background(Color.smEmerald.opacity(0.1))
-                .clipShape(Circle())
+            // Bottle visualization
+            FragranceBottleView(fragrance: fragrance, size: compact ? 36 : 44)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(fragrance.name)

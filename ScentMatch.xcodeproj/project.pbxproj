@@ -34,6 +34,13 @@
 		A10001010000000000000019 /* EventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000019 /* EventLogger.swift */; };
 		A1000101000000000000001A /* PaywallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000001A /* PaywallManager.swift */; };
 		A1000101000000000000001B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000001B /* Localizable.xcstrings */; };
+		A1000101000000000000001E /* AffiliateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000001E /* AffiliateManager.swift */; };
+		A1000101000000000000001F /* FragranceBottleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000001F /* FragranceBottleView.swift */; };
+		A10001010000000000000020 /* FragranceDB_Western.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000020 /* FragranceDB_Western.swift */; };
+		A10001010000000000000021 /* FragranceDB_German.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000021 /* FragranceDB_German.swift */; };
+		A10001010000000000000022 /* FragranceDB_Mexican.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000022 /* FragranceDB_Mexican.swift */; };
+		A10001010000000000000023 /* FragranceDB_Brazilian.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000023 /* FragranceDB_Brazilian.swift */; };
+		A10001010000000000000024 /* FragranceDB_French.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000024 /* FragranceDB_French.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +73,13 @@
 		A1000201000000000000001B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A1000201000000000000001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1000201000000000000001D /* ScentMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScentMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000201000000000000001E /* AffiliateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffiliateManager.swift; sourceTree = "<group>"; };
+		A1000201000000000000001F /* FragranceBottleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceBottleView.swift; sourceTree = "<group>"; };
+		A10002010000000000000020 /* FragranceDB_Western.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Western.swift; sourceTree = "<group>"; };
+		A10002010000000000000021 /* FragranceDB_German.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_German.swift; sourceTree = "<group>"; };
+		A10002010000000000000022 /* FragranceDB_Mexican.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Mexican.swift; sourceTree = "<group>"; };
+		A10002010000000000000023 /* FragranceDB_Brazilian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Brazilian.swift; sourceTree = "<group>"; };
+		A10002010000000000000024 /* FragranceDB_French.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_French.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +135,11 @@
 				A10002010000000000000005 /* ScentMatchResult.swift */,
 				A10002010000000000000006 /* UserProfile.swift */,
 				A10002010000000000000007 /* FragranceDatabase.swift */,
+				A10002010000000000000020 /* FragranceDB_Western.swift */,
+				A10002010000000000000021 /* FragranceDB_German.swift */,
+				A10002010000000000000022 /* FragranceDB_Mexican.swift */,
+				A10002010000000000000023 /* FragranceDB_Brazilian.swift */,
+				A10002010000000000000024 /* FragranceDB_French.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +233,7 @@
 				A10002010000000000000015 /* VibeScoreGauge.swift */,
 				A10002010000000000000016 /* FragranceCard.swift */,
 				A10002010000000000000017 /* LuxuryButton.swift */,
+				A1000201000000000000001F /* FragranceBottleView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -238,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000201000000000000001A /* PaywallManager.swift */,
+				A1000201000000000000001E /* AffiliateManager.swift */,
 			);
 			path = Paywall;
 			sourceTree = "<group>";
@@ -345,6 +366,13 @@
 				A10001010000000000000018 /* ScentMatchTheme.swift in Sources */,
 				A10001010000000000000019 /* EventLogger.swift in Sources */,
 				A1000101000000000000001A /* PaywallManager.swift in Sources */,
+				A1000101000000000000001E /* AffiliateManager.swift in Sources */,
+				A1000101000000000000001F /* FragranceBottleView.swift in Sources */,
+				A10001010000000000000020 /* FragranceDB_Western.swift in Sources */,
+				A10001010000000000000021 /* FragranceDB_German.swift in Sources */,
+				A10001010000000000000022 /* FragranceDB_Mexican.swift in Sources */,
+				A10001010000000000000023 /* FragranceDB_Brazilian.swift in Sources */,
+				A10001010000000000000024 /* FragranceDB_French.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

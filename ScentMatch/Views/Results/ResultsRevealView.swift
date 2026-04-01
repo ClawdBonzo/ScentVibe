@@ -195,14 +195,17 @@ struct ResultsRevealView: View {
     private func recommendationCard(fragrance: Fragrance, rec: RecommendationEntry, index: Int) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                // Rank badge
-                ZStack {
-                    Circle()
-                        .fill(index == 0 ? Color.smGold : Color.smTeal.opacity(0.3))
-                        .frame(width: 36, height: 36)
+                // Bottle + rank
+                ZStack(alignment: .bottomTrailing) {
+                    FragranceBottleView(fragrance: fragrance, size: 44)
+                    // Rank badge
                     Text("\(index + 1)")
-                        .font(SMFont.headline(16))
+                        .font(SMFont.label(10))
                         .foregroundStyle(index == 0 ? Color.smBackground : Color.smTextPrimary)
+                        .frame(width: 18, height: 18)
+                        .background(index == 0 ? Color.smGold : Color.smTeal.opacity(0.5))
+                        .clipShape(Circle())
+                        .offset(x: 4, y: 4)
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
