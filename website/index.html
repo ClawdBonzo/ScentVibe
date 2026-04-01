@@ -3,570 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScentMatch AI - Find Your Perfect Fragrance</title>
-    <meta name="description" content="Snap a photo of your outfit or room and get instant AI-powered scent recommendations. 510+ curated fragrances from 5 cultures.">
-    <meta property="og:title" content="ScentMatch AI - Photo to Fragrance Match">
-    <meta property="og:description" content="Snap, match, discover. AI-powered scent recommendations from 510+ curated fragrances.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://scentmatch.app">
+    <title>ScentMatch AI - Your Style. Your Scent.</title>
+    <meta name="description" content="Snap a photo. Get your perfect fragrance. AI-powered scent matching from 510+ curated fragrances across 5 cultures.">
+    <meta property="og:title" content="ScentMatch AI">
+    <meta property="og:description" content="Your Style. Your Scent. AI-powered fragrance matching.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#080B10;--surface:#10141A;--card:#161C24;
+            --emerald:#33A673;--emerald-glow:rgba(51,166,115,0.15);
+            --gold:#D4B35C;--gold-glow:rgba(212,179,92,0.12);
+            --teal:#0F4A50;
+            --text:#F0EDE8;--text2:#8A9099;--text3:#545B64;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+        .serif{font-family:'Playfair Display',Georgia,serif}
 
-        :root {
-            --bg: #0A0F14;
-            --surface: #141A21;
-            --surface-elevated: #1E242C;
-            --emerald: #33A673;
-            --emerald-light: #4DCC8A;
-            --teal: #145C61;
-            --deep-teal: #0D3840;
-            --gold: #D9B866;
-            --gold-light: #F2D98A;
-            --text-primary: #F2F2EE;
-            --text-secondary: #A6ADB2;
-            --text-tertiary: #737880;
+        /* ─── FULL-SCREEN HERO ─── */
+        .hero{
+            min-height:100vh;display:flex;align-items:center;
+            position:relative;overflow:hidden;
+            padding:2rem;
         }
+        /* Ambient glow orbs */
+        .hero::before{
+            content:'';position:absolute;top:-20%;right:-10%;
+            width:700px;height:700px;border-radius:50%;
+            background:radial-gradient(circle,var(--emerald-glow) 0%,transparent 70%);
+            filter:blur(80px);pointer-events:none;animation:drift 12s ease-in-out infinite alternate;
+        }
+        .hero::after{
+            content:'';position:absolute;bottom:-15%;left:-5%;
+            width:500px;height:500px;border-radius:50%;
+            background:radial-gradient(circle,var(--gold-glow) 0%,transparent 70%);
+            filter:blur(60px);pointer-events:none;animation:drift 10s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,-30px)}}
 
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        .serif { font-family: 'Playfair Display', Georgia, serif; }
-
-        /* Nav */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1rem 2rem;
-            background: rgba(10, 15, 20, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(51, 166, 115, 0.1);
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem; font-weight: 700;
-            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            font-size: 0.9rem; font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--emerald); }
-        .nav-cta {
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            color: var(--bg) !important; padding: 0.5rem 1.2rem;
-            border-radius: 8px; font-weight: 600 !important;
-            text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(51, 166, 115, 0.3); }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute; top: -50%; right: -30%; width: 80%; height: 120%;
-            background: radial-gradient(ellipse, rgba(51, 166, 115, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero::after {
-            content: '';
-            position: absolute; bottom: -30%; left: -20%; width: 60%; height: 80%;
-            background: radial-gradient(ellipse, rgba(13, 56, 64, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-content {
-            max-width: 1200px; width: 100%;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 4rem; align-items: center;
-            position: relative; z-index: 1;
-        }
-        .hero-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.15; margin-bottom: 1.5rem;
-        }
-        .hero-text h1 span {
-            background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero-text p {
-            font-size: 1.15rem; color: var(--text-secondary);
-            margin-bottom: 2rem; max-width: 480px; line-height: 1.7;
-        }
-        .hero-badges { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-        .badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.6rem 1rem; border-radius: 10px;
-            font-size: 0.85rem; font-weight: 600;
-        }
-        .badge-emerald { background: rgba(51, 166, 115, 0.12); color: var(--emerald); }
-        .badge-gold { background: rgba(217, 184, 102, 0.12); color: var(--gold); }
-        .app-store-btn {
-            display: inline-block; margin-top: 1.5rem;
-            padding: 1rem 2.5rem; border-radius: 14px;
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            color: var(--bg); font-weight: 700; font-size: 1.1rem;
-            text-decoration: none; transition: all 0.3s;
-            box-shadow: 0 4px 30px rgba(51, 166, 115, 0.2);
-        }
-        .app-store-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 40px rgba(51, 166, 115, 0.35);
+        .hero-inner{
+            max-width:1280px;margin:0 auto;width:100%;
+            display:grid;grid-template-columns:1fr 1fr;gap:3rem;
+            align-items:center;position:relative;z-index:2;
         }
 
-        /* Phone mockup */
-        .hero-phone { display: flex; justify-content: center; position: relative; }
-        .phone-frame {
-            width: 280px; border-radius: 36px;
-            border: 3px solid rgba(51, 166, 115, 0.15);
-            box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 60px rgba(51, 166, 115, 0.08);
-            overflow: hidden;
+        /* Left: text */
+        .hero-text{max-width:540px}
+        .hero-tag{
+            display:inline-flex;align-items:center;gap:0.4rem;
+            padding:0.35rem 0.9rem;border-radius:100px;
+            background:var(--emerald-glow);color:var(--emerald);
+            font-size:0.75rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
+            margin-bottom:1.5rem;
         }
-        .phone-frame img { width: 100%; display: block; }
-        .phone-glow {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(51, 166, 115, 0.1) 0%, transparent 70%);
-            pointer-events: none;
+        .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald);animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+        .hero h1{
+            font-family:'Playfair Display',serif;
+            font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;
+            letter-spacing:-0.02em;margin-bottom:1.2rem;
         }
-
-        /* Sections common */
-        section { padding: 6rem 2rem; }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            text-align: center; margin-bottom: 1rem;
+        .hero h1 em{
+            font-style:italic;
+            background:linear-gradient(135deg,var(--emerald),var(--gold));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
         }
-        .section-subtitle {
-            text-align: center; color: var(--text-secondary);
-            font-size: 1.1rem; max-width: 600px; margin: 0 auto 3.5rem;
+        .hero-sub{
+            font-size:1.1rem;color:var(--text2);line-height:1.7;
+            margin-bottom:2rem;max-width:420px;
         }
 
-        /* How it works */
-        .how-it-works { background: var(--surface); }
-        .steps {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 2rem; max-width: 960px; margin: 0 auto;
+        /* CTA cluster */
+        .cta-row{display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap;margin-bottom:2.5rem}
+        .btn{
+            display:inline-flex;align-items:center;gap:0.5rem;
+            padding:0.9rem 1.8rem;border-radius:12px;
+            font-weight:600;font-size:0.95rem;text-decoration:none;
+            transition:all 0.25s;cursor:pointer;border:none;
         }
-        .step {
-            text-align: center; padding: 2rem 1.5rem;
-            border-radius: 20px;
-            background: var(--surface-elevated);
-            border: 1px solid rgba(51, 166, 115, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+        .btn-primary{
+            background:linear-gradient(135deg,var(--emerald),#1A8A5A);color:#fff;
+            box-shadow:0 4px 24px rgba(51,166,115,0.25);
         }
-        .step:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-        }
-        .step-number {
-            width: 48px; height: 48px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            color: var(--bg); font-weight: 700; font-size: 1.2rem;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1.2rem;
-        }
-        .step-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .step h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
-        .step p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(51,166,115,0.35)}
+        .btn-ghost{background:transparent;color:var(--text2);border:1.5px solid var(--text3);border-radius:12px}
+        .btn-ghost:hover{border-color:var(--emerald);color:var(--emerald)}
 
-        /* Features */
-        .features-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; max-width: 1000px; margin: 0 auto;
+        /* Social proof */
+        .proof{display:flex;align-items:center;gap:1rem}
+        .proof-avatars{display:flex}
+        .proof-avatars span{
+            width:32px;height:32px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            font-size:0.8rem;margin-left:-8px;
+            border:2px solid var(--bg);
         }
-        .feature {
-            padding: 1.8rem; border-radius: 16px;
-            background: var(--surface);
-            border: 1px solid rgba(51, 166, 115, 0.06);
-            transition: border-color 0.3s;
-        }
-        .feature:hover { border-color: rgba(51, 166, 115, 0.2); }
-        .feature-icon {
-            font-size: 1.8rem; margin-bottom: 1rem;
-            width: 48px; height: 48px; border-radius: 12px;
-            background: rgba(51, 166, 115, 0.1);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .feature h3 { font-size: 1rem; margin-bottom: 0.4rem; font-weight: 600; }
-        .feature p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; }
+        .proof-avatars span:nth-child(1){background:#2A6B4F}
+        .proof-avatars span:nth-child(2){background:#4A3B7C}
+        .proof-avatars span:nth-child(3){background:#7A5C2E}
+        .proof-avatars span:nth-child(4){background:#2E5B7A}
+        .proof-text{font-size:0.8rem;color:var(--text3);line-height:1.4}
+        .proof-text strong{color:var(--text2)}
 
-        /* Screenshots */
-        .screenshots { background: var(--surface); overflow: hidden; }
-        .screenshots-row {
-            display: flex; gap: 2rem; justify-content: center;
-            align-items: flex-start; flex-wrap: wrap;
-            max-width: 900px; margin: 0 auto;
+        /* Right: phones */
+        .hero-visual{position:relative;display:flex;justify-content:center;align-items:center;min-height:500px}
+        .phone{
+            border-radius:32px;overflow:hidden;
+            box-shadow:0 30px 100px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05);
+            transition:transform 0.4s;
         }
-        .screenshot-item { text-align: center; }
-        .screenshot-item img {
-            width: 220px; border-radius: 28px;
-            border: 2px solid rgba(51, 166, 115, 0.1);
-            box-shadow: 0 12px 50px rgba(0,0,0,0.4);
-            transition: transform 0.3s;
+        .phone img{display:block;width:100%;height:auto}
+        .phone-main{width:260px;position:relative;z-index:3}
+        .phone-back{
+            width:210px;position:absolute;z-index:2;
+            opacity:0.6;filter:blur(1px);
         }
-        .screenshot-item img:hover { transform: scale(1.03); }
-        .screenshot-item p {
-            margin-top: 1rem; color: var(--text-secondary);
-            font-size: 0.9rem; font-weight: 500;
-        }
+        .phone-left{left:-40px;top:40px;transform:rotate(-6deg) scale(0.9)}
+        .phone-right{right:-40px;top:30px;transform:rotate(5deg) scale(0.9)}
 
-        /* Stats */
-        .stats {
-            display: flex; justify-content: center; gap: 4rem;
-            padding: 4rem 2rem;
-            flex-wrap: wrap;
+        /* ─── BENTO GRID (replaces all those scrolling sections) ─── */
+        .bento{
+            max-width:1200px;margin:0 auto;
+            padding:4rem 2rem;
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            grid-auto-rows:minmax(180px,auto);
+            gap:1rem;
         }
-        .stat { text-align: center; }
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem; font-weight: 700;
-            background: linear-gradient(135deg, var(--emerald), var(--gold));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .bento-card{
+            background:var(--card);border-radius:20px;
+            padding:1.8rem;position:relative;overflow:hidden;
+            border:1px solid rgba(255,255,255,0.04);
+            transition:border-color 0.3s,transform 0.3s;
+            display:flex;flex-direction:column;justify-content:flex-end;
         }
-        .stat-label { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.3rem; }
+        .bento-card:hover{border-color:rgba(51,166,115,0.2);transform:translateY(-2px)}
 
-        /* Pricing */
-        .pricing { background: var(--surface); }
-        .pricing-cards {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; max-width: 900px; margin: 0 auto;
-        }
-        .pricing-card {
-            padding: 2rem; border-radius: 20px;
-            background: var(--surface-elevated);
-            border: 1px solid rgba(51, 166, 115, 0.08);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .pricing-card:hover { transform: translateY(-4px); }
-        .pricing-card.featured {
-            border-color: var(--emerald);
-            box-shadow: 0 0 40px rgba(51, 166, 115, 0.1);
-            position: relative;
-        }
-        .pricing-card.featured::before {
-            content: 'Most Popular';
-            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--emerald); color: var(--bg);
-            padding: 0.3rem 1rem; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 700;
-        }
-        .pricing-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .pricing-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem; font-weight: 700; margin: 1rem 0 0.3rem;
-        }
-        .pricing-period { color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 1.5rem; }
-        .pricing-features { list-style: none; text-align: left; margin-bottom: 1.5rem; }
-        .pricing-features li {
-            padding: 0.4rem 0; font-size: 0.9rem; color: var(--text-secondary);
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .pricing-features li::before { content: '\2713'; color: var(--emerald); font-weight: 700; }
-        .pricing-btn {
-            display: block; width: 100%; padding: 0.8rem;
-            border-radius: 10px; border: none; cursor: pointer;
-            font-weight: 600; font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-        .pricing-btn-primary {
-            background: linear-gradient(135deg, var(--emerald), var(--teal));
-            color: var(--bg);
-        }
-        .pricing-btn-secondary {
-            background: transparent;
-            border: 1.5px solid var(--emerald);
-            color: var(--emerald);
-        }
+        /* Card sizes */
+        .b-wide{grid-column:span 2}
+        .b-tall{grid-row:span 2}
+        .b-full{grid-column:span 4}
+        .b-triple{grid-column:span 3}
 
-        /* CTA */
-        .cta {
-            text-align: center; padding: 6rem 2rem;
-            position: relative;
+        /* Card accents */
+        .bento-card .b-glow{
+            position:absolute;top:-30%;right:-30%;width:200px;height:200px;border-radius:50%;
+            filter:blur(50px);pointer-events:none;opacity:0.5;
         }
-        .cta::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at center, rgba(51, 166, 115, 0.06) 0%, transparent 70%);
+        .glow-emerald{background:var(--emerald-glow)}
+        .glow-gold{background:var(--gold-glow)}
+        .glow-teal{background:radial-gradient(circle,rgba(15,74,80,0.3),transparent)}
+
+        .bento-card h3{font-size:1.15rem;font-weight:600;margin-bottom:0.3rem;position:relative;z-index:1}
+        .bento-card p{font-size:0.85rem;color:var(--text2);line-height:1.6;position:relative;z-index:1}
+        .b-number{
+            font-family:'Playfair Display',serif;
+            font-size:3.5rem;font-weight:800;line-height:1;
+            margin-bottom:0.5rem;position:relative;z-index:1;
         }
-        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; position: relative; }
-        .cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; position: relative; }
+        .b-number.emerald{color:var(--emerald)}
+        .b-number.gold{color:var(--gold)}
+        .b-icon{font-size:2rem;margin-bottom:0.8rem;position:relative;z-index:1}
+
+        /* How it works — horizontal strip */
+        .b-how{
+            display:flex;align-items:center;gap:2rem;
+            padding:1.8rem 2.5rem;
+        }
+        .b-how .hw-step{flex:1;text-align:center}
+        .hw-num{
+            width:36px;height:36px;border-radius:50%;
+            background:var(--emerald);color:var(--bg);
+            display:flex;align-items:center;justify-content:center;
+            font-weight:700;font-size:0.9rem;margin:0 auto 0.6rem;
+        }
+        .hw-title{font-weight:600;font-size:0.95rem;margin-bottom:0.2rem}
+        .hw-desc{font-size:0.78rem;color:var(--text2);line-height:1.5}
+        .hw-arrow{color:var(--text3);font-size:1.5rem;flex-shrink:0}
+
+        /* Pricing strip inside bento */
+        .b-pricing{display:flex;gap:1rem;padding:2rem}
+        .price-option{
+            flex:1;background:var(--surface);border-radius:16px;padding:1.5rem;
+            text-align:center;border:1px solid rgba(255,255,255,0.04);
+            transition:border-color 0.3s;
+        }
+        .price-option:hover{border-color:rgba(51,166,115,0.2)}
+        .price-option.featured{border-color:var(--emerald);position:relative}
+        .price-option.featured::after{
+            content:'BEST VALUE';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+            background:var(--emerald);color:var(--bg);padding:0.2rem 0.7rem;border-radius:20px;
+            font-size:0.65rem;font-weight:700;letter-spacing:0.05em;
+        }
+        .price-name{font-size:0.85rem;color:var(--text2);margin-bottom:0.5rem}
+        .price-amount{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:0.2rem}
+        .price-period{font-size:0.75rem;color:var(--text3)}
+        .price-cta{
+            display:block;margin-top:1rem;padding:0.6rem;border-radius:8px;
+            font-size:0.8rem;font-weight:600;text-decoration:none;
+            transition:all 0.2s;cursor:pointer;border:none;width:100%;
+        }
+        .price-cta-primary{background:var(--emerald);color:#fff}
+        .price-cta-ghost{background:transparent;border:1px solid var(--text3);color:var(--text2)}
+
+        /* ─── BOTTOM CTA ─── */
+        .final-cta{
+            text-align:center;padding:5rem 2rem 3rem;position:relative;
+        }
+        .final-cta h2{
+            font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);
+            margin-bottom:0.8rem;
+        }
+        .final-cta h2 em{
+            font-style:italic;
+            background:linear-gradient(135deg,var(--emerald),var(--gold));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .final-cta p{color:var(--text2);margin-bottom:1.5rem;font-size:1rem}
 
         /* Footer */
-        footer {
-            padding: 3rem 2rem; text-align: center;
-            border-top: 1px solid rgba(51, 166, 115, 0.08);
+        footer{
+            padding:2rem;text-align:center;
+            border-top:1px solid rgba(255,255,255,0.04);
         }
-        .footer-links { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-tertiary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--emerald); }
-        .footer-copy { color: var(--text-tertiary); font-size: 0.8rem; }
+        footer a{color:var(--text3);text-decoration:none;font-size:0.8rem;margin:0 1rem;transition:color 0.2s}
+        footer a:hover{color:var(--emerald)}
+        .footer-copy{color:var(--text3);font-size:0.75rem;margin-top:1rem}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text p { margin: 0 auto 2rem; }
-            .hero-badges { justify-content: center; }
-            .hero-phone { margin-top: 2rem; }
-            .phone-frame { width: 220px; }
-            .steps { grid-template-columns: 1fr; max-width: 400px; }
-            .features-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-            .screenshots-row { gap: 1.5rem; }
-            .screenshot-item img { width: 160px; }
-            .stats { gap: 2rem; }
-            .pricing-cards { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
-            .nav-links { display: none; }
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:900px){
+            .hero-inner{grid-template-columns:1fr;text-align:center}
+            .hero-text{max-width:100%}
+            .hero-sub{margin:0 auto 2rem;max-width:100%}
+            .cta-row{justify-content:center}
+            .proof{justify-content:center}
+            .hero-visual{min-height:350px;margin-top:1rem}
+            .phone-main{width:200px}
+            .phone-back{display:none}
+            .bento{grid-template-columns:1fr 1fr}
+            .b-wide,.b-triple,.b-full{grid-column:span 2}
+            .b-how{flex-direction:column;gap:1rem}
+            .hw-arrow{transform:rotate(90deg)}
+            .b-pricing{flex-direction:column}
+        }
+        @media(max-width:600px){
+            .bento{grid-template-columns:1fr}
+            .b-wide,.b-triple,.b-full{grid-column:span 1}
+            .b-pricing{padding:1rem}
+            .hero{padding:6rem 1.2rem 2rem}
         }
 
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .hero-phone { animation: float 6s ease-in-out infinite; }
-
-        .fade-in {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Entrance animations */
+        .reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s,transform 0.5s}
+        .reveal.on{opacity:1;transform:none}
     </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav>
-    <div class="nav-logo">ScentMatch AI</div>
-    <ul class="nav-links">
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#screenshots">Screenshots</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-    </ul>
-    <a href="#cta" class="nav-cta">Download</a>
-</nav>
-
-<!-- Hero -->
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
-    <div class="hero-content">
+    <div class="hero-inner">
         <div class="hero-text">
-            <h1 class="serif">Your Style.<br><span>Your Scent.</span></h1>
-            <p>Snap a photo of your outfit or room and get instant AI-powered fragrance recommendations. Matched from 510+ curated scents across 5 cultures.</p>
-            <div class="hero-badges">
-                <span class="badge badge-emerald">510+ Fragrances</span>
-                <span class="badge badge-gold">5 Regions</span>
-                <span class="badge badge-emerald">AI-Powered</span>
+            <div class="hero-tag">AI-Powered Scent Matching</div>
+            <h1 class="serif">Your Style.<br><em>Your Scent.</em></h1>
+            <p class="hero-sub">Snap a photo of your outfit or room. Our AI reads the colors, mood, and energy &mdash; then matches you to the perfect fragrance from 510+ curated scents.</p>
+            <div class="cta-row">
+                <a href="#" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 8v8m-4-4h8"/></svg>
+                    Download Free
+                </a>
+                <a href="#how" class="btn btn-ghost">See How It Works</a>
             </div>
-            <a href="#cta" class="app-store-btn">Download on the App Store</a>
+            <div class="proof">
+                <div class="proof-avatars">
+                    <span>DE</span><span>MX</span><span>BR</span><span>FR</span>
+                </div>
+                <div class="proof-text"><strong>5 cultural regions</strong><br>Western &middot; German &middot; Mexican &middot; Brazilian &middot; French</div>
+            </div>
         </div>
-        <div class="hero-phone">
-            <div class="phone-glow"></div>
-            <div class="phone-frame">
-                <img src="img/results.png" alt="ScentMatch AI Results Screen" loading="eager">
-            </div>
+
+        <div class="hero-visual">
+            <div class="phone phone-back phone-left"><img src="img/onboarding.png" alt="Onboarding"></div>
+            <div class="phone phone-main"><img src="img/results.png" alt="ScentMatch Results"></div>
+            <div class="phone phone-back phone-right"><img src="img/scan.png" alt="Scan Screen"></div>
         </div>
     </div>
 </section>
 
-<!-- Stats -->
-<div class="stats">
-    <div class="stat fade-in">
-        <div class="stat-number">510+</div>
-        <div class="stat-label">Curated Fragrances</div>
+<!-- ═══════════ BENTO GRID ═══════════ -->
+<div class="bento" id="how">
+
+    <!-- Row 1: How it works (full width) -->
+    <div class="bento-card b-full b-how reveal">
+        <div class="hw-step">
+            <div class="hw-num">1</div>
+            <div class="hw-title">Snap</div>
+            <div class="hw-desc">Photo your outfit or room</div>
+        </div>
+        <div class="hw-arrow">&rarr;</div>
+        <div class="hw-step">
+            <div class="hw-num">2</div>
+            <div class="hw-title">Match</div>
+            <div class="hw-desc">AI reads colors, mood &amp; style</div>
+        </div>
+        <div class="hw-arrow">&rarr;</div>
+        <div class="hw-step">
+            <div class="hw-num">3</div>
+            <div class="hw-title">Discover</div>
+            <div class="hw-desc">Get ranked scent matches with explanations</div>
+        </div>
     </div>
-    <div class="stat fade-in">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Cultural Regions</div>
+
+    <!-- Row 2: Stats + features -->
+    <div class="bento-card reveal">
+        <div class="b-glow glow-emerald"></div>
+        <div class="b-number emerald">510+</div>
+        <h3>Curated Fragrances</h3>
+        <p>Real bestsellers from Amazon, Sephora, Douglas, O Boticario, and Natura.</p>
     </div>
-    <div class="stat fade-in">
-        <div class="stat-number">6</div>
-        <div class="stat-label">Matching Factors</div>
+    <div class="bento-card reveal">
+        <div class="b-glow glow-gold"></div>
+        <div class="b-number gold">5</div>
+        <h3>Cultural Regions</h3>
+        <p>Western, German, Mexican, Brazilian &amp; French fragrance traditions.</p>
     </div>
-    <div class="stat fade-in">
-        <div class="stat-number">< 3s</div>
-        <div class="stat-label">Instant Results</div>
+    <div class="bento-card reveal">
+        <div class="b-icon">&#129504;</div>
+        <h3>On-Device AI</h3>
+        <p>Vision framework analyzes colors, scene type, brightness &amp; warmth. Works completely offline.</p>
+    </div>
+    <div class="bento-card reveal">
+        <div class="b-icon">&#128172;</div>
+        <h3>"Why It Matches"</h3>
+        <p>Every recommendation comes with a detailed explanation of why that scent pairs with your vibe.</p>
+    </div>
+
+    <!-- Row 3: Feature highlights -->
+    <div class="bento-card b-wide reveal" style="background:linear-gradient(135deg,rgba(51,166,115,0.08),rgba(15,74,80,0.12))">
+        <div class="b-glow glow-teal"></div>
+        <div class="b-number emerald" style="font-size:2.5rem">0&ndash;100</div>
+        <h3>Vibe Score</h3>
+        <p>Every match gets a precise vibe score showing how well your visual energy pairs with each fragrance. Mood, color, season, scene &mdash; all factored in.</p>
+    </div>
+    <div class="bento-card reveal">
+        <div class="b-icon">&#128176;</div>
+        <h3>3 Price Tiers</h3>
+        <p>Budget, mid-range &amp; luxury. Something for every wallet.</p>
+    </div>
+    <div class="bento-card reveal">
+        <div class="b-icon">&#127757;</div>
+        <h3>5 Languages</h3>
+        <p>EN, DE, ES&#8209;MX, PT&#8209;BR, FR. Fully localized.</p>
+    </div>
+
+    <!-- Row 4: Pricing (full width) -->
+    <div class="bento-card b-full b-pricing reveal">
+        <div class="price-option">
+            <div class="price-name">Free</div>
+            <div class="price-amount">$0</div>
+            <div class="price-period">5 matches forever</div>
+            <button class="price-cta price-cta-ghost">Get Started</button>
+        </div>
+        <div class="price-option featured">
+            <div class="price-name">Yearly</div>
+            <div class="price-amount" style="color:var(--emerald)">$29.99</div>
+            <div class="price-period">$2.50/mo &middot; Save 50%</div>
+            <button class="price-cta price-cta-primary">Subscribe</button>
+        </div>
+        <div class="price-option">
+            <div class="price-name">Lifetime</div>
+            <div class="price-amount">$49.99</div>
+            <div class="price-period">One-time, own forever</div>
+            <button class="price-cta price-cta-ghost">Go Lifetime</button>
+        </div>
     </div>
 </div>
 
-<!-- How It Works -->
-<section class="how-it-works" id="how-it-works">
-    <h2 class="section-title serif fade-in">How It Works</h2>
-    <p class="section-subtitle fade-in">Three steps to your perfect scent match</p>
-    <div class="steps">
-        <div class="step fade-in">
-            <div class="step-number">1</div>
-            <div class="step-icon">&#128247;</div>
-            <h3>Snap Your Style</h3>
-            <p>Take a photo of your outfit, room, or any visual scene. The AI analyzes colors, mood, brightness, and style.</p>
-        </div>
-        <div class="step fade-in">
-            <div class="step-number">2</div>
-            <div class="step-icon">&#10024;</div>
-            <h3>Instant Match</h3>
-            <p>Our 6-factor engine scores 510+ fragrances against your visual profile. Get ranked results with match percentages.</p>
-        </div>
-        <div class="step fade-in">
-            <div class="step-number">3</div>
-            <div class="step-icon">&#128142;</div>
-            <h3>Discover & Shop</h3>
-            <p>Read detailed explanations of why each scent matches, explore fragrance notes, and shop your favorites instantly.</p>
-        </div>
-    </div>
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<section class="final-cta">
+    <h2 class="serif reveal">Find <em>Your Scent</em></h2>
+    <p class="reveal">510+ fragrances. 5 cultures. One perfect match.</p>
+    <a href="#" class="btn btn-primary reveal">Download ScentMatch AI</a>
 </section>
 
-<!-- Features -->
-<section id="features">
-    <h2 class="section-title serif fade-in">Features</h2>
-    <p class="section-subtitle fade-in">Everything you need to find your signature scent</p>
-    <div class="features-grid">
-        <div class="feature fade-in">
-            <div class="feature-icon">&#127758;</div>
-            <h3>5 Cultural Regions</h3>
-            <p>Western, German, Mexican, Brazilian, and French fragrances. From Dior to Natura, Tom Ford to O Boticario.</p>
-        </div>
-        <div class="feature fade-in">
-            <div class="feature-icon">&#129504;</div>
-            <h3>AI Vision Analysis</h3>
-            <p>On-device Vision framework extracts dominant colors, scene type, mood, and style from your photos.</p>
-        </div>
-        <div class="feature fade-in">
-            <div class="feature-icon">&#128200;</div>
-            <h3>Vibe Score</h3>
-            <p>Every match gets a 0-100 vibe score showing exactly how well your style pairs with each fragrance.</p>
-        </div>
-        <div class="feature fade-in">
-            <div class="feature-icon">&#128172;</div>
-            <h3>"Why It Matches"</h3>
-            <p>Detailed template-driven explanations tell you exactly why each scent was chosen for your visual profile.</p>
-        </div>
-        <div class="feature fade-in">
-            <div class="feature-icon">&#128274;</div>
-            <h3>Works Offline</h3>
-            <p>All 510+ fragrances stored locally. Vision analysis runs on-device. No internet needed after install.</p>
-        </div>
-        <div class="feature fade-in">
-            <div class="feature-icon">&#127757;</div>
-            <h3>5 Languages</h3>
-            <p>Fully localized in English, German, Spanish (Mexico), Portuguese (Brazil), and French.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Screenshots -->
-<section class="screenshots" id="screenshots">
-    <h2 class="section-title serif fade-in">See It In Action</h2>
-    <p class="section-subtitle fade-in">Beautiful dark luxury interface designed for fragrance lovers</p>
-    <div class="screenshots-row">
-        <div class="screenshot-item fade-in">
-            <img src="img/onboarding.png" alt="Onboarding">
-            <p>Animated Onboarding</p>
-        </div>
-        <div class="screenshot-item fade-in">
-            <img src="img/scan.png" alt="Scan Screen">
-            <p>Scan Your Style</p>
-        </div>
-        <div class="screenshot-item fade-in">
-            <img src="img/results.png" alt="Results Screen">
-            <p>Instant Results</p>
-        </div>
-    </div>
-</section>
-
-<!-- Pricing -->
-<section class="pricing" id="pricing">
-    <h2 class="section-title serif fade-in">Simple Pricing</h2>
-    <p class="section-subtitle fade-in">Start free. Upgrade when you're hooked.</p>
-    <div class="pricing-cards">
-        <div class="pricing-card fade-in">
-            <h3>Free</h3>
-            <div class="pricing-price">$0</div>
-            <div class="pricing-period">Forever</div>
-            <ul class="pricing-features">
-                <li>5 scent matches</li>
-                <li>510+ fragrance library</li>
-                <li>Full AI analysis</li>
-                <li>Match explanations</li>
-            </ul>
-            <button class="pricing-btn pricing-btn-secondary">Get Started</button>
-        </div>
-        <div class="pricing-card featured fade-in">
-            <h3>Yearly</h3>
-            <div class="pricing-price" style="background:linear-gradient(135deg,var(--emerald),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$29.99</div>
-            <div class="pricing-period">per year &middot; Save 50%</div>
-            <ul class="pricing-features">
-                <li>Unlimited matches</li>
-                <li>Scent wardrobe</li>
-                <li>Enhanced explanations</li>
-                <li>Priority new fragrances</li>
-            </ul>
-            <button class="pricing-btn pricing-btn-primary">Best Value</button>
-        </div>
-        <div class="pricing-card fade-in">
-            <h3>Lifetime</h3>
-            <div class="pricing-price">$49.99</div>
-            <div class="pricing-period">one-time payment</div>
-            <ul class="pricing-features">
-                <li>Everything in Yearly</li>
-                <li>Pay once, own forever</li>
-                <li>All future updates</li>
-                <li>Early access to features</li>
-            </ul>
-            <button class="pricing-btn pricing-btn-secondary">Go Lifetime</button>
-        </div>
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="cta" id="cta">
-    <h2 class="serif">Ready to Find <span style="color:var(--emerald)">Your Scent?</span></h2>
-    <p>Download ScentMatch AI and discover the fragrance that matches your style.</p>
-    <a href="#" class="app-store-btn">Download on the App Store</a>
-</section>
-
-<!-- Footer -->
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-    <div class="footer-links">
-        <a href="https://scentmatch.app/privacy">Privacy Policy</a>
-        <a href="https://scentmatch.app/terms">Terms of Use</a>
+    <div>
+        <a href="https://scentmatch.app/privacy">Privacy</a>
+        <a href="https://scentmatch.app/terms">Terms</a>
         <a href="mailto:support@scentmatch.app">Support</a>
-        <a href="https://github.com/ClawdBonzo/ScentMatch">GitHub</a>
     </div>
-    <p class="footer-copy">&copy; 2026 ScentMatch AI. All rights reserved.</p>
+    <p class="footer-copy">&copy; 2026 ScentMatch AI</p>
 </footer>
 
-<!-- Scroll animations -->
 <script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
-
 </body>
 </html>
