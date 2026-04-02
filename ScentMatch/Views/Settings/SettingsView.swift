@@ -73,7 +73,7 @@ struct SettingsView: View {
                         aboutRow("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                         aboutRow("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1")
 
-                        Link(destination: URL(string: "https://scentmatch.app/privacy")!) {
+                        Link(destination: URL(string: "https://scentmatch-app.netlify.app/privacy")!) {
                             HStack {
                                 Text("Privacy Policy")
                                     .foregroundStyle(Color.smTextPrimary)
@@ -84,7 +84,7 @@ struct SettingsView: View {
                             }
                         }
 
-                        Link(destination: URL(string: "https://scentmatch.app/terms")!) {
+                        Link(destination: URL(string: "https://scentmatch-app.netlify.app/terms")!) {
                             HStack {
                                 Text("Terms of Use")
                                     .foregroundStyle(Color.smTextPrimary)
