@@ -21,7 +21,7 @@ final class AffiliateManager {
 
     /// Associate tags per region — sign up at each Amazon regional affiliate program
     private let associateTags: [String: String] = [
-        "US": "scentmatch-20",      // Replace with your US tag
+        "US": "scentmatch0b-20",     // Live Amazon Associates tag
         "DE": "scentmatch-21",      // Replace with your DE tag
         "MX": "scentmatch-22",      // Replace with your MX tag
         "BR": "scentmatch-23",      // Replace with your BR tag
@@ -32,7 +32,7 @@ final class AffiliateManager {
     ]
 
     /// Default tag if region can't be determined
-    private let defaultTag = "scentmatch-20"
+    private let defaultTag = "scentmatch0b-20"
 
     // MARK: - Regional Amazon Domains
 
