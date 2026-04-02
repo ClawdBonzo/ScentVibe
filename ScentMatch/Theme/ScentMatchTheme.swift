@@ -3,37 +3,37 @@ import SwiftUI
 // MARK: - Theme Colors
 
 extension Color {
-    // Primary palette - Deep teal luxury
-    static let smDeepTeal = Color(red: 0.05, green: 0.22, blue: 0.25)
-    static let smTeal = Color(red: 0.08, green: 0.35, blue: 0.38)
-    static let smLightTeal = Color(red: 0.15, green: 0.55, blue: 0.55)
+    // Primary palette - Premium deep teal luxury
+    static let smDeepTeal = Color(red: 0.04, green: 0.24, blue: 0.24)  // #0A3D3D
+    static let smTeal = Color(red: 0.06, green: 0.32, blue: 0.32)
+    static let smLightTeal = Color(red: 0.12, green: 0.50, blue: 0.50)
 
-    // Accent - Emerald
-    static let smEmerald = Color(red: 0.20, green: 0.65, blue: 0.45)
-    static let smLightEmerald = Color(red: 0.30, green: 0.80, blue: 0.55)
+    // Accent - Vibrant emerald to neon green
+    static let smEmerald = Color(red: 0.00, green: 0.78, blue: 0.33)   // #00C853
+    static let smLightEmerald = Color(red: 0.22, green: 1.00, blue: 0.08)  // #39FF14 neon
 
     // Gold accent for premium
-    static let smGold = Color(red: 0.85, green: 0.72, blue: 0.40)
-    static let smLightGold = Color(red: 0.95, green: 0.85, blue: 0.55)
+    static let smGold = Color(red: 0.88, green: 0.75, blue: 0.35)
+    static let smLightGold = Color(red: 0.96, green: 0.87, blue: 0.50)
 
-    // Background
-    static let smBackground = Color(red: 0.04, green: 0.06, blue: 0.08)
-    static let smSurface = Color(red: 0.08, green: 0.10, blue: 0.13)
-    static let smSurfaceElevated = Color(red: 0.12, green: 0.14, blue: 0.18)
+    // Background - Deep dark luxury
+    static let smBackground = Color(red: 0.03, green: 0.05, blue: 0.07)
+    static let smSurface = Color(red: 0.06, green: 0.08, blue: 0.11)
+    static let smSurfaceElevated = Color(red: 0.10, green: 0.12, blue: 0.16)
 
     // Text
-    static let smTextPrimary = Color(red: 0.95, green: 0.95, blue: 0.93)
-    static let smTextSecondary = Color(red: 0.65, green: 0.68, blue: 0.70)
-    static let smTextTertiary = Color(red: 0.45, green: 0.48, blue: 0.50)
+    static let smTextPrimary = Color(red: 0.96, green: 0.96, blue: 0.94)
+    static let smTextSecondary = Color(red: 0.62, green: 0.66, blue: 0.69)
+    static let smTextTertiary = Color(red: 0.42, green: 0.46, blue: 0.49)
 
     // Status
-    static let smSuccess = Color(red: 0.20, green: 0.75, blue: 0.50)
-    static let smWarning = Color(red: 0.95, green: 0.75, blue: 0.25)
-    static let smError = Color(red: 0.90, green: 0.30, blue: 0.30)
+    static let smSuccess = Color(red: 0.00, green: 0.78, blue: 0.33)
+    static let smWarning = Color(red: 0.96, green: 0.76, blue: 0.22)
+    static let smError = Color(red: 0.92, green: 0.28, blue: 0.28)
 
-    // Vibe score gradient
-    static let smVibeGradientStart = Color(red: 0.20, green: 0.65, blue: 0.45)
-    static let smVibeGradientEnd = Color(red: 0.08, green: 0.35, blue: 0.38)
+    // Vibe score gradient (emerald → neon)
+    static let smVibeGradientStart = Color(red: 0.00, green: 0.78, blue: 0.33)  // #00C853
+    static let smVibeGradientEnd = Color(red: 0.06, green: 0.32, blue: 0.32)
 }
 
 // MARK: - Theme Gradients

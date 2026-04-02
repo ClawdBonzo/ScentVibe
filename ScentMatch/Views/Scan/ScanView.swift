@@ -30,7 +30,7 @@ struct ScanView: View {
                     scanInterface
                 }
             }
-            .navigationTitle("ScentMatch")
+            .navigationTitle("ScentVibe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

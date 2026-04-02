@@ -156,11 +156,11 @@
     },
     "paywall_title": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Unlock ScentMatch Pro" } },
-        "de": { "stringUnit": { "state": "translated", "value": "ScentMatch Pro freischalten" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Desbloquea ScentMatch Pro" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Desbloqueie o ScentMatch Pro" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Debloquez ScentMatch Pro" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Unlock ScentVibe Pro" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro freischalten" } },
+        "es-MX": { "stringUnit": { "state": "translated", "value": "Desbloquea ScentVibe Pro" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Desbloqueie o ScentVibe Pro" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Debloquez ScentVibe Pro" } }
       }
     },
     "paywall_unlimited": {

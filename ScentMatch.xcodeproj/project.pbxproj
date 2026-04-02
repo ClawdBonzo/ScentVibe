@@ -41,6 +41,8 @@
 		A10001010000000000000022 /* FragranceDB_Mexican.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000022 /* FragranceDB_Mexican.swift */; };
 		A10001010000000000000023 /* FragranceDB_Brazilian.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000023 /* FragranceDB_Brazilian.swift */; };
 		A10001010000000000000024 /* FragranceDB_French.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000024 /* FragranceDB_French.swift */; };
+		A10001010000000000000025 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000025 /* ShareCardView.swift */; };
+		A10001010000000000000026 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000026 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		A10002010000000000000022 /* FragranceDB_Mexican.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Mexican.swift; sourceTree = "<group>"; };
 		A10002010000000000000023 /* FragranceDB_Brazilian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Brazilian.swift; sourceTree = "<group>"; };
 		A10002010000000000000024 /* FragranceDB_French.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_French.swift; sourceTree = "<group>"; };
+		A10002010000000000000025 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
+		A10002010000000000000026 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +238,7 @@
 				A10002010000000000000016 /* FragranceCard.swift */,
 				A10002010000000000000017 /* LuxuryButton.swift */,
 				A1000201000000000000001F /* FragranceBottleView.swift */,
+				A10002010000000000000025 /* ShareCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				A10002010000000000000019 /* EventLogger.swift */,
+				A10002010000000000000026 /* NotificationManager.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -368,6 +374,8 @@
 				A1000101000000000000001A /* PaywallManager.swift in Sources */,
 				A1000101000000000000001E /* AffiliateManager.swift in Sources */,
 				A1000101000000000000001F /* FragranceBottleView.swift in Sources */,
+				A10001010000000000000025 /* ShareCardView.swift in Sources */,
+				A10001010000000000000026 /* NotificationManager.swift in Sources */,
 				A10001010000000000000020 /* FragranceDB_Western.swift in Sources */,
 				A10001010000000000000021 /* FragranceDB_German.swift in Sources */,
 				A10001010000000000000022 /* FragranceDB_Mexican.swift in Sources */,

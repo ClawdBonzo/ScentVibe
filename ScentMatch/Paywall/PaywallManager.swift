@@ -8,9 +8,9 @@ final class PaywallManager {
     static let shared = PaywallManager()
 
     // Product identifiers (configure in RevenueCat dashboard)
-    static let monthlyProductId = "scentmatch_monthly_499"
-    static let yearlyProductId = "scentmatch_yearly_2999"
-    static let lifetimeProductId = "scentmatch_lifetime_4999"
+    static let monthlyProductId = "scentvibe_monthly_499"
+    static let yearlyProductId = "scentvibe_yearly_2999"
+    static let lifetimeProductId = "scentvibe_lifetime_7999"
 
     var isPremium: Bool = false
     var isLoading: Bool = false
@@ -92,7 +92,7 @@ enum PaywallTier: CaseIterable, Identifiable {
         switch self {
         case .monthly: return "$4.99"
         case .yearly: return "$29.99"
-        case .lifetime: return "$49.99"
+        case .lifetime: return "$79.99"
         }
     }
 

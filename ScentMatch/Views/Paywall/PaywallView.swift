@@ -91,7 +91,7 @@ struct PaywallView: View {
                     .foregroundStyle(LinearGradient.smGoldGradient)
             }
 
-            Text("Unlock ScentMatch Pro")
+            Text("Unlock ScentVibe Pro")
                 .font(SMFont.display(28))
                 .foregroundStyle(Color.smTextPrimary)
                 .multilineTextAlignment(.center)

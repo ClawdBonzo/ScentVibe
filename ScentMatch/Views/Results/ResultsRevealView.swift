@@ -10,6 +10,8 @@ struct ResultsRevealView: View {
     @State private var showCards = false
     @State private var revealedCards: Set<Int> = []
     @State private var selectedRecommendation: RecommendationEntry?
+    @State private var showShareSheet = false
+    @State private var shareImage: UIImage?
 
     var body: some View {
         NavigationStack {
@@ -53,6 +55,19 @@ struct ResultsRevealView: View {
                             }
                         }
 
+                        // Share to Stories button
+                        Button(action: generateShareCard) {
+                            Label("Share to Stories", systemImage: "square.and.arrow.up")
+                                .font(SMFont.headline(16))
+                                .foregroundStyle(Color.smBackground)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: SMTheme.buttonHeight)
+                                .background(LinearGradient.smPrimaryGradient)
+                                .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+                        }
+                        .padding(.horizontal)
+                        .opacity(showCards ? 1 : 0)
+
                         // Close button
                         Button(action: { dismiss() }) {
                             Text("Done")
@@ -87,6 +102,11 @@ struct ResultsRevealView: View {
                         matchResult: matchResult
                     )
                 }
+            }
+        }
+        .sheet(isPresented: $showShareSheet) {
+            if let image = shareImage {
+                ShareSheet(items: [image])
             }
         }
         .preferredColorScheme(.dark)
@@ -258,6 +278,17 @@ struct ResultsRevealView: View {
                 .stroke(index == 0 ? Color.smGold.opacity(0.3) : Color.smTeal.opacity(0.1), lineWidth: index == 0 ? 1.5 : 0.5)
         )
         .padding(.horizontal)
+    }
+
+    // MARK: - Share Card
+
+    private func generateShareCard() {
+        let topFrag = recommendations.first?.fragrance()
+        let topScore = recommendations.first?.score ?? 0
+        if let image = ShareCardGenerator.render(matchResult: matchResult, topFragrance: topFrag, score: topScore) {
+            shareImage = image
+            showShareSheet = true
+        }
     }
 
     // MARK: - Reveal Sequence
