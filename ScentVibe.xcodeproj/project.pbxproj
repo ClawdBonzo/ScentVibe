@@ -74,7 +74,7 @@
 		A1000201000000000000001A /* PaywallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallManager.swift; sourceTree = "<group>"; };
 		A1000201000000000000001B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A1000201000000000000001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1000201000000000000001D /* ScentMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScentMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000201000000000000001D /* ScentVibe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScentVibe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000201000000000000001E /* AffiliateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffiliateManager.swift; sourceTree = "<group>"; };
 		A1000201000000000000001F /* FragranceBottleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceBottleView.swift; sourceTree = "<group>"; };
 		A10002010000000000000020 /* FragranceDB_Western.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragranceDB_Western.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		A10004010000000000000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1000201000000000000001D /* ScentMatch.app */,
+				A1000201000000000000001D /* ScentVibe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,7 +129,7 @@
 				A1000401000000000000000B /* Localization */,
 				A10002010000000000000003 /* Assets.xcassets */,
 			);
-			path = ScentMatch;
+			path = ScentVibe;
 			sourceTree = "<group>";
 		};
 		A10004010000000000000004 /* Models */ = {
@@ -282,7 +282,7 @@
 /* Begin PBXNativeTarget section */
 		A10005010000000000000001 /* ScentMatch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A10007010000000000000003 /* Build configuration list for PBXNativeTarget "ScentMatch" */;
+			buildConfigurationList = A10007010000000000000003 /* Build configuration list for PBXNativeTarget "ScentVibe" */;
 			buildPhases = (
 				A10006010000000000000001 /* Sources */,
 				A10003010000000000000001 /* Frameworks */,
@@ -292,9 +292,9 @@
 			);
 			dependencies = (
 			);
-			name = ScentMatch;
-			productName = ScentMatch;
-			productReference = A1000201000000000000001D /* ScentMatch.app */;
+			name = ScentVibe;
+			productName = ScentVibe;
+			productReference = A1000201000000000000001D /* ScentVibe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -312,7 +312,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A10007010000000000000001 /* Build configuration list for PBXProject "ScentMatch" */;
+			buildConfigurationList = A10007010000000000000001 /* Build configuration list for PBXProject "ScentVibe" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -516,7 +516,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScentMatch/Info.plist;
+				INFOPLIST_FILE = ScentVibe/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScentMatch;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -548,7 +548,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScentMatch/Info.plist;
+				INFOPLIST_FILE = ScentVibe/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScentMatch;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -573,7 +573,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A10007010000000000000001 /* Build configuration list for PBXProject "ScentMatch" */ = {
+		A10007010000000000000001 /* Build configuration list for PBXProject "ScentVibe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10009010000000000000001 /* Debug */,
@@ -582,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A10007010000000000000003 /* Build configuration list for PBXNativeTarget "ScentMatch" */ = {
+		A10007010000000000000003 /* Build configuration list for PBXNativeTarget "ScentVibe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A10009010000000000000003 /* Debug */,

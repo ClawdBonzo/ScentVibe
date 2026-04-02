@@ -73,17 +73,17 @@ extension LinearGradient {
 // MARK: - Theme Typography
 
 struct SMFont {
-    // Display
+    // Display — premium serif for hero headlines
     static func display(_ size: CGFloat = 34) -> Font {
         .system(size: size, weight: .bold, design: .serif)
     }
 
-    // Headlines
+    // Headlines — clean, slightly rounded for modern luxury
     static func headline(_ size: CGFloat = 22) -> Font {
-        .system(size: size, weight: .semibold, design: .default)
+        .system(size: size, weight: .semibold, design: .rounded)
     }
 
-    // Body
+    // Body — crisp and readable
     static func body(_ size: CGFloat = 16) -> Font {
         .system(size: size, weight: .regular, design: .default)
     }
@@ -93,15 +93,23 @@ struct SMFont {
         .system(size: size, weight: .medium, design: .default)
     }
 
-    // Label
+    // Label — tight tracking for badges
     static func label(_ size: CGFloat = 11) -> Font {
         .system(size: size, weight: .semibold, design: .default)
     }
 
-    // Mono for scores
+    // Mono for scores — tabular figures
     static func mono(_ size: CGFloat = 16) -> Font {
-        .system(size: size, weight: .medium, design: .monospaced)
+        .system(size: size, weight: .bold, design: .monospaced)
     }
+}
+
+// MARK: - Premium Spring Animation
+
+extension Animation {
+    static let smSpring = Animation.spring(response: 0.45, dampingFraction: 0.72, blendDuration: 0.1)
+    static let smBounce = Animation.spring(response: 0.35, dampingFraction: 0.6, blendDuration: 0)
+    static let smSmooth = Animation.easeInOut(duration: 0.3)
 }
 
 // MARK: - View Modifiers
@@ -114,7 +122,14 @@ struct SMCardModifier: ViewModifier {
                     .fill(Color.smSurfaceElevated)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [Color.smEmerald.opacity(0.12), Color.smTeal.opacity(0.06), .clear],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 0.5
+                            )
                     )
             )
     }
@@ -124,8 +139,19 @@ struct SMGlassModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(.ultraThinMaterial)
-            .background(Color.smSurface.opacity(0.5))
+            .background(Color.smSurface.opacity(0.4))
             .clipShape(RoundedRectangle(cornerRadius: 16))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(
+                        LinearGradient(
+                            colors: [.white.opacity(0.08), .clear],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 0.5
+                    )
+            )
     }
 }
 
@@ -136,6 +162,14 @@ extension View {
 
     func smGlass() -> some View {
         modifier(SMGlassModifier())
+    }
+
+    /// Premium entrance animation
+    func smEntrance(delay: Double = 0) -> some View {
+        self.transition(.asymmetric(
+            insertion: .opacity.combined(with: .offset(y: 12)).animation(.smSpring.delay(delay)),
+            removal: .opacity
+        ))
     }
 }
 

@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A10005010000000000000001"
-               BuildableName = "ScentMatch.app"
-               BlueprintName = "ScentMatch"
-               ReferencedContainer = "container:ScentMatch.xcodeproj">
+               BuildableName = "ScentVibe.app"
+               BlueprintName = "ScentVibe"
+               ReferencedContainer = "container:ScentVibe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A10005010000000000000001"
-            BuildableName = "ScentMatch.app"
-            BlueprintName = "ScentMatch"
-            ReferencedContainer = "container:ScentMatch.xcodeproj">
+            BuildableName = "ScentVibe.app"
+            BlueprintName = "ScentVibe"
+            ReferencedContainer = "container:ScentVibe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A10005010000000000000001"
-            BuildableName = "ScentMatch.app"
-            BlueprintName = "ScentMatch"
-            ReferencedContainer = "container:ScentMatch.xcodeproj">
+            BuildableName = "ScentVibe.app"
+            BlueprintName = "ScentVibe"
+            ReferencedContainer = "container:ScentVibe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
