@@ -1,5 +1,13 @@
 import Foundation
 
+/// Shopping link for a specific retailer
+struct ShoppingLink: Identifiable {
+    let id = UUID()
+    let retailer: String
+    let url: URL
+    let icon: String
+}
+
 /// Manages region-aware Amazon affiliate links using OneLink auto-redirect.
 ///
 /// **Setup instructions:**
@@ -62,6 +70,32 @@ final class AffiliateManager {
         } else {
             return searchURL(name: fragrance.name, house: fragrance.house)
         }
+    }
+
+    /// All available shopping links for a fragrance (Amazon + fallbacks)
+    func allShoppingLinks(for fragrance: Fragrance) -> [ShoppingLink] {
+        var links = [ShoppingLink]()
+
+        // Amazon (primary)
+        if let url = affiliateURL(for: fragrance) {
+            links.append(ShoppingLink(retailer: "Amazon", url: url, icon: "cart.fill"))
+        }
+
+        // Sephora search
+        let sephoraQuery = "\(fragrance.name) \(fragrance.house)"
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? fragrance.name
+        if let sephoraURL = URL(string: "https://www.sephora.com/search?keyword=\(sephoraQuery)") {
+            links.append(ShoppingLink(retailer: "Sephora", url: sephoraURL, icon: "bag.fill"))
+        }
+
+        // FragranceNet with affiliate tracking
+        let fnQuery = fragrance.name
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? fragrance.name
+        if let fnURL = URL(string: "https://www.fragrancenet.com/search?q=\(fnQuery)&utm_source=scentvibeai&utm_medium=app") {
+            links.append(ShoppingLink(retailer: "FragranceNet", url: fnURL, icon: "shippingbox.fill"))
+        }
+
+        return links
     }
 
     // MARK: - URL Builders

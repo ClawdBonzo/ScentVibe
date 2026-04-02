@@ -12,6 +12,8 @@ struct ResultsRevealView: View {
     @State private var selectedRecommendation: RecommendationEntry?
     @State private var showShareSheet = false
     @State private var shareImage: UIImage?
+    @State private var isRegenerating = false
+    var onRegenerate: (() -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -67,6 +69,30 @@ struct ResultsRevealView: View {
                         }
                         .padding(.horizontal)
                         .opacity(showCards ? 1 : 0)
+
+                        // Regenerate button
+                        if onRegenerate != nil {
+                            Button(action: {
+                                let impact = UIImpactFeedbackGenerator(style: .medium)
+                                impact.impactOccurred()
+                                dismiss()
+                                onRegenerate?()
+                            }) {
+                                Label("Regenerate with Different Vibe", systemImage: "arrow.triangle.2.circlepath")
+                                    .font(SMFont.headline(15))
+                                    .foregroundStyle(Color.smTextSecondary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 44)
+                                    .background(Color.smSurfaceElevated)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
+                                    )
+                            }
+                            .padding(.horizontal)
+                            .opacity(showCards ? 1 : 0)
+                        }
 
                         // Close button
                         Button(action: { dismiss() }) {

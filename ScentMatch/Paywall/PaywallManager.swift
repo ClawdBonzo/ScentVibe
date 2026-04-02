@@ -107,7 +107,7 @@ enum PaywallTier: CaseIterable, Identifiable {
     var savings: String? {
         switch self {
         case .monthly: return nil
-        case .yearly: return "Save 50%"
+        case .yearly: return "Most Popular"
         case .lifetime: return "Best Value"
         }
     }

@@ -225,20 +225,40 @@ struct MatchDetailView: View {
     // MARK: - Affiliate
 
     private var affiliateSection: some View {
-        VStack(spacing: 12) {
-            Button(action: openAffiliateLink) {
-                HStack {
-                    Image(systemName: "cart.fill")
-                    Text("Shop on Amazon")
-                        .font(SMFont.headline(16))
-                    Spacer()
-                    Image(systemName: "arrow.up.right")
-                        .font(.system(size: 14))
+        VStack(spacing: 10) {
+            let links = AffiliateManager.shared.allShoppingLinks(for: fragrance)
+            ForEach(links) { link in
+                Button(action: {
+                    matchResult.affiliateLinksTapped += 1
+                    EventLogger.shared.log(EventLogger.affiliateLinkTapped, metadata: [
+                        "fragrance": fragrance.id,
+                        "retailer": link.retailer
+                    ])
+                    UIApplication.shared.open(link.url)
+                }) {
+                    HStack {
+                        Image(systemName: link.icon)
+                        Text("Shop on \(link.retailer)")
+                            .font(SMFont.headline(15))
+                        Spacer()
+                        Image(systemName: "arrow.up.right")
+                            .font(.system(size: 12))
+                    }
+                    .foregroundStyle(link.retailer == "Amazon" ? Color.smBackground : Color.smTextPrimary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(
+                        link.retailer == "Amazon"
+                            ? AnyShapeStyle(LinearGradient.smGoldGradient)
+                            : AnyShapeStyle(Color.smSurfaceElevated)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        link.retailer != "Amazon"
+                            ? RoundedRectangle(cornerRadius: 12).stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
+                            : nil
+                    )
                 }
-                .foregroundStyle(Color.smBackground)
-                .padding()
-                .background(LinearGradient.smGoldGradient)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
             }
 
             Text("As an Amazon Associate, we earn from qualifying purchases")

@@ -59,7 +59,13 @@ struct ScanView: View {
                 ResultsRevealView(
                     matchResult: result,
                     recommendations: recommendations,
-                    analysisResult: analysisResult
+                    analysisResult: analysisResult,
+                    onRegenerate: {
+                        // Re-process the same image with shuffled results
+                        if let img = capturedImage ?? (result.photoData.flatMap { UIImage(data: $0) }) {
+                            processImage(img)
+                        }
+                    }
                 )
             }
         }

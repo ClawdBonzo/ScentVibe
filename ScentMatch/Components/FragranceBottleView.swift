@@ -32,6 +32,20 @@ struct FragranceBottleView: View {
             bottleShape
                 .frame(width: size, height: size)
 
+            // Glass-morphism overlay
+            RoundedRectangle(cornerRadius: size * 0.12)
+                .fill(.ultraThinMaterial.opacity(0.15))
+                .frame(width: size * 0.6, height: size * 0.7)
+                .overlay(
+                    // Specular highlight
+                    LinearGradient(
+                        colors: [.white.opacity(0.15), .clear, .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: size * 0.12))
+                )
+
             // House initial overlay
             Text(String(fragrance.house.prefix(1)))
                 .font(.system(size: size * 0.28, weight: .bold, design: .serif))
