@@ -23,9 +23,9 @@
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSCameraUsageDescription</key>
-    <string>ScentMatch needs camera access to scan your outfit or room and find your perfect fragrance match.</string>
+    <string>ScentVibe needs camera access to scan your outfit or room and find your perfect fragrance match.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>ScentMatch needs photo library access so you can select outfit or room photos for scent matching.</string>
+    <string>ScentVibe needs photo library access so you can select outfit or room photos for scent matching.</string>
     <key>UILaunchScreen</key>
     <dict>
         <key>UIColorName</key>
