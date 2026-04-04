@@ -39,32 +39,34 @@ final class ExplanationGenerator {
     private func selectTemplate(fragrance: Fragrance, scanType: String, warmth: Double, brightness: Double, score: Double) -> String {
 
         // High confidence match (score > 0.7)
-        if score > 0.7 {
-            return highConfidenceTemplates.randomElement()!
+        if score > 0.7, let t = highConfidenceTemplates.randomElement() {
+            return t
         }
 
         // Warm palette matches
-        if warmth > 0.6 && fragrance.moodTags.contains(where: { [.warm, .cozy, .sensual, .bold].contains($0) }) {
-            return warmTemplates.randomElement()!
+        if warmth > 0.6 && fragrance.moodTags.contains(where: { [.warm, .cozy, .sensual, .bold].contains($0) }),
+           let t = warmTemplates.randomElement() {
+            return t
         }
 
         // Cool palette matches
-        if warmth < 0.4 && fragrance.moodTags.contains(where: { [.fresh, .cool, .serene, .minimal].contains($0) }) {
-            return coolTemplates.randomElement()!
+        if warmth < 0.4 && fragrance.moodTags.contains(where: { [.fresh, .cool, .serene, .minimal].contains($0) }),
+           let t = coolTemplates.randomElement() {
+            return t
         }
 
         // Dark/moody matches
-        if brightness < 0.35 {
-            return darkTemplates.randomElement()!
+        if brightness < 0.35, let t = darkTemplates.randomElement() {
+            return t
         }
 
         // Bright/energetic matches
-        if brightness > 0.65 {
-            return brightTemplates.randomElement()!
+        if brightness > 0.65, let t = brightTemplates.randomElement() {
+            return t
         }
 
         // Default templates
-        return defaultTemplates.randomElement()!
+        return defaultTemplates.randomElement() ?? "Your {scanType} pairs beautifully with {fragrance}'s {notes}."
     }
 
     // MARK: - Template Collections
@@ -120,7 +122,7 @@ final class ExplanationGenerator {
         case 0: return "neutral"
         case 1: return colors[0]
         case 2: return "\(colors[0]) and \(colors[1])"
-        default: return colors.dropLast().joined(separator: ", ") + ", and " + colors.last!
+        default: return colors.dropLast().joined(separator: ", ") + ", and " + (colors.last ?? "")
         }
     }
 }

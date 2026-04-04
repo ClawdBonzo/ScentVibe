@@ -484,10 +484,14 @@ struct MatchDetailView: View {
             EventLogger.shared.log(EventLogger.matchFavorited, metadata: [
                 "fragrance": fragrance.id
             ])
+            #if DEBUG
             print("[Analytics] match_favorited: \(fragrance.id)")
+            #endif
         } else {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            #if DEBUG
             print("[Analytics] match_unfavorited: \(fragrance.id)")
+            #endif
         }
     }
 
@@ -505,7 +509,9 @@ struct MatchDetailView: View {
                 "fragrance": fragrance.id,
                 "vibe_score": String(format: "%.0f", matchResult.vibeScore)
             ])
+            #if DEBUG
             print("[Analytics] share_story_card_detail: \(fragrance.id)")
+            #endif
         }
     }
 }

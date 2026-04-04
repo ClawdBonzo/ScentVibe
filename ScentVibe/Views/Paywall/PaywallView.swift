@@ -223,10 +223,10 @@ struct PaywallView: View {
                 .foregroundStyle(Color.smTextTertiary)
                 .multilineTextAlignment(.center)
             HStack(spacing: 12) {
-                Link("Terms of Use", destination: URL(string: "https://scentvibe.app/terms")!)
+                Link("Terms of Use", destination: URL(string: "https://scentvibe-app.netlify.app/terms")!)
                     .font(SMFont.label(10))
                     .foregroundStyle(Color.smTextTertiary)
-                Link("Privacy Policy", destination: URL(string: "https://scentvibe.app/privacy")!)
+                Link("Privacy Policy", destination: URL(string: "https://scentvibe-app.netlify.app/privacy")!)
                     .font(SMFont.label(10))
                     .foregroundStyle(Color.smTextTertiary)
             }

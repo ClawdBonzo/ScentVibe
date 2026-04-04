@@ -865,8 +865,8 @@ struct PersonalizedPaywallView: View {
                             .font(.system(size: 9)).foregroundStyle(luxTextSec.opacity(0.5))
                             .multilineTextAlignment(.center)
                         HStack(spacing: 12) {
-                            Link("Terms", destination: URL(string: "https://scentvibe.app/terms")!)
-                            Link("Privacy", destination: URL(string: "https://scentvibe.app/privacy")!)
+                            Link("Terms", destination: URL(string: "https://scentvibe-app.netlify.app/terms")!)
+                            Link("Privacy", destination: URL(string: "https://scentvibe-app.netlify.app/privacy")!)
                         }
                         .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(luxTextSec.opacity(0.5))

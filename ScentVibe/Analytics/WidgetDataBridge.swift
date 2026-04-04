@@ -34,7 +34,9 @@ final class WidgetDataBridge {
 
         // Request widget timeline reload
         WidgetCenter.shared.reloadTimelines(ofKind: "TodaysVibeWidget")
+        #if DEBUG
         print("[WidgetBridge] Updated widget data: \(fragrance?.name ?? "unknown")")
+        #endif
     }
 
     /// Clear widget data (e.g., when all matches are deleted)
@@ -46,6 +48,8 @@ final class WidgetDataBridge {
         defaults.removeObject(forKey: "widget_mood_tags")
         defaults.removeObject(forKey: "widget_photo_data")
         WidgetCenter.shared.reloadTimelines(ofKind: "TodaysVibeWidget")
+        #if DEBUG
         print("[WidgetBridge] Cleared widget data")
+        #endif
     }
 }

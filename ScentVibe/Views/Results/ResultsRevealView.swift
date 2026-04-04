@@ -95,7 +95,9 @@ struct ResultsRevealView: View {
                     EventLogger.shared.log(EventLogger.regenerateWithMood, metadata: [
                         "mood": selectedMood
                     ])
+                    #if DEBUG
                     print("[Analytics] regenerate_with_mood: \(selectedMood)")
+                    #endif
                     dismiss()
                     onRegenerateWithMood?(selectedMood)
                 }
@@ -160,7 +162,9 @@ struct ResultsRevealView: View {
                     EventLogger.shared.log(EventLogger.regenerateMatch, metadata: [
                         "type": "same_photo"
                     ])
+                    #if DEBUG
                     print("[Analytics] regenerate_match: same_photo")
+                    #endif
                     dismiss()
                     onRegenerate?()
                 }) {
@@ -395,10 +399,14 @@ struct ResultsRevealView: View {
                 "vibe_score": String(format: "%.0f", matchResult.vibeScore)
             ])
             WidgetDataBridge.shared.update(with: matchResult)
+            #if DEBUG
             print("[Analytics] save_to_wardrobe: \(matchResult.id)")
+            #endif
         } else {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            #if DEBUG
             print("[Analytics] remove_from_wardrobe: \(matchResult.id)")
+            #endif
         }
     }
 
@@ -413,7 +421,9 @@ struct ResultsRevealView: View {
                 "fragrance": topFrag?.id ?? "unknown",
                 "vibe_score": String(format: "%.0f", matchResult.vibeScore)
             ])
+            #if DEBUG
             print("[Analytics] share_story_card: \(matchResult.id)")
+            #endif
         }
     }
 

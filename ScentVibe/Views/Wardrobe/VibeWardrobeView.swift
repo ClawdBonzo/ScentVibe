@@ -33,7 +33,9 @@ struct VibeWardrobeView: View {
                                             withAnimation {
                                                 match.isFavorited = false
                                             }
+                                            #if DEBUG
                                             print("[Analytics] wardrobe_item_removed: \(match.id)")
+                                            #endif
                                         } label: {
                                             Label("Remove from Wardrobe", systemImage: "heart.slash")
                                         }
@@ -115,7 +117,9 @@ struct VibeWardrobeView: View {
             shareImage = image
             showShareSheet = true
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            #if DEBUG
             print("[Analytics] wardrobe_share_story: \(match.id)")
+            #endif
         }
     }
 }
