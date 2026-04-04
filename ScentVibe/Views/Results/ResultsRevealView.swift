@@ -1,3 +1,4 @@
+import StoreKit
 import SwiftUI
 
 struct ResultsRevealView: View {
@@ -399,6 +400,7 @@ struct ResultsRevealView: View {
                 "vibe_score": String(format: "%.0f", matchResult.vibeScore)
             ])
             WidgetDataBridge.shared.update(with: matchResult)
+            ReviewRequester.requestIfEligible()
             #if DEBUG
             print("[Analytics] save_to_wardrobe: \(matchResult.id)")
             #endif

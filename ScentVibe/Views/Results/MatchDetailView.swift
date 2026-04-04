@@ -1,3 +1,4 @@
+import StoreKit
 import SwiftUI
 
 struct MatchDetailView: View {
@@ -484,6 +485,7 @@ struct MatchDetailView: View {
             EventLogger.shared.log(EventLogger.matchFavorited, metadata: [
                 "fragrance": fragrance.id
             ])
+            ReviewRequester.requestIfEligible()
             #if DEBUG
             print("[Analytics] match_favorited: \(fragrance.id)")
             #endif
