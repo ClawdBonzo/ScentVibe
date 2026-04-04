@@ -12,8 +12,11 @@ struct ResultsRevealView: View {
     @State private var selectedRecommendation: RecommendationEntry?
     @State private var showShareSheet = false
     @State private var shareImage: UIImage?
-    @State private var isRegenerating = false
+    @State private var showMoodPicker = false
+    @State private var isSaved = false
+
     var onRegenerate: (() -> Void)?
+    var onRegenerateWithMood: ((String) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -57,56 +60,12 @@ struct ResultsRevealView: View {
                             }
                         }
 
-                        // Share to Stories button
-                        Button(action: generateShareCard) {
-                            Label("Share to Stories", systemImage: "square.and.arrow.up")
-                                .font(SMFont.headline(16))
-                                .foregroundStyle(Color.smBackground)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: SMTheme.buttonHeight)
-                                .background(LinearGradient.smPrimaryGradient)
-                                .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
-                        }
-                        .padding(.horizontal)
-                        .opacity(showCards ? 1 : 0)
+                        // MARK: - Action Buttons
 
-                        // Regenerate button
-                        if onRegenerate != nil {
-                            Button(action: {
-                                let impact = UIImpactFeedbackGenerator(style: .medium)
-                                impact.impactOccurred()
-                                dismiss()
-                                onRegenerate?()
-                            }) {
-                                Label("Regenerate with Different Vibe", systemImage: "arrow.triangle.2.circlepath")
-                                    .font(SMFont.headline(15))
-                                    .foregroundStyle(Color.smTextSecondary)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 44)
-                                    .background(Color.smSurfaceElevated)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
-                                    )
-                            }
-                            .padding(.horizontal)
+                        actionButtons
                             .opacity(showCards ? 1 : 0)
-                        }
 
-                        // Close button
-                        Button(action: { dismiss() }) {
-                            Text("Done")
-                                .font(SMFont.headline(18))
-                                .foregroundStyle(Color.smEmerald)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: SMTheme.buttonHeight)
-                                .background(Color.smEmerald.opacity(0.12))
-                                .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
-                        }
-                        .padding(.horizontal)
-                        .padding(.bottom, 32)
-                        .opacity(showCards ? 1 : 0)
+                        Spacer(minLength: 32)
                     }
                 }
             }
@@ -129,6 +88,20 @@ struct ResultsRevealView: View {
                     )
                 }
             }
+            .sheet(isPresented: $showMoodPicker) {
+                MoodPickerSheet { selectedMood in
+                    showMoodPicker = false
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    EventLogger.shared.log(EventLogger.regenerateWithMood, metadata: [
+                        "mood": selectedMood
+                    ])
+                    print("[Analytics] regenerate_with_mood: \(selectedMood)")
+                    dismiss()
+                    onRegenerateWithMood?(selectedMood)
+                }
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+            }
         }
         .sheet(isPresented: $showShareSheet) {
             if let image = shareImage {
@@ -137,7 +110,110 @@ struct ResultsRevealView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
+            isSaved = matchResult.isFavorited
             triggerRevealSequence()
+        }
+    }
+
+    // MARK: - Action Buttons
+
+    private var actionButtons: some View {
+        VStack(spacing: 12) {
+            // Save to Wardrobe
+            Button(action: saveToWardrobe) {
+                HStack(spacing: 8) {
+                    Image(systemName: isSaved ? "heart.fill" : "heart")
+                        .font(.system(size: 16, weight: .semibold))
+                    Text(isSaved ? "Saved to Wardrobe" : "Save to My Wardrobe")
+                        .font(SMFont.headline(16))
+                }
+                .foregroundStyle(isSaved ? Color.smBackground : Color.smEmerald)
+                .frame(maxWidth: .infinity)
+                .frame(height: SMTheme.buttonHeight)
+                .background(isSaved ? Color.smEmerald : Color.smEmerald.opacity(0.12))
+                .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+                .overlay(
+                    isSaved ? nil :
+                    RoundedRectangle(cornerRadius: SMTheme.cornerRadius)
+                        .stroke(Color.smEmerald.opacity(0.3), lineWidth: 1)
+                )
+            }
+            .padding(.horizontal)
+
+            // Share to Stories
+            Button(action: generateShareCard) {
+                Label("Share to Stories", systemImage: "square.and.arrow.up")
+                    .font(SMFont.headline(16))
+                    .foregroundStyle(Color.smBackground)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: SMTheme.buttonHeight)
+                    .background(LinearGradient.smGoldGradient)
+                    .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+            }
+            .padding(.horizontal)
+
+            // Regenerate + Try Different Mood row
+            HStack(spacing: 10) {
+                // Regenerate Match
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    EventLogger.shared.log(EventLogger.regenerateMatch, metadata: [
+                        "type": "same_photo"
+                    ])
+                    print("[Analytics] regenerate_match: same_photo")
+                    dismiss()
+                    onRegenerate?()
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .font(.system(size: 13, weight: .semibold))
+                        Text("Regenerate")
+                            .font(SMFont.headline(14))
+                    }
+                    .foregroundStyle(Color.smTextPrimary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+                    .background(Color.smSurfaceElevated)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
+                    )
+                }
+
+                // Try Different Mood
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    showMoodPicker = true
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "theatermasks")
+                            .font(.system(size: 13, weight: .semibold))
+                        Text("Try Mood")
+                            .font(SMFont.headline(14))
+                    }
+                    .foregroundStyle(Color.smGold)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+                    .background(Color.smGold.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.smGold.opacity(0.25), lineWidth: 0.5)
+                    )
+                }
+            }
+            .padding(.horizontal)
+
+            // Done
+            Button(action: { dismiss() }) {
+                Text("Done")
+                    .font(SMFont.headline(17))
+                    .foregroundStyle(Color.smTextSecondary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+            }
+            .padding(.horizontal)
         }
     }
 
@@ -306,7 +382,25 @@ struct ResultsRevealView: View {
         .padding(.horizontal)
     }
 
-    // MARK: - Share Card
+    // MARK: - Actions
+
+    private func saveToWardrobe() {
+        isSaved.toggle()
+        matchResult.isFavorited = isSaved
+
+        if isSaved {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            EventLogger.shared.log(EventLogger.savedToWardrobe, metadata: [
+                "fragrance": matchResult.recommendations.first?.id ?? "unknown",
+                "vibe_score": String(format: "%.0f", matchResult.vibeScore)
+            ])
+            WidgetDataBridge.shared.update(with: matchResult)
+            print("[Analytics] save_to_wardrobe: \(matchResult.id)")
+        } else {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            print("[Analytics] remove_from_wardrobe: \(matchResult.id)")
+        }
+    }
 
     private func generateShareCard() {
         let topFrag = recommendations.first?.fragrance()
@@ -314,13 +408,18 @@ struct ResultsRevealView: View {
         if let image = ShareCardGenerator.render(matchResult: matchResult, topFragrance: topFrag, score: topScore) {
             shareImage = image
             showShareSheet = true
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            EventLogger.shared.log(EventLogger.shareStoryCard, metadata: [
+                "fragrance": topFrag?.id ?? "unknown",
+                "vibe_score": String(format: "%.0f", matchResult.vibeScore)
+            ])
+            print("[Analytics] share_story_card: \(matchResult.id)")
         }
     }
 
     // MARK: - Reveal Sequence
 
     private func triggerRevealSequence() {
-        // Haptic for arrival
         let impact = UIImpactFeedbackGenerator(style: .medium)
         impact.impactOccurred()
 
@@ -333,17 +432,83 @@ struct ResultsRevealView: View {
                 showCards = true
             }
 
-            // Stagger card reveals
             for i in 0..<min(5, recommendations.count) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.15) {
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                         revealedCards.insert(i)
                     }
-                    // Haptic for each card
                     let light = UIImpactFeedbackGenerator(style: .light)
                     light.impactOccurred()
                 }
             }
+        }
+    }
+}
+
+// MARK: - Mood Picker Sheet
+
+struct MoodPickerSheet: View {
+    let onSelect: (String) -> Void
+
+    private let moods: [(name: String, icon: String)] = [
+        ("Bold & Confident", "flame.fill"),
+        ("Elegant & Refined", "crown.fill"),
+        ("Fresh & Energetic", "leaf.fill"),
+        ("Romantic & Sensual", "heart.fill"),
+        ("Mysterious & Dark", "moon.stars.fill"),
+        ("Cozy & Warm", "cup.and.saucer.fill"),
+        ("Minimal & Clean", "wind"),
+        ("Adventurous", "mountain.2.fill"),
+    ]
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Color.smBackground.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 10) {
+                        Text("What's your mood?")
+                            .font(SMFont.display(24))
+                            .foregroundStyle(Color.smTextPrimary)
+                            .padding(.top, 8)
+
+                        Text("We'll regenerate your match\nwith this vibe in mind")
+                            .font(SMFont.body(14))
+                            .foregroundStyle(Color.smTextSecondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom, 8)
+
+                        ForEach(moods, id: \.name) { mood in
+                            Button {
+                                onSelect(mood.name)
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: mood.icon)
+                                        .font(.system(size: 18))
+                                        .foregroundStyle(Color.smEmerald)
+                                        .frame(width: 32)
+
+                                    Text(mood.name)
+                                        .font(SMFont.headline(16))
+                                        .foregroundStyle(Color.smTextPrimary)
+
+                                    Spacer()
+
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 12, weight: .semibold))
+                                        .foregroundStyle(Color.smTextTertiary)
+                                }
+                                .padding(14)
+                                .background(Color.smSurfaceElevated)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

@@ -1,0 +1,281 @@
+/* ScentVibe AI — Español */
+
+// =============================================================================
+// MARK: - Navegación por Pestañas
+// =============================================================================
+
+"tab.matches" = "Afinidades";
+"tab.scan" = "Escanear";
+"tab.wardrobe" = "Vestidor";
+"tab.settings" = "Ajustes";
+
+// =============================================================================
+// MARK: - Onboarding — Pantalla 1: Bienvenida
+// =============================================================================
+
+"onboarding.welcome.title" = "Tu Esencia,\nDesvelada";
+"onboarding.welcome.subtitle" = "Elige una foto — encontraremos tu perfume en segundos.";
+"onboarding.welcome.choosePhoto" = "Elegir Foto";
+"onboarding.welcome.or" = "o";
+"onboarding.welcome.useDemo" = "Usar Demo";
+"onboarding.welcome.continue" = "Continuar";
+
+// =============================================================================
+// MARK: - Onboarding — Pantalla 2: Análisis IA
+// =============================================================================
+
+"onboarding.ai.title" = "Impulsado por\nIA de Vanguardia";
+"onboarding.ai.subtitle" = "Tres capas de inteligencia, una afinidad perfecta.";
+"onboarding.ai.vision" = "Análisis Visual";
+"onboarding.ai.visionDesc" = "Lectura de colores, texturas y ambiente";
+"onboarding.ai.matching" = "Afinidad IA";
+"onboarding.ai.matchingDesc" = "Mapeo de tu firma olfativa";
+"onboarding.ai.personalization" = "Personalización";
+"onboarding.ai.personalizationDesc" = "Calibración con tu ADN de estilo";
+
+// =============================================================================
+// MARK: - Onboarding — Pantalla 3: Primera Afinidad
+// =============================================================================
+
+"onboarding.match.title" = "Tu Primera\nAfinidad Perfecta";
+"onboarding.match.vibeMatch" = "Afinidad Vibe";
+"onboarding.match.seeProfile" = "Ver Tu Perfil Completo";
+
+// =============================================================================
+// MARK: - Onboarding — Pantalla 4: Oferta Personalizada
+// =============================================================================
+
+"onboarding.paywall.designTrial" = "Diseña Tu Prueba";
+"onboarding.paywall.basedOnAnalysis" = "Según tu análisis «%@»…";
+"onboarding.paywall.vibeAlignment" = "Pasa de %@ → 88 de Armonía Vibe en solo 7 días";
+"onboarding.paywall.limitedPricing" = "Precio exclusivo de lanzamiento";
+"onboarding.paywall.maybeLater" = "Quizás más tarde";
+"onboarding.paywall.restore" = "Restaurar";
+"onboarding.paywall.feature.unlimited" = "Afinidades de aromas ilimitadas";
+"onboarding.paywall.feature.wardrobe" = "Vestidor olfativo personalizado";
+"onboarding.paywall.feature.fragrances" = "86+ fragancias de 5 regiones";
+"onboarding.paywall.feature.premium" = "Recomendaciones IA premium";
+"onboarding.paywall.feature.alerts" = "Alertas de nuevas fragancias";
+"onboarding.paywall.startTrial" = "Comenzar Prueba Gratuita";
+"onboarding.paywall.continueWith" = "Continuar con %d pruebas gratis";
+"onboarding.paywall.legal" = "El pago se cargará a tu ID de Apple al confirmar. La suscripción se renueva automáticamente, salvo cancelación al menos 24 horas antes del fin del período actual.";
+"onboarding.paywall.terms" = "Términos";
+"onboarding.paywall.privacy" = "Privacidad";
+"onboarding.paywall.guarantee" = "Cancela cuando quieras · Pausa flexible · Sin riesgo";
+
+// =============================================================================
+// MARK: - Onboarding — Prueba Social
+// =============================================================================
+
+"onboarding.social.joinedThisWeek" = "2.847 amantes de los aromas se unieron esta semana";
+"onboarding.social.rated" = "Valorado con 4,9★ por entusiastas del perfume";
+"onboarding.social.joinCount" = "Únete a los más de 50.000 que encontraron su aroma insignia";
+"onboarding.social.featured" = "Destacado en Vogue, GQ & Hypebeast";
+
+// =============================================================================
+// MARK: - Vista de Escaneo
+// =============================================================================
+
+"scan.appName" = "ScentVibe";
+"scan.remaining" = "%d restantes";
+"scan.title" = "Encuentra Tu Aroma Ideal";
+"scan.subtitle" = "Toma una foto de tu outfit o espacio\ny descubre tu fragancia perfecta";
+"scan.takePhoto" = "Tomar Foto";
+"scan.chooseLibrary" = "Elegir de la Biblioteca";
+"scan.testHarness" = "Banco de Pruebas";
+
+// =============================================================================
+// MARK: - Animación de Escaneo
+// =============================================================================
+
+"scanning.title" = "Analizando Tu Esencia";
+"scanning.subtitle" = "Detectando colores, ambiente y estilo…";
+
+// =============================================================================
+// MARK: - Resultados / Revelación
+// =============================================================================
+
+"results.yourMatch" = "Tu Afinidad";
+"results.yourMatches" = "Tus Afinidades Olfativas";
+"results.savedToWardrobe" = "Guardado en el Vestidor";
+"results.saveToWardrobe" = "Guardar en Mi Vestidor";
+"results.shareStories" = "Compartir en Stories";
+"results.regenerate" = "Regenerar";
+"results.tryMood" = "Elegir Ánimo";
+"results.done" = "Listo";
+
+// Calidad del Vibe Score
+"results.quality.exceptional" = "¡Afinidad excepcional!";
+"results.quality.strong" = "Afinidad fuerte";
+"results.quality.good" = "Buena afinidad";
+"results.quality.interesting" = "Combinación intrigante";
+
+// =============================================================================
+// MARK: - Selector de Ánimo
+// =============================================================================
+
+"mood.title" = "¿Cuál es tu ánimo?";
+"mood.subtitle" = "Regeneraremos tu afinidad\ncon esta vibra en mente";
+"mood.bold" = "Audaz & Seguro";
+"mood.elegant" = "Elegante & Refinado";
+"mood.fresh" = "Fresco & Enérgico";
+"mood.romantic" = "Romántico & Sensual";
+"mood.mysterious" = "Misterioso & Oscuro";
+"mood.cozy" = "Acogedor & Cálido";
+"mood.minimal" = "Minimalista & Puro";
+"mood.adventurous" = "Aventurero";
+
+// =============================================================================
+// MARK: - Detalle de la Afinidad
+// =============================================================================
+
+"detail.vibeScore" = "Vibe Score";
+"detail.matchPercent" = "%@%% de afinidad";
+"detail.byHouse" = "de %@";
+"detail.whyItMatches" = "Por Qué Armoniza";
+"detail.detectedColors" = "Colores detectados:";
+"detail.fragranceNotes" = "Notas Olfativas";
+"detail.notes.top" = "SALIDA";
+"detail.notes.topDesc" = "Primera impresión · 15 min";
+"detail.notes.heart" = "CORAZÓN";
+"detail.notes.heartDesc" = "Carácter profundo · 2-4 h";
+"detail.notes.base" = "FONDO";
+"detail.notes.baseDesc" = "Fundamento · 4-8+ h";
+"detail.priceRange" = "Rango de Precio";
+"detail.style" = "Estilo";
+"detail.region" = "Región";
+"detail.season" = "Temporada";
+"detail.shopOn" = "Comprar en %@";
+"detail.amazonDisclaimer" = "Como Asociado de Amazon, obtenemos ingresos por compras que califican";
+"detail.shareStoryCard" = "Compartir Story Card";
+"detail.otherMatches" = "Otras Afinidades";
+
+// =============================================================================
+// MARK: - Panel Principal
+// =============================================================================
+
+"dashboard.title" = "Tus Afinidades";
+"dashboard.emptyTitle" = "Sin Afinidades Aún";
+"dashboard.emptySubtitle" = "Escanea tu primer outfit o espacio\npara descubrir tu aroma ideal";
+
+// =============================================================================
+// MARK: - Mi Vestidor Vibe
+// =============================================================================
+
+"wardrobe.title" = "Mi Vestidor Vibe";
+"wardrobe.emptyTitle" = "Tu Vestidor Está Vacío";
+"wardrobe.emptySubtitle" = "Toca el ♡ en cualquier resultado\npara guardarlo en tu vestidor olfativo";
+"wardrobe.goToScan" = "Ir al Escáner";
+"wardrobe.remove" = "Eliminar del Vestidor";
+"wardrobe.shareCard" = "Compartir Story Card";
+
+// =============================================================================
+// MARK: - Ajustes
+// =============================================================================
+
+"settings.title" = "Ajustes";
+"settings.account" = "Cuenta";
+"settings.pro" = "ScentVibe Pro";
+"settings.freePlan" = "Plan Gratuito";
+"settings.matchesUsed" = "%d afinidades usadas";
+"settings.upgrade" = "Mejorar Plan";
+"settings.preferences" = "Preferencias";
+"settings.preferredRegion" = "Región Preferida";
+"settings.allRegions" = "Todas las Regiones";
+"settings.fragranceStyle" = "Estilo Olfativo";
+"settings.allStyles" = "Todos los Estilos";
+"settings.data" = "Datos";
+"settings.exportHistory" = "Exportar Historial de Afinidades";
+"settings.exportAnalytics" = "Exportar Estadísticas";
+"settings.matchCount" = "%d afinidades";
+"settings.eventCount" = "%d eventos";
+"settings.statistics" = "Estadísticas";
+"settings.totalMatches" = "Total de Afinidades";
+"settings.favorites" = "Favoritos";
+"settings.affiliateTaps" = "Clics de Afiliados";
+"settings.fragrancesInLibrary" = "Fragancias en la Biblioteca";
+"settings.dangerZone" = "Zona de Riesgo";
+"settings.deleteAll" = "Eliminar Todas las Afinidades";
+"settings.about" = "Acerca de";
+"settings.version" = "Versión";
+"settings.build" = "Build";
+"settings.privacyPolicy" = "Política de Privacidad";
+"settings.termsOfUse" = "Términos de Uso";
+"settings.deleteConfirmTitle" = "Eliminar Todo";
+"settings.cancel" = "Cancelar";
+"settings.deleteConfirmMessage" = "Esto eliminará permanentemente las %d afinidad(es). Esta acción no se puede deshacer.";
+
+// =============================================================================
+// MARK: - Paywall (Independiente)
+// =============================================================================
+
+"paywall.title" = "Desbloquea ScentVibe Pro";
+"paywall.usageCount" = "Has usado %d de %d afinidades gratuitas";
+"paywall.restorePurchases" = "Restaurar Compras";
+"paywall.error" = "Error";
+"paywall.continueWith" = "Continuar con %@";
+"paywall.legal" = "El pago se cargará a tu cuenta de ID de Apple al confirmar la compra. La suscripción se renueva automáticamente, salvo cancelación al menos 24 horas antes del final del período vigente.";
+"paywall.termsOfUse" = "Términos de Uso";
+"paywall.privacyPolicy" = "Política de Privacidad";
+
+// =============================================================================
+// MARK: - Niveles de Suscripción
+// =============================================================================
+
+"tier.monthly" = "Mensual";
+"tier.yearly" = "Anual";
+"tier.lifetime" = "De por Vida";
+"tier.monthlyPrice" = "4,99 $/mes";
+"tier.yearlyPrice" = "2,50 $/mes";
+"tier.lifetimeLabel" = "Pago único";
+"tier.mostPopular" = "Más Popular";
+"tier.bestValue" = "Mejor Oferta";
+
+// =============================================================================
+// MARK: - Story Card
+// =============================================================================
+
+"share.appName" = "ScentVibe AI";
+"share.vibeScore" = "VIBE %@";
+"share.yourMatch" = "TU AFINIDAD OLFATIVA";
+"share.fragranceNotes" = "NOTAS OLFATIVAS";
+"share.notes.top" = "SALIDA";
+"share.notes.heart" = "CORAZÓN";
+"share.notes.base" = "FONDO";
+"share.tryScentVibe" = "Prueba ScentVibe AI";
+"share.appStore" = "Disponible en el App Store";
+"share.quality.exceptional" = "Excepcional";
+"share.quality.strong" = "Afinidad Fuerte";
+"share.quality.good" = "Buena Afinidad";
+"share.quality.interesting" = "Intrigante";
+
+// =============================================================================
+// MARK: - Widget
+// =============================================================================
+
+"widget.todaysVibe" = "VIBE DE HOY";
+"widget.noMatches" = "Sin Afinidades";
+"widget.scanFirst" = "Escanea tu primer outfit";
+"widget.toSeeVibe" = "para ver tu vibe";
+"widget.scanOutfit" = "Escanear un outfit";
+"widget.displayName" = "Vibe de Hoy";
+"widget.description" = "Tu última afinidad olfativa de un vistazo.";
+
+// =============================================================================
+// MARK: - Notificaciones
+// =============================================================================
+
+"notification.title" = "¿Cuál es Tu Vibe Hoy?";
+"notification.body" = "Fotografía tu outfit y descubre tu afinidad olfativa perfecta para el día.";
+
+// =============================================================================
+// MARK: - Común / Compartido
+// =============================================================================
+
+"common.vibeMatch" = "Afinidad Vibe";
+"common.vibeScore" = "Vibe Score";
+"common.cancel" = "Cancelar";
+"common.done" = "Listo";
+"common.next" = "Siguiente";
+"common.skip" = "Omitir";
+"common.ok" = "Aceptar";

@@ -24,10 +24,20 @@ final class MatchingEngine {
 
     // MARK: - Main Matching
 
-    func findMatches(for analysis: ImageAnalysisResult, count: Int = 5, preferredRegion: FragranceRegion? = nil, preferredGender: Gender? = nil) -> [RecommendationEntry] {
+    func findMatches(for analysis: ImageAnalysisResult, count: Int = 5, preferredRegion: FragranceRegion? = nil, preferredGender: Gender? = nil, moodOverride: String? = nil) -> [RecommendationEntry] {
+
+        // If a mood override is provided, boost fragrances that match the requested mood
+        let moodBoostTags = Self.moodTagsForOverride(moodOverride)
 
         var scored = database.fragrances.map { fragrance -> (Fragrance, Double) in
-            let score = computeScore(fragrance: fragrance, analysis: analysis)
+            var score = computeScore(fragrance: fragrance, analysis: analysis)
+
+            // Apply mood override boost
+            if !moodBoostTags.isEmpty {
+                let overlap = fragrance.moodTags.filter { moodBoostTags.contains($0) }.count
+                score += Double(overlap) * 0.06
+            }
+
             return (fragrance, score)
         }
 
@@ -309,5 +319,31 @@ final class MatchingEngine {
         }
 
         return Array(result.prefix(targetCount))
+    }
+
+    // MARK: - Mood Override Mapping
+
+    private static func moodTagsForOverride(_ override: String?) -> Set<MoodTag> {
+        guard let mood = override?.lowercased() else { return [] }
+        switch mood {
+        case let m where m.contains("bold"):
+            return [.bold, .confident, .rebellious, .energetic]
+        case let m where m.contains("elegant"):
+            return [.elegant, .sophisticated, .opulent, .vintage]
+        case let m where m.contains("fresh"):
+            return [.fresh, .energetic, .natural, .cool]
+        case let m where m.contains("romantic"):
+            return [.romantic, .sensual, .warm, .elegant]
+        case let m where m.contains("mysterious"):
+            return [.mysterious, .sensual, .sophisticated, .opulent]
+        case let m where m.contains("cozy"):
+            return [.cozy, .warm, .romantic, .vintage]
+        case let m where m.contains("minimal"):
+            return [.minimal, .serene, .fresh, .cool]
+        case let m where m.contains("adventur"):
+            return [.energetic, .bold, .tropical, .natural]
+        default:
+            return []
+        }
     }
 }

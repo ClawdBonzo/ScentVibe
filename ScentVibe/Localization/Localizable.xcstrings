@@ -1,247 +1,1473 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "onboarding_title_1": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Snap Your Style" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Fange deinen Stil ein" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Captura tu Estilo" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Capture seu Estilo" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Captez votre Style" } }
-      }
-    },
-    "onboarding_subtitle_1": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Take a photo of your outfit or room and let AI analyze your visual vibe" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Mach ein Foto deines Outfits oder Raums und lass die KI deine visuelle Stimmung analysieren" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Toma una foto de tu outfit o habitacion y deja que la IA analice tu vibra visual" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tire uma foto do seu look ou ambiente e deixe a IA analisar sua vibe visual" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Prenez une photo de votre tenue ou piece et laissez l'IA analyser votre ambiance visuelle" } }
-      }
-    },
-    "onboarding_title_2": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Instant Scent Match" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Sofortiger Duft-Match" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Match de Aroma Instantaneo" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacao de Aroma Instantanea" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Match Parfum Instantane" } }
-      }
-    },
-    "onboarding_subtitle_2": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Our engine matches your colors, mood, and style to the perfect fragrance from 86+ curated scents" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Unsere Engine matched deine Farben, Stimmung und Stil mit dem perfekten Duft aus 86+ kuratierten Duften" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Nuestro motor combina tus colores, estado de animo y estilo con la fragancia perfecta de mas de 86 aromas curados" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Nosso motor combina suas cores, humor e estilo com a fragrancia perfeita de mais de 86 aromas curados" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Notre moteur associe vos couleurs, humeur et style au parfum parfait parmi plus de 86 fragrances selectionnees" } }
-      }
-    },
-    "onboarding_title_3": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Discover & Collect" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Entdecken & Sammeln" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Descubre y Colecciona" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Descubra e Colecione" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Decouvrez et Collectionnez" } }
-      }
-    },
-    "onboarding_subtitle_3": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Build your scent wardrobe, explore fragrances from 5 cultures, and shop your favorites" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Erstelle deine Duft-Garderobe, entdecke Duefte aus 5 Kulturen und kaufe deine Favoriten" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Construye tu guardarropa de aromas, explora fragancias de 5 culturas y compra tus favoritos" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Monte seu guarda-roupa de aromas, explore fragancias de 5 culturas e compre seus favoritos" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Construisez votre garde-robe olfactive, explorez des parfums de 5 cultures et achetez vos favoris" } }
-      }
-    },
-    "onboarding_start": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Start Scanning" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Jetzt scannen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Comenzar a Escanear" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Comecar a Escanear" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Commencer le Scan" } }
-      }
-    },
-    "onboarding_next": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Next" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Weiter" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Siguiente" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Proximo" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Suivant" } }
-      }
-    },
-    "onboarding_skip": {
-      "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Skip" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Uberspringen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Omitir" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Pular" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Passer" } }
-      }
-    },
-    "tab_matches": {
+
+    "tab.matches": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accords" } },
         "de": { "stringUnit": { "state": "translated", "value": "Matches" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Coincidencias" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacoes" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Matchs" } }
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidades" } }
       }
     },
-    "tab_scan": {
+    "tab.scan": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Scan" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Scanner" } },
         "de": { "stringUnit": { "state": "translated", "value": "Scannen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Escanear" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escanear" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Scanner" } }
+        "it": { "stringUnit": { "state": "translated", "value": "Scansione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Escanear" } }
       }
     },
-    "tab_settings": {
+    "tab.wardrobe": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vestiaire" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Garderobe" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Guardaroba" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Vestidor" } }
+      }
+    },
+    "tab.settings": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Settings" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Réglages" } },
         "de": { "stringUnit": { "state": "translated", "value": "Einstellungen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Ajustes" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Configuracoes" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Reglages" } }
+        "it": { "stringUnit": { "state": "translated", "value": "Impostazioni" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Ajustes" } }
       }
     },
-    "scan_title": {
+
+    "onboarding.welcome.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Your Scent,\nDecoded" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Votre Essence,\nRévélée" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dein Duft,\nEntschlüsselt" } },
+        "it": { "stringUnit": { "state": "translated", "value": "La Tua Essenza,\nSvelata" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tu Esencia,\nDesvelada" } }
+      }
+    },
+    "onboarding.welcome.subtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Pick a photo — we'll match your fragrance in seconds." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Choisissez une photo — nous trouverons votre parfum en quelques secondes." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Wähle ein Foto — wir finden deinen Duft in Sekunden." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scegli una foto — troveremo il tuo profumo in pochi secondi." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Elige una foto — encontraremos tu perfume en segundos." } }
+      }
+    },
+    "onboarding.welcome.choosePhoto": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Choose Photo" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Choisir une Photo" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Foto Wählen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scegli una Foto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Elegir Foto" } }
+      }
+    },
+    "onboarding.welcome.or": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "or" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "ou" } },
+        "de": { "stringUnit": { "state": "translated", "value": "oder" } },
+        "it": { "stringUnit": { "state": "translated", "value": "oppure" } },
+        "es": { "stringUnit": { "state": "translated", "value": "o" } }
+      }
+    },
+    "onboarding.welcome.useDemo": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Use Demo" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Essayer la Démo" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Demo Nutzen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Prova la Demo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Usar Demo" } }
+      }
+    },
+    "onboarding.welcome.continue": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Continue" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Continuer" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Weiter" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Continua" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Continuar" } }
+      }
+    },
+
+    "onboarding.ai.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Powered by\nAdvanced AI" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Propulsé par une\nIA d'Exception" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Angetrieben von\nModernster KI" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Alimentato da\nIA d'Avanguardia" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Impulsado por\nIA de Vanguardia" } }
+      }
+    },
+    "onboarding.ai.subtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Three layers of intelligence, one perfect match." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Trois niveaux d'intelligence, un accord parfait." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Drei Ebenen der Intelligenz, ein perfekter Match." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Tre livelli d'intelligenza, un abbinamento perfetto." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tres capas de inteligencia, una afinidad perfecta." } }
+      }
+    },
+    "onboarding.ai.vision": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Vision Analysis" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Analyse Visuelle" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Visuelle Analyse" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Analisi Visiva" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Análisis Visual" } }
+      }
+    },
+    "onboarding.ai.visionDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Reading colors, textures & mood" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Lecture des couleurs, textures et ambiance" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erkennung von Farben, Texturen & Stimmung" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Lettura di colori, texture e atmosfera" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Lectura de colores, texturas y ambiente" } }
+      }
+    },
+    "onboarding.ai.matching": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "AI Matching" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord IA" } },
+        "de": { "stringUnit": { "state": "translated", "value": "KI-Matching" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamento IA" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidad IA" } }
+      }
+    },
+    "onboarding.ai.matchingDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Mapping your scent signature" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Cartographie de votre signature olfactive" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kartierung deiner Duftsignatur" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Mappatura della tua firma olfattiva" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Mapeo de tu firma olfativa" } }
+      }
+    },
+    "onboarding.ai.personalization": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Personalization" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Personnalisation" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Personalisierung" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Personalizzazione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Personalización" } }
+      }
+    },
+    "onboarding.ai.personalizationDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Tuning to your style DNA" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Calibrage sur votre ADN stylistique" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Feinabstimmung auf deine Stil-DNA" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Sintonizzazione sul tuo DNA stilistico" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Calibración con tu ADN de estilo" } }
+      }
+    },
+
+    "onboarding.match.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Your First\nPerfect Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Votre Premier\nAccord Parfait" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dein Erster\nPerfekter Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il Tuo Primo\nAbbinamento Perfetto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tu Primera\nAfinidad Perfecta" } }
+      }
+    },
+    "onboarding.match.vibeMatch": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidad Vibe" } }
+      }
+    },
+    "onboarding.match.seeProfile": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "See Your Full Profile" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Voir Votre Profil Complet" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dein Vollständiges Profil" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scopri il Tuo Profilo Completo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Ver Tu Perfil Completo" } }
+      }
+    },
+
+    "onboarding.paywall.designTrial": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Design Your Trial" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Composez Votre Essai" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Gestalte Deine Testphase" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Crea la Tua Prova" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Diseña Tu Prueba" } }
+      }
+    },
+    "onboarding.paywall.basedOnAnalysis": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Based on your \"%@\" analysis…" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "D'après votre analyse « %@ »…" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Basierend auf deiner \u201E%@\u201C-Analyse\u2026" } },
+        "it": { "stringUnit": { "state": "translated", "value": "In base alla tua analisi «%@»…" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Según tu análisis «%@»…" } }
+      }
+    },
+    "onboarding.paywall.vibeAlignment": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Go from %@ → 88 Vibe Alignment in just 7 days" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Passez de %@ → 88 d'Alignement Vibe en 7 jours" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Von %@ → 88 Vibe-Harmonie in nur 7 Tagen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Passa da %@ → 88 di Armonia Vibe in soli 7 giorni" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Pasa de %@ → 88 de Armonía Vibe en solo 7 días" } }
+      }
+    },
+    "onboarding.paywall.limitedPricing": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Limited-time launch pricing" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Tarif de lancement exclusif" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Exklusiver Einführungspreis" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Prezzo esclusivo di lancio" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Precio exclusivo de lanzamiento" } }
+      }
+    },
+    "onboarding.paywall.maybeLater": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Maybe later" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Peut-être plus tard" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Vielleicht später" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Forse più tardi" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Quizás más tarde" } }
+      }
+    },
+    "onboarding.paywall.restore": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Restore" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Restaurer" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Wiederherstellen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Ripristina" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Restaurar" } }
+      }
+    },
+    "onboarding.paywall.feature.unlimited": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Unlimited scent matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accords de parfums illimités" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Unbegrenzte Duft-Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamenti di profumi illimitati" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidades de aromas ilimitadas" } }
+      }
+    },
+    "onboarding.paywall.feature.wardrobe": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Personalized scent wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vestiaire olfactif personnalisé" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Persönliche Duft-Garderobe" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Guardaroba olfattivo personalizzato" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Vestidor olfativo personalizado" } }
+      }
+    },
+    "onboarding.paywall.feature.fragrances": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "86+ fragrances from 5 regions" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "86+ fragrances de 5 régions" } },
+        "de": { "stringUnit": { "state": "translated", "value": "86+ Düfte aus 5 Regionen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "86+ fragranze da 5 regioni" } },
+        "es": { "stringUnit": { "state": "translated", "value": "86+ fragancias de 5 regiones" } }
+      }
+    },
+    "onboarding.paywall.feature.premium": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Premium AI recommendations" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Recommandations IA premium" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Premium-KI-Empfehlungen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Raccomandazioni IA premium" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Recomendaciones IA premium" } }
+      }
+    },
+    "onboarding.paywall.feature.alerts": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "New fragrance drop alerts" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Alertes nouvelles fragrances" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Benachrichtigung bei neuen Düften" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Avvisi per nuove fragranze" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Alertas de nuevas fragancias" } }
+      }
+    },
+    "onboarding.paywall.startTrial": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Start Your Free Trial" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Commencer l'Essai Gratuit" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kostenlose Testphase Starten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Inizia la Prova Gratuita" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Comenzar Prueba Gratuita" } }
+      }
+    },
+    "onboarding.paywall.continueWith": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Continue with %d free matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Continuer avec %d essais gratuits" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Weiter mit %d kostenlosen Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Continua con %d prove gratuite" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Continuar con %d pruebas gratis" } }
+      }
+    },
+    "onboarding.paywall.legal": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Payment charged to your Apple ID at confirmation. Subscription auto-renews unless canceled 24 hrs before period end." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Paiement débité sur votre identifiant Apple à la confirmation. L'abonnement se renouvelle automatiquement, sauf annulation 24 h avant la fin de la période." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Die Zahlung wird bei Bestätigung über deine Apple-ID abgerechnet. Das Abo verlängert sich automatisch, sofern es nicht mindestens 24 Stunden vor Ablauf des Zeitraums gekündigt wird." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il pagamento verrà addebitato sul tuo ID Apple alla conferma. L'abbonamento si rinnova automaticamente salvo disdetta almeno 24 ore prima della scadenza del periodo in corso." } },
+        "es": { "stringUnit": { "state": "translated", "value": "El pago se cargará a tu ID de Apple al confirmar. La suscripción se renueva automáticamente, salvo cancelación al menos 24 horas antes del fin del período actual." } }
+      }
+    },
+    "onboarding.paywall.terms": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Terms" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Conditions" } },
+        "de": { "stringUnit": { "state": "translated", "value": "AGB" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Termini" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Términos" } }
+      }
+    },
+    "onboarding.paywall.privacy": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Privacy" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Confidentialité" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Datenschutz" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Privacy" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Privacidad" } }
+      }
+    },
+    "onboarding.paywall.guarantee": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Cancel anytime · Pause anytime · No risk" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Annulation libre · Pause possible · Sans engagement" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Jederzeit kündbar · Jederzeit pausierbar · Kein Risiko" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Cancella quando vuoi · Metti in pausa · Senza rischi" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Cancela cuando quieras · Pausa flexible · Sin riesgo" } }
+      }
+    },
+
+    "onboarding.social.joinedThisWeek": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "2,847 scent lovers joined this week" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "2 847 passionnés nous ont rejoints cette semaine" } },
+        "de": { "stringUnit": { "state": "translated", "value": "2.847 Duft-Liebhaber sind diese Woche beigetreten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "2.847 amanti dei profumi si sono uniti questa settimana" } },
+        "es": { "stringUnit": { "state": "translated", "value": "2.847 amantes de los aromas se unieron esta semana" } }
+      }
+    },
+    "onboarding.social.rated": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Rated 4.9★ by fragrance enthusiasts" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Noté 4,9★ par les amateurs de parfums" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Mit 4,9★ von Parfum-Kennern bewertet" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Valutato 4,9★ dagli appassionati di fragranze" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Valorado con 4,9★ por entusiastas del perfume" } }
+      }
+    },
+    "onboarding.social.joinCount": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Join 50,000+ who found their signature scent" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Rejoignez les 50 000+ qui ont trouvé leur signature" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Schließe dich 50.000+ an, die ihren Signaturduft gefunden haben" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Unisciti a oltre 50.000 che hanno trovato la loro firma olfattiva" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Únete a los más de 50.000 que encontraron su aroma insignia" } }
+      }
+    },
+    "onboarding.social.featured": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Featured in Vogue, GQ & Hypebeast" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vu dans Vogue, GQ & Hypebeast" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Bekannt aus Vogue, GQ & Hypebeast" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Presente su Vogue, GQ & Hypebeast" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Destacado en Vogue, GQ & Hypebeast" } }
+      }
+    },
+
+    "scan.appName": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "ScentVibe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "ScentVibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe" } },
+        "it": { "stringUnit": { "state": "translated", "value": "ScentVibe" } },
+        "es": { "stringUnit": { "state": "translated", "value": "ScentVibe" } }
+      }
+    },
+    "scan.remaining": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "%d left" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "%d restant(s)" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Noch %d" } },
+        "it": { "stringUnit": { "state": "translated", "value": "%d rimasti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "%d restantes" } }
+      }
+    },
+    "scan.title": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Find Your Scent Match" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Finde deinen Duft-Match" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Encuentra tu Aroma Ideal" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Encontre seu Aroma Ideal" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Trouvez votre Parfum Ideal" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Trouvez Votre Accord Parfait" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Finde Deinen Perfekten Duft" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Trova il Tuo Profumo Ideale" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Encuentra Tu Aroma Ideal" } }
       }
     },
-    "scan_subtitle": {
+    "scan.subtitle": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Snap a photo of your outfit or room\nand discover your perfect fragrance" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Mach ein Foto deines Outfits oder Raums\nund entdecke deinen perfekten Duft" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Toma una foto de tu outfit o habitacion\ny descubre tu fragancia perfecta" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tire uma foto do seu look ou ambiente\ne descubra sua fragrancia perfeita" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Prenez une photo de votre tenue ou piece\net decouvrez votre parfum ideal" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Photographiez votre tenue ou votre intérieur\net découvrez votre parfum idéal" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fotografiere dein Outfit oder deinen Raum\nund entdecke deinen idealen Duft" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scatta una foto del tuo outfit o ambiente\ne scopri la tua fragranza perfetta" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Toma una foto de tu outfit o espacio\ny descubre tu fragancia perfecta" } }
       }
     },
-    "scan_take_photo": {
+    "scan.takePhoto": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Take Photo" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Foto aufnehmen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Tomar Foto" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Tirar Foto" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Prendre une Photo" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Prendre une Photo" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Foto Aufnehmen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scatta una Foto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tomar Foto" } }
       }
     },
-    "scan_choose_library": {
+    "scan.chooseLibrary": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Choose from Library" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Aus Mediathek wahlen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Elegir de la Biblioteca" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escolher da Biblioteca" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Choisir dans la Bibliotheque" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Choisir dans la Photothèque" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Aus Mediathek Wählen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scegli dalla Libreria" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Elegir de la Biblioteca" } }
       }
     },
-    "scanning_title": {
+
+    "scanning.title": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Analyzing Your Vibe" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Analysiere deine Stimmung" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Analizando tu Vibra" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Analisando sua Vibe" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Analyse de votre Ambiance" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Analyse de Votre Ambiance" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Analyse Deiner Ausstrahlung" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Analisi della Tua Atmosfera" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Analizando Tu Esencia" } }
       }
     },
-    "paywall_title": {
+    "scanning.subtitle": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Unlock ScentVibe Pro" } },
-        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro freischalten" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Desbloquea ScentVibe Pro" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Desbloqueie o ScentVibe Pro" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Debloquez ScentVibe Pro" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Detecting colors, mood & style..." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Lecture des couleurs, de l'humeur et du style…" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erkennung von Farben, Stimmung & Stil…" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Rilevamento di colori, umore e stile…" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Detectando colores, ambiente y estilo…" } }
       }
     },
-    "paywall_unlimited": {
+
+    "results.yourMatch": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Unlimited Scent Matches" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Unbegrenzte Duft-Matches" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Matches de Aromas Ilimitados" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Combinacoes de Aromas Ilimitadas" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Matchs de Parfums Illimites" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Your Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Votre Accord" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dein Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il Tuo Abbinamento" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tu Afinidad" } }
       }
     },
-    "paywall_restore": {
+    "results.yourMatches": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Restore Purchases" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Kaufe wiederherstellen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Restaurar Compras" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Restaurar Compras" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Restaurer les Achats" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Your Scent Matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vos Accords Parfumés" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Deine Duft-Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "I Tuoi Abbinamenti Olfattivi" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tus Afinidades Olfativas" } }
       }
     },
-    "matches_empty_title": {
+    "results.savedToWardrobe": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "No Matches Yet" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Noch keine Matches" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Sin Coincidencias Aun" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Nenhuma Combinacao Ainda" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Aucun Match Encore" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Saved to Wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Ajouté au Vestiaire" } },
+        "de": { "stringUnit": { "state": "translated", "value": "In Garderobe Gespeichert" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Salvato nel Guardaroba" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Guardado en el Vestidor" } }
       }
     },
-    "matches_empty_subtitle": {
+    "results.saveToWardrobe": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Scan your first outfit or room\nto discover your scent match" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Scanne dein erstes Outfit oder deinen Raum\num deinen Duft-Match zu entdecken" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Escanea tu primer outfit o habitacion\npara descubrir tu aroma ideal" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Escaneie seu primeiro look ou ambiente\npara descobrir seu aroma ideal" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Scannez votre premiere tenue ou piece\npour decouvrir votre parfum ideal" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Save to My Wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Sauvegarder dans Mon Vestiaire" } },
+        "de": { "stringUnit": { "state": "translated", "value": "In Meine Garderobe Speichern" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Salva nel Mio Guardaroba" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Guardar en Mi Vestidor" } }
       }
     },
-    "detail_why_matches": {
+    "results.shareStories": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Share to Stories" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Partager en Story" } },
+        "de": { "stringUnit": { "state": "translated", "value": "In Stories Teilen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Condividi nelle Stories" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Compartir en Stories" } }
+      }
+    },
+    "results.regenerate": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Regenerate" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Relancer" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Neu Generieren" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Rigenera" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Regenerar" } }
+      }
+    },
+    "results.tryMood": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Try Mood" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Choisir une Humeur" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Stimmung Wählen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scegli Umore" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Elegir Ánimo" } }
+      }
+    },
+    "results.done": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Done" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Terminé" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fertig" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fatto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Listo" } }
+      }
+    },
+    "results.quality.exceptional": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Exceptional match!" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord exceptionnel !" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Außergewöhnlicher Match!" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamento eccezionale!" } },
+        "es": { "stringUnit": { "state": "translated", "value": "¡Afinidad excepcional!" } }
+      }
+    },
+    "results.quality.strong": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Strong match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord puissant" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Starker Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamento forte" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidad fuerte" } }
+      }
+    },
+    "results.quality.good": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Good match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Bel accord" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Guter Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Buon abbinamento" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Buena afinidad" } }
+      }
+    },
+    "results.quality.interesting": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Interesting combo" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Combinaison intrigante" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Spannende Kombination" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Combinazione intrigante" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Combinación intrigante" } }
+      }
+    },
+
+    "mood.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "What's your mood?" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Quelle est votre humeur ?" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Was ist deine Stimmung?" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Qual è il tuo umore?" } },
+        "es": { "stringUnit": { "state": "translated", "value": "¿Cuál es tu ánimo?" } }
+      }
+    },
+    "mood.subtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "We'll regenerate your match\nwith this vibe in mind" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Nous relancerons votre accord\navec cette atmosphère en tête" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Wir generieren deinen Match\nmit dieser Atmosphäre neu" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Rigenereremo il tuo abbinamento\ncon questa atmosfera in mente" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Regeneraremos tu afinidad\ncon esta vibra en mente" } }
+      }
+    },
+    "mood.bold": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Bold & Confident" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Audacieux & Assuré" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kühn & Selbstbewusst" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Audace & Sicuro" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Audaz & Seguro" } }
+      }
+    },
+    "mood.elegant": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Elegant & Refined" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Élégant & Raffiné" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Elegant & Raffiniert" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Elegante & Raffinato" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Elegante & Refinado" } }
+      }
+    },
+    "mood.fresh": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Fresh & Energetic" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Frais & Énergique" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Frisch & Energiegeladen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fresco & Energico" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Fresco & Enérgico" } }
+      }
+    },
+    "mood.romantic": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Romantic & Sensual" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Romantique & Sensuel" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Romantisch & Sinnlich" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Romantico & Sensuale" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Romántico & Sensual" } }
+      }
+    },
+    "mood.mysterious": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Mysterious & Dark" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Mystérieux & Sombre" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Geheimnisvoll & Dunkel" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Misterioso & Oscuro" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Misterioso & Oscuro" } }
+      }
+    },
+    "mood.cozy": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Cozy & Warm" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Chaleureux & Enveloppant" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Gemütlich & Warm" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Accogliente & Caldo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Acogedor & Cálido" } }
+      }
+    },
+    "mood.minimal": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Minimal & Clean" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Minimaliste & Épuré" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Minimalistisch & Klar" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Minimalista & Pulito" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Minimalista & Puro" } }
+      }
+    },
+    "mood.adventurous": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Adventurous" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Aventurier" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Abenteuerlustig" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Avventuroso" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Aventurero" } }
+      }
+    },
+
+    "detail.vibeScore": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Score Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Vibe Score" } }
+      }
+    },
+    "detail.matchPercent": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "%@%% match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "%@%% d'accord" } },
+        "de": { "stringUnit": { "state": "translated", "value": "%@%% Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "%@%% di affinità" } },
+        "es": { "stringUnit": { "state": "translated", "value": "%@%% de afinidad" } }
+      }
+    },
+    "detail.byHouse": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "by %@" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "par %@" } },
+        "de": { "stringUnit": { "state": "translated", "value": "von %@" } },
+        "it": { "stringUnit": { "state": "translated", "value": "di %@" } },
+        "es": { "stringUnit": { "state": "translated", "value": "de %@" } }
+      }
+    },
+    "detail.whyItMatches": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Why It Matches" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Warum es passt" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Por que Combina" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Por que Combina" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Pourquoi ca Matche" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Pourquoi Ça Matche" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Warum Es Passt" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Perché Si Abbina" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Por Qué Armoniza" } }
       }
     },
-    "detail_shop_amazon": {
+    "detail.detectedColors": {
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Shop on Amazon" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Auf Amazon kaufen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Comprar en Amazon" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Comprar na Amazon" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Acheter sur Amazon" } }
+        "en": { "stringUnit": { "state": "translated", "value": "Detected colors:" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Couleurs détectées :" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erkannte Farben:" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Colori rilevati:" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Colores detectados:" } }
       }
     },
-    "settings_title": {
+    "detail.fragranceNotes": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Fragrance Notes" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Notes Olfactives" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Duftnoten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Note Olfattive" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Notas Olfativas" } }
+      }
+    },
+    "detail.notes.top": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "TOP" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "TÊTE" } },
+        "de": { "stringUnit": { "state": "translated", "value": "KOPF" } },
+        "it": { "stringUnit": { "state": "translated", "value": "TESTA" } },
+        "es": { "stringUnit": { "state": "translated", "value": "SALIDA" } }
+      }
+    },
+    "detail.notes.topDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "First impression · 15 min" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Première impression · 15 min" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erster Eindruck · 15 Min." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Prima impressione · 15 min" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Primera impresión · 15 min" } }
+      }
+    },
+    "detail.notes.heart": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "HEART" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "CŒUR" } },
+        "de": { "stringUnit": { "state": "translated", "value": "HERZ" } },
+        "it": { "stringUnit": { "state": "translated", "value": "CUORE" } },
+        "es": { "stringUnit": { "state": "translated", "value": "CORAZÓN" } }
+      }
+    },
+    "detail.notes.heartDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Core character · 2-4 hrs" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Caractère profond · 2-4 h" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kerncharakter · 2–4 Std." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Carattere profondo · 2-4 ore" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Carácter profundo · 2-4 h" } }
+      }
+    },
+    "detail.notes.base": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "BASE" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "FOND" } },
+        "de": { "stringUnit": { "state": "translated", "value": "BASIS" } },
+        "it": { "stringUnit": { "state": "translated", "value": "FONDO" } },
+        "es": { "stringUnit": { "state": "translated", "value": "FONDO" } }
+      }
+    },
+    "detail.notes.baseDesc": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Foundation · 4-8+ hrs" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Sillage · 4-8 h+" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fundament · 4–8+ Std." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fondamento · 4-8+ ore" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Fundamento · 4-8+ h" } }
+      }
+    },
+    "detail.priceRange": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Price Range" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Gamme de Prix" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Preisklasse" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fascia di Prezzo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Rango de Precio" } }
+      }
+    },
+    "detail.style": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Style" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Style" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Stil" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Stile" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Estilo" } }
+      }
+    },
+    "detail.region": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Region" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Région" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Region" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Regione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Región" } }
+      }
+    },
+    "detail.season": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Season" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Saison" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Saison" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Stagione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Temporada" } }
+      }
+    },
+    "detail.shopOn": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Shop on %@" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Acheter sur %@" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kaufen auf %@" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Acquista su %@" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Comprar en %@" } }
+      }
+    },
+    "detail.amazonDisclaimer": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "As an Amazon Associate, we earn from qualifying purchases" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "En tant que partenaire Amazon, nous percevons une commission sur les achats éligibles" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Als Amazon-Partner verdienen wir an qualifizierten Verkäufen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "In qualità di Associato Amazon, riceviamo un compenso dagli acquisti idonei" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Como Asociado de Amazon, obtenemos ingresos por compras que califican" } }
+      }
+    },
+    "detail.shareStoryCard": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Share Story Card" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Partager la Story Card" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Story Card Teilen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Condividi la Story Card" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Compartir Story Card" } }
+      }
+    },
+    "detail.otherMatches": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Other Matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Autres Accords" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Weitere Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Altri Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Otras Afinidades" } }
+      }
+    },
+
+    "dashboard.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Your Matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vos Accords" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Deine Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "I Tuoi Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tus Afinidades" } }
+      }
+    },
+    "dashboard.emptyTitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "No Matches Yet" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Aucun Accord Pour le Moment" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Noch Keine Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Nessun Abbinamento Ancora" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Sin Afinidades Aún" } }
+      }
+    },
+    "dashboard.emptySubtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Scan your first outfit or room\nto discover your scent match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Scannez votre première tenue ou pièce\npour révéler votre parfum idéal" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Scanne dein erstes Outfit oder deinen Raum\num deinen idealen Duft zu entdecken" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scansiona il tuo primo outfit o ambiente\nper scoprire il tuo profumo ideale" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Escanea tu primer outfit o espacio\npara descubrir tu aroma ideal" } }
+      }
+    },
+
+    "wardrobe.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "My Vibe Wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Mon Vestiaire Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Meine Vibe-Garderobe" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il Mio Guardaroba Vibe" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Mi Vestidor Vibe" } }
+      }
+    },
+    "wardrobe.emptyTitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Your Wardrobe is Empty" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Votre Vestiaire est Vide" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Deine Garderobe ist Leer" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il Tuo Guardaroba è Vuoto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tu Vestidor Está Vacío" } }
+      }
+    },
+    "wardrobe.emptySubtitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Tap the ♡ on any match result\nto save it to your scent wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Appuyez sur le ♡ de n'importe quel résultat\npour le sauvegarder dans votre vestiaire olfactif" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Tippe auf das ♡ bei einem Ergebnis,\num es in deiner Duft-Garderobe zu speichern" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Tocca il ♡ su qualsiasi risultato\nper salvarlo nel tuo guardaroba olfattivo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Toca el ♡ en cualquier resultado\npara guardarlo en tu vestidor olfativo" } }
+      }
+    },
+    "wardrobe.goToScan": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Go to Scan" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Lancer un Scan" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Zum Scanner" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vai alla Scansione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Ir al Escáner" } }
+      }
+    },
+    "wardrobe.remove": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Remove from Wardrobe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Retirer du Vestiaire" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Aus Garderobe Entfernen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Rimuovi dal Guardaroba" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Eliminar del Vestidor" } }
+      }
+    },
+    "wardrobe.shareCard": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Share Story Card" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Partager la Story Card" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Story Card Teilen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Condividi la Story Card" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Compartir Story Card" } }
+      }
+    },
+
+    "settings.title": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Settings" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Réglages" } },
         "de": { "stringUnit": { "state": "translated", "value": "Einstellungen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Ajustes" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Configuracoes" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Reglages" } }
+        "it": { "stringUnit": { "state": "translated", "value": "Impostazioni" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Ajustes" } }
       }
     },
-    "settings_export": {
+    "settings.account": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Account" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Compte" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Konto" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Account" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Cuenta" } }
+      }
+    },
+    "settings.pro": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro" } },
+        "it": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro" } },
+        "es": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro" } }
+      }
+    },
+    "settings.freePlan": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Free Plan" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Offre Gratuite" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kostenlos" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Piano Gratuito" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Plan Gratuito" } }
+      }
+    },
+    "settings.matchesUsed": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "%d matches used" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "%d essais utilisés" } },
+        "de": { "stringUnit": { "state": "translated", "value": "%d Matches genutzt" } },
+        "it": { "stringUnit": { "state": "translated", "value": "%d abbinamenti usati" } },
+        "es": { "stringUnit": { "state": "translated", "value": "%d afinidades usadas" } }
+      }
+    },
+    "settings.upgrade": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Upgrade" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Passer à Pro" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Upgrade" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Passa a Pro" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Mejorar Plan" } }
+      }
+    },
+    "settings.preferences": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Preferences" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Préférences" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Präferenzen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Preferenze" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Preferencias" } }
+      }
+    },
+    "settings.preferredRegion": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Preferred Region" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Région Préférée" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Bevorzugte Region" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Regione Preferita" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Región Preferida" } }
+      }
+    },
+    "settings.allRegions": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "All Regions" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Toutes les Régions" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Alle Regionen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Tutte le Regioni" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Todas las Regiones" } }
+      }
+    },
+    "settings.fragranceStyle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Fragrance Style" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Style de Parfum" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Duftstil" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Stile Olfattivo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Estilo Olfativo" } }
+      }
+    },
+    "settings.allStyles": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "All Styles" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Tous les Styles" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Alle Stile" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Tutti gli Stili" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Todos los Estilos" } }
+      }
+    },
+    "settings.data": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Data" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Données" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Daten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Dati" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Datos" } }
+      }
+    },
+    "settings.exportHistory": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Export Match History" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Match-Verlauf exportieren" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Exportar Historial" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Exportar Historico" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Exporter l'Historique" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Exporter l'Historique" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Match-Verlauf Exportieren" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Esporta Cronologia Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Exportar Historial de Afinidades" } }
       }
     },
-    "settings_delete_all": {
+    "settings.exportAnalytics": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Export Analytics" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Exporter les Statistiques" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Statistiken Exportieren" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Esporta Statistiche" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Exportar Estadísticas" } }
+      }
+    },
+    "settings.statistics": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Statistics" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Statistiques" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Statistiken" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Statistiche" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Estadísticas" } }
+      }
+    },
+    "settings.totalMatches": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Total Matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Total des Accords" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Matches Gesamt" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Totale Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Total de Afinidades" } }
+      }
+    },
+    "settings.favorites": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Favorites" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Favoris" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Favoriten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Preferiti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Favoritos" } }
+      }
+    },
+    "settings.affiliateTaps": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Affiliate Taps" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Clics Affiliés" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Affiliate-Klicks" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Clic Affiliati" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Clics de Afiliados" } }
+      }
+    },
+    "settings.fragrancesInLibrary": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Fragrances in Library" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Parfums en Bibliothèque" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Düfte in der Bibliothek" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fragranze in Libreria" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Fragancias en la Biblioteca" } }
+      }
+    },
+    "settings.dangerZone": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Danger Zone" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Zone Sensible" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Gefahrenzone" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Zona Critica" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Zona de Riesgo" } }
+      }
+    },
+    "settings.deleteAll": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Delete All Matches" } },
-        "de": { "stringUnit": { "state": "translated", "value": "Alle Matches loschen" } },
-        "es-MX": { "stringUnit": { "state": "translated", "value": "Eliminar Todos los Matches" } },
-        "pt-BR": { "stringUnit": { "state": "translated", "value": "Excluir Todas as Combinacoes" } },
-        "fr": { "stringUnit": { "state": "translated", "value": "Supprimer tous les Matchs" } }
+        "fr": { "stringUnit": { "state": "translated", "value": "Supprimer Tous les Accords" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Alle Matches Löschen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Elimina Tutti gli Abbinamenti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Eliminar Todas las Afinidades" } }
+      }
+    },
+    "settings.about": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "About" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "À Propos" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Über" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Info" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Acerca de" } }
+      }
+    },
+    "settings.version": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Version" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Version" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Version" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Versione" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Versión" } }
+      }
+    },
+    "settings.privacyPolicy": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Privacy Policy" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Politique de Confidentialité" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Datenschutzrichtlinie" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Informativa sulla Privacy" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Política de Privacidad" } }
+      }
+    },
+    "settings.termsOfUse": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Terms of Use" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Conditions d'Utilisation" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Nutzungsbedingungen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Termini di Utilizzo" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Términos de Uso" } }
+      }
+    },
+    "settings.deleteConfirmTitle": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Delete All" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Tout Supprimer" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Alles Löschen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Elimina Tutto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Eliminar Todo" } }
+      }
+    },
+    "settings.deleteConfirmMessage": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "This will permanently delete all %d match(es). This cannot be undone." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Cette action supprimera définitivement vos %d accord(s). Cette opération est irréversible." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dadurch werden alle %d Match(es) unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Questa azione eliminerà definitivamente tutti i %d abbinamento/i. L'operazione è irreversibile." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Esto eliminará permanentemente las %d afinidad(es). Esta acción no se puede deshacer." } }
+      }
+    },
+
+    "paywall.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Unlock ScentVibe Pro" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Débloquez ScentVibe Pro" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe Pro Freischalten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Sblocca ScentVibe Pro" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Desbloquea ScentVibe Pro" } }
+      }
+    },
+    "paywall.usageCount": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "You've used %d of %d free matches" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vous avez utilisé %d de vos %d essais gratuits" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Du hast %d von %d kostenlosen Matches genutzt" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Hai usato %d di %d abbinamenti gratuiti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Has usado %d de %d afinidades gratuitas" } }
+      }
+    },
+    "paywall.restorePurchases": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Restore Purchases" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Restaurer les Achats" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Käufe Wiederherstellen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Ripristina Acquisti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Restaurar Compras" } }
+      }
+    },
+    "paywall.legal": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Le paiement sera débité sur votre identifiant Apple à la confirmation. L'abonnement se renouvelle automatiquement, sauf annulation au moins 24 heures avant la fin de la période en cours." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Die Zahlung wird bei Bestätigung über dein Apple-ID-Konto abgerechnet. Das Abonnement verlängert sich automatisch, sofern es nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums gekündigt wird." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il pagamento verrà addebitato sul tuo account ID Apple alla conferma dell'acquisto. L'abbonamento si rinnova automaticamente salvo disdetta almeno 24 ore prima della scadenza del periodo in corso." } },
+        "es": { "stringUnit": { "state": "translated", "value": "El pago se cargará a tu cuenta de ID de Apple al confirmar la compra. La suscripción se renueva automáticamente, salvo cancelación al menos 24 horas antes del final del período vigente." } }
+      }
+    },
+
+    "tier.monthly": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Monthly" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Mensuel" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Monatlich" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Mensile" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Mensual" } }
+      }
+    },
+    "tier.yearly": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Yearly" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Annuel" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Jährlich" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Annuale" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Anual" } }
+      }
+    },
+    "tier.lifetime": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Lifetime" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "À Vie" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Lebenslang" } },
+        "it": { "stringUnit": { "state": "translated", "value": "A Vita" } },
+        "es": { "stringUnit": { "state": "translated", "value": "De por Vida" } }
+      }
+    },
+    "tier.mostPopular": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Most Popular" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Le Plus Populaire" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Am Beliebtesten" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il Più Popolare" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Más Popular" } }
+      }
+    },
+    "tier.bestValue": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Best Value" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Meilleure Offre" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Bestes Angebot" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Miglior Offerta" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Mejor Oferta" } }
+      }
+    },
+
+    "share.appName": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "ScentVibe AI" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "ScentVibe AI" } },
+        "de": { "stringUnit": { "state": "translated", "value": "ScentVibe AI" } },
+        "it": { "stringUnit": { "state": "translated", "value": "ScentVibe AI" } },
+        "es": { "stringUnit": { "state": "translated", "value": "ScentVibe AI" } }
+      }
+    },
+    "share.yourMatch": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "YOUR SCENT MATCH" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "VOTRE ACCORD PARFUMÉ" } },
+        "de": { "stringUnit": { "state": "translated", "value": "DEIN DUFT-MATCH" } },
+        "it": { "stringUnit": { "state": "translated", "value": "IL TUO ABBINAMENTO OLFATTIVO" } },
+        "es": { "stringUnit": { "state": "translated", "value": "TU AFINIDAD OLFATIVA" } }
+      }
+    },
+    "share.fragranceNotes": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "FRAGRANCE NOTES" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "NOTES OLFACTIVES" } },
+        "de": { "stringUnit": { "state": "translated", "value": "DUFTNOTEN" } },
+        "it": { "stringUnit": { "state": "translated", "value": "NOTE OLFATTIVE" } },
+        "es": { "stringUnit": { "state": "translated", "value": "NOTAS OLFATIVAS" } }
+      }
+    },
+    "share.tryScentVibe": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Try ScentVibe AI" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Essayez ScentVibe AI" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Entdecke ScentVibe AI" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Prova ScentVibe AI" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Prueba ScentVibe AI" } }
+      }
+    },
+    "share.appStore": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Available on the App Store" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Disponible sur l'App Store" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Erhältlich im App Store" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Disponibile su App Store" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Disponible en el App Store" } }
+      }
+    },
+    "share.quality.exceptional": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Exceptional" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Exceptionnel" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Außergewöhnlich" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Eccezionale" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Excepcional" } }
+      }
+    },
+    "share.quality.strong": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Strong Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord Puissant" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Starker Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Abbinamento Forte" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidad Fuerte" } }
+      }
+    },
+    "share.quality.good": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Good Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Bel Accord" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Guter Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Buon Abbinamento" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Buena Afinidad" } }
+      }
+    },
+    "share.quality.interesting": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Interesting" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Intrigant" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Interessant" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Intrigante" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Intrigante" } }
+      }
+    },
+
+    "widget.todaysVibe": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "TODAY'S VIBE" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "VIBE DU JOUR" } },
+        "de": { "stringUnit": { "state": "translated", "value": "HEUTIGE VIBE" } },
+        "it": { "stringUnit": { "state": "translated", "value": "VIBE DI OGGI" } },
+        "es": { "stringUnit": { "state": "translated", "value": "VIBE DE HOY" } }
+      }
+    },
+    "widget.noMatches": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "No Matches Yet" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Aucun Accord" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Noch Keine Matches" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Nessun Abbinamento" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Sin Afinidades" } }
+      }
+    },
+    "widget.scanOutfit": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Scan an outfit" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Scanner une tenue" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Outfit scannen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scansiona un outfit" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Escanear un outfit" } }
+      }
+    },
+    "widget.toSeeVibe": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "to see your vibe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "pour découvrir votre vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "um deine Vibe zu sehen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "per scoprire la tua vibe" } },
+        "es": { "stringUnit": { "state": "translated", "value": "para ver tu vibe" } }
+      }
+    },
+    "widget.displayName": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Today's Vibe" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Vibe du Jour" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Heutige Vibe" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vibe di Oggi" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Vibe de Hoy" } }
+      }
+    },
+    "widget.description": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Your latest scent match at a glance." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Votre dernier accord parfumé en un coup d'œil." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dein neuester Duft-Match auf einen Blick." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Il tuo ultimo abbinamento olfattivo a colpo d'occhio." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Tu última afinidad olfativa de un vistazo." } }
+      }
+    },
+
+    "notification.title": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "What's Your Vibe Today?" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Quelle est Votre Vibe Aujourd'hui ?" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Was ist Deine Vibe Heute?" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Qual è la Tua Vibe Oggi?" } },
+        "es": { "stringUnit": { "state": "translated", "value": "¿Cuál es Tu Vibe Hoy?" } }
+      }
+    },
+    "notification.body": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Snap your outfit and discover your perfect scent match for the day." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Photographiez votre tenue et découvrez votre accord parfumé du jour." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fotografiere dein Outfit und entdecke deinen perfekten Duft für den Tag." } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scatta una foto del tuo outfit e scopri il tuo abbinamento olfattivo perfetto per la giornata." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Fotografía tu outfit y descubre tu afinidad olfativa perfecta para el día." } }
+      }
+    },
+
+    "common.vibeMatch": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Accord Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vibe Match" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Afinidad Vibe" } }
+      }
+    },
+    "common.vibeScore": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Score Vibe" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Vibe Score" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Vibe Score" } }
+      }
+    },
+    "common.cancel": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Cancel" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Annuler" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Abbrechen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Annulla" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Cancelar" } }
+      }
+    },
+    "common.done": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Done" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Terminé" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Fertig" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Fatto" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Listo" } }
+      }
+    },
+    "common.next": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Next" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Suivant" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Weiter" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Avanti" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Siguiente" } }
+      }
+    },
+    "common.skip": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Skip" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Passer" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Überspringen" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Salta" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Omitir" } }
+      }
+    },
+    "common.ok": {
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "OK" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "OK" } },
+        "de": { "stringUnit": { "state": "translated", "value": "OK" } },
+        "it": { "stringUnit": { "state": "translated", "value": "OK" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Aceptar" } }
       }
     }
   },

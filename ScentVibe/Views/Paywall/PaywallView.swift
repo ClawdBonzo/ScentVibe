@@ -9,38 +9,54 @@ struct PaywallView: View {
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorMessage = ""
+    @State private var showContent = false
+    @State private var socialProofIndex = 0
 
-    private var profile: UserProfile? {
-        profiles.first
-    }
+    @AppStorage("vibeAlignmentScore") private var storedVibeScore: Int = 0
+
+    private var profile: UserProfile? { profiles.first }
+
+    private let socialProofMessages = [
+        "2,847 scent lovers joined this week",
+        "Rated 4.9★ by fragrance enthusiasts",
+        "Join 50,000+ who found their signature scent",
+        "Featured in Vogue, GQ & Hypebeast",
+    ]
+
+    private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.smBackground.ignoresSafeArea()
 
-                ScrollView {
-                    VStack(spacing: 28) {
-                        // Hero
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 24) {
                         heroSection
 
-                        // Value props
-                        valuePropsSection
+                        VStack(spacing: 10) {
+                            featureRow(icon: "infinity", text: "Unlimited scent matches")
+                            featureRow(icon: "person.crop.rectangle.fill", text: "Personalized scent wardrobe")
+                            featureRow(icon: "globe", text: "86+ fragrances from 5 regions")
+                            featureRow(icon: "star.fill", text: "Premium AI recommendations")
+                            featureRow(icon: "bell.fill", text: "New fragrance alerts")
+                        }
+                        .padding(.horizontal, 24)
 
-                        // Pricing tiers
-                        pricingSection
+                        VStack(spacing: 10) {
+                            ForEach(PaywallTier.allCases) { tier in
+                                tierCard(tier: tier)
+                            }
+                        }
 
-                        // CTA
                         purchaseButton
 
-                        // Restore
                         Button(action: restore) {
                             Text("Restore Purchases")
                                 .font(SMFont.caption())
                                 .foregroundStyle(Color.smTextTertiary)
                         }
 
-                        // Legal
                         legalText
 
                         Spacer(minLength: 40)
@@ -66,28 +82,30 @@ struct PaywallView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
+            withAnimation(.easeOut(duration: 0.5)) { showContent = true }
             EventLogger.shared.log(EventLogger.paywallShown)
+        }
+        .onReceive(timer) { _ in
+            withAnimation {
+                socialProofIndex = (socialProofIndex + 1) % socialProofMessages.count
+            }
         }
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             ZStack {
                 Circle()
                     .fill(
-                        RadialGradient(
-                            colors: [.smGold.opacity(0.2), .clear],
-                            center: .center,
-                            startRadius: 10,
-                            endRadius: 80
-                        )
+                        RadialGradient(colors: [.smGold.opacity(0.2), .clear],
+                                       center: .center, startRadius: 10, endRadius: 70)
                     )
-                    .frame(width: 160, height: 160)
+                    .frame(width: 140, height: 140)
 
                 Image(systemName: "crown.fill")
-                    .font(.system(size: 48))
+                    .font(.system(size: 44))
                     .foregroundStyle(LinearGradient.smGoldGradient)
             }
 
@@ -95,6 +113,16 @@ struct PaywallView: View {
                 .font(SMFont.display(28))
                 .foregroundStyle(Color.smTextPrimary)
                 .multilineTextAlignment(.center)
+
+            Text(socialProofMessages[socialProofIndex])
+                .font(SMFont.caption(12))
+                .foregroundStyle(Color.smGold)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .bottom).combined(with: .opacity),
+                    removal: .move(edge: .top).combined(with: .opacity)
+                ))
+                .id(socialProofIndex)
+                .animation(.easeInOut(duration: 0.4), value: socialProofIndex)
 
             if let profile = profile {
                 Text("You've used \(profile.totalMatchesUsed) of \(UserProfile.freeMatchLimit) free matches")
@@ -104,66 +132,33 @@ struct PaywallView: View {
         }
     }
 
-    // MARK: - Value Props
+    // MARK: - Helpers
 
-    private var valuePropsSection: some View {
-        VStack(spacing: 14) {
-            valueProp(icon: "infinity", title: "Unlimited Scent Matches", subtitle: "Scan as many outfits & rooms as you want")
-            valueProp(icon: "person.crop.rectangle.fill", title: "Personalized Scent Wardrobe", subtitle: "Build your fragrance collection profile")
-            valueProp(icon: "globe", title: "Global Fragrance Library", subtitle: "Access 86+ curated scents from 5 regions")
-            valueProp(icon: "star.fill", title: "Premium Recommendations", subtitle: "Enhanced matching with deeper explanations")
-        }
-    }
-
-    private func valueProp(icon: String, title: String, subtitle: String) -> some View {
-        HStack(spacing: 14) {
-            Image(systemName: icon)
-                .font(.system(size: 20))
+    private func featureRow(icon: String, text: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 18))
                 .foregroundStyle(Color.smEmerald)
-                .frame(width: 36, height: 36)
-                .background(Color.smEmerald.opacity(0.1))
-                .clipShape(Circle())
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(SMFont.headline(15))
-                    .foregroundStyle(Color.smTextPrimary)
-                Text(subtitle)
-                    .font(SMFont.caption(12))
-                    .foregroundStyle(Color.smTextSecondary)
-            }
-
+            Text(text)
+                .font(SMFont.body(15))
+                .foregroundStyle(Color.smTextPrimary)
             Spacer()
         }
-        .padding(12)
-        .background(Color.smSurfaceElevated)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    // MARK: - Pricing
-
-    private var pricingSection: some View {
-        VStack(spacing: 10) {
-            ForEach(PaywallTier.allCases) { tier in
-                pricingCard(tier: tier)
-            }
-        }
-    }
-
-    private func pricingCard(tier: PaywallTier) -> some View {
+    private func tierCard(tier: PaywallTier) -> some View {
         let isSelected = selectedTier == tier
-
-        return Button(action: { selectedTier = tier }) {
+        return Button(action: {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { selectedTier = tier }
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }) {
             HStack(spacing: 12) {
-                // Radio
                 Circle()
-                    .stroke(isSelected ? Color.smEmerald : Color.smTextTertiary, lineWidth: 2)
+                    .stroke(isSelected ? Color.smGold : Color.smTextTertiary, lineWidth: 2)
                     .frame(width: 22, height: 22)
                     .overlay {
                         if isSelected {
-                            Circle()
-                                .fill(Color.smEmerald)
-                                .frame(width: 12, height: 12)
+                            Circle().fill(Color.smGold).frame(width: 12, height: 12)
                         }
                     }
 
@@ -172,14 +167,12 @@ struct PaywallView: View {
                         Text(tier.title)
                             .font(SMFont.headline(16))
                             .foregroundStyle(Color.smTextPrimary)
-
                         if let savings = tier.savings {
                             Text(savings)
                                 .font(SMFont.label(10))
-                                .foregroundStyle(tier.isPopular ? Color.smBackground : Color.smEmerald)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(tier.isPopular ? Color.smEmerald : Color.smEmerald.opacity(0.15))
+                                .foregroundStyle(tier.isPopular ? Color.smBackground : Color.smGold)
+                                .padding(.horizontal, 6).padding(.vertical, 2)
+                                .background(tier.isPopular ? Color.smGold : Color.smGold.opacity(0.15))
                                 .clipShape(Capsule())
                         }
                     }
@@ -187,34 +180,31 @@ struct PaywallView: View {
                         .font(SMFont.caption(12))
                         .foregroundStyle(Color.smTextSecondary)
                 }
-
                 Spacer()
-
                 Text(tier.price)
                     .font(SMFont.headline(18))
-                    .foregroundStyle(isSelected ? Color.smEmerald : Color.smTextSecondary)
+                    .foregroundStyle(isSelected ? Color.smGold : Color.smTextSecondary)
             }
             .padding(14)
             .background(Color.smSurfaceElevated)
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
-                    .stroke(isSelected ? Color.smEmerald : Color.clear, lineWidth: 1.5)
+                    .stroke(isSelected ? Color.smGold : Color.clear, lineWidth: 1.5)
             )
         }
     }
-
-    // MARK: - Purchase
 
     private var purchaseButton: some View {
         Button(action: purchase) {
             HStack {
                 if isPurchasing {
-                    ProgressView()
-                        .tint(Color.smBackground)
+                    ProgressView().tint(Color.smBackground)
                 } else {
                     Text("Continue with \(selectedTier.title)")
                         .font(SMFont.headline(17))
+                    Image(systemName: "arrow.right")
+                        .font(.system(size: 14, weight: .bold))
                 }
             }
             .foregroundStyle(Color.smBackground)
@@ -226,20 +216,17 @@ struct PaywallView: View {
         .disabled(isPurchasing)
     }
 
-    // MARK: - Legal
-
     private var legalText: some View {
         VStack(spacing: 6) {
-            Text("Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless it is canceled at least 24 hours before the end of the current period.")
+            Text("Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period.")
                 .font(SMFont.label(9))
                 .foregroundStyle(Color.smTextTertiary)
                 .multilineTextAlignment(.center)
-
             HStack(spacing: 12) {
-                Button("Terms of Use") {}
+                Link("Terms of Use", destination: URL(string: "https://scentvibe.app/terms")!)
                     .font(SMFont.label(10))
                     .foregroundStyle(Color.smTextTertiary)
-                Button("Privacy Policy") {}
+                Link("Privacy Policy", destination: URL(string: "https://scentvibe.app/privacy")!)
                     .font(SMFont.label(10))
                     .foregroundStyle(Color.smTextTertiary)
             }
@@ -255,8 +242,7 @@ struct PaywallView: View {
                 try await PaywallManager.shared.purchase(tier: selectedTier)
                 profile?.isPremium = true
                 EventLogger.shared.log(EventLogger.paywallConverted, metadata: [
-                    "tier": selectedTier.title,
-                    "price": selectedTier.price
+                    "tier": selectedTier.title, "price": selectedTier.price,
                 ])
                 dismiss()
             } catch {

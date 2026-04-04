@@ -19,6 +19,7 @@ struct PremiumShareCardView: View {
     private let deepTeal  = Color(red: 0.04, green: 0.15, blue: 0.15)
     private let bgDark    = Color(red: 0.03, green: 0.05, blue: 0.07)
     private let surface   = Color(red: 0.06, green: 0.08, blue: 0.11)
+    private let gold      = Color(red: 0.88, green: 0.75, blue: 0.35)
 
     var body: some View {
         ZStack {
@@ -101,16 +102,22 @@ struct PremiumShareCardView: View {
                 .padding(.top, 52)
                 .padding(.horizontal, 40)
 
-            Spacer().frame(height: 36)
+            Spacer().frame(height: 32)
 
             // ── Photo window ──
             photoWindow
                 .padding(.horizontal, 40)
 
-            Spacer().frame(height: 32)
+            Spacer().frame(height: 28)
 
             // ── Fragrance block ──
             fragranceBlock
+                .padding(.horizontal, 40)
+
+            Spacer().frame(height: 20)
+
+            // ── Notes preview ──
+            notesPreview
                 .padding(.horizontal, 40)
 
             Spacer()
@@ -127,7 +134,6 @@ struct PremiumShareCardView: View {
 
     private var topBranding: some View {
         HStack(spacing: 10) {
-            // Try to load app icon; fall back to a branded square
             if let icon = UIImage(named: "AppIcon") {
                 Image(uiImage: icon)
                     .resizable()
@@ -150,10 +156,20 @@ struct PremiumShareCardView: View {
                 .foregroundStyle(.white.opacity(0.80))
 
             Spacer()
+
+            // Vibe score pill
+            Text(String(format: "VIBE %.0f", matchResult.vibeScore))
+                .font(.system(size: 10, weight: .bold))
+                .tracking(1.5)
+                .foregroundStyle(emerald)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(Capsule().fill(surface.opacity(0.6)))
+                .overlay(Capsule().stroke(emerald.opacity(0.2), lineWidth: 0.5))
         }
     }
 
-    // MARK: – Photo Window (crisp, rounded, vignetted)
+    // MARK: – Photo Window
 
     private var photoWindow: some View {
         Group {
@@ -162,9 +178,8 @@ struct PremiumShareCardView: View {
                 Image(uiImage: ui)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: w - 80, height: 310)
+                    .frame(width: w - 80, height: 280)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                    // Glass border
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(
@@ -173,7 +188,6 @@ struct PremiumShareCardView: View {
                                 lineWidth: 1
                             )
                     )
-                    // Bottom vignette
                     .overlay(
                         VStack {
                             Spacer()
@@ -193,29 +207,24 @@ struct PremiumShareCardView: View {
     @ViewBuilder
     private var fragranceBlock: some View {
         if let frag = topFragrance {
-            VStack(spacing: 14) {
-                // Subtitle
+            VStack(spacing: 12) {
                 Text("YOUR SCENT MATCH")
                     .font(.system(size: 11, weight: .bold))
                     .tracking(3.5)
                     .foregroundStyle(emerald)
 
-                // Name — big serif
                 Text(frag.name)
-                    .font(.system(size: 38, weight: .bold, design: .serif))
+                    .font(.system(size: 34, weight: .bold, design: .serif))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .shadow(color: .black.opacity(0.25), radius: 6, y: 2)
 
-                // House
                 Text("by \(frag.house)")
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .foregroundStyle(.white.opacity(0.50))
 
-                // Glass-morphism match badge
                 matchBadge
 
-                // Mood pills
                 moodPills
             }
         }
@@ -225,7 +234,6 @@ struct PremiumShareCardView: View {
 
     private var matchBadge: some View {
         HStack(spacing: 10) {
-            // Score ring
             ZStack {
                 Circle()
                     .stroke(.white.opacity(0.06), lineWidth: 2.5)
@@ -290,17 +298,65 @@ struct PremiumShareCardView: View {
         }
     }
 
+    // MARK: – Notes Preview
+
+    @ViewBuilder
+    private var notesPreview: some View {
+        if let frag = topFragrance {
+            VStack(spacing: 8) {
+                HStack(spacing: 4) {
+                    Image(systemName: "triangle.fill")
+                        .font(.system(size: 8))
+                        .foregroundStyle(emerald)
+                    Text("FRAGRANCE NOTES")
+                        .font(.system(size: 9, weight: .bold))
+                        .tracking(2)
+                        .foregroundStyle(.white.opacity(0.5))
+                }
+
+                HStack(spacing: 16) {
+                    noteColumn("TOP", notes: frag.topNotes.prefix(2).joined(separator: ", "), color: emerald)
+                    noteColumn("HEART", notes: frag.heartNotes.prefix(2).joined(separator: ", "), color: gold)
+                    noteColumn("BASE", notes: frag.baseNotes.prefix(2).joined(separator: ", "), color: Color(red: 0.06, green: 0.32, blue: 0.32))
+                }
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(surface.opacity(0.4))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(.white.opacity(0.06), lineWidth: 0.5)
+            )
+        }
+    }
+
+    private func noteColumn(_ label: String, notes: String, color: Color) -> some View {
+        VStack(spacing: 3) {
+            Text(label)
+                .font(.system(size: 8, weight: .bold))
+                .tracking(1.5)
+                .foregroundStyle(color)
+            Text(notes)
+                .font(.system(size: 10, weight: .medium))
+                .foregroundStyle(.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
     // MARK: – CTA Footer
 
     private var ctaFooter: some View {
         VStack(spacing: 14) {
-            // Thin emerald divider
             Rectangle()
                 .fill(LinearGradient(colors: [.clear, emerald.opacity(0.25), .clear],
                                      startPoint: .leading, endPoint: .trailing))
                 .frame(height: 0.5)
 
-            // CTA capsule button
             HStack(spacing: 7) {
                 Image(systemName: "arrow.down.app.fill")
                     .font(.system(size: 13, weight: .semibold))

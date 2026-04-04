@@ -7,6 +7,8 @@ struct ContentView: View {
     @State private var selectedTab = 0
     @State private var showOnboarding = false
 
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+
     private var profile: UserProfile {
         if let existing = profiles.first { return existing }
         let new = UserProfile()
@@ -33,24 +35,32 @@ struct ContentView: View {
                     }
                     .tag(1)
 
+                VibeWardrobeView()
+                    .tabItem {
+                        Image(systemName: "hanger")
+                        Text("Wardrobe")
+                    }
+                    .tag(2)
+
                 SettingsView()
                     .tabItem {
                         Image(systemName: "gearshape.fill")
                         Text("Settings")
                     }
-                    .tag(2)
+                    .tag(3)
             }
             .tint(Color.smEmerald)
         }
         .preferredColorScheme(.dark)
         .onAppear {
             setupTabBarAppearance()
-            if !profile.hasCompletedOnboarding {
+            if !hasCompletedOnboarding {
                 showOnboarding = true
             }
         }
         .fullScreenCover(isPresented: $showOnboarding) {
             OnboardingView {
+                hasCompletedOnboarding = true
                 profile.hasCompletedOnboarding = true
                 showOnboarding = false
                 selectedTab = 1  // Go to scan after onboarding

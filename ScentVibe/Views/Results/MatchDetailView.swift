@@ -6,39 +6,61 @@ struct MatchDetailView: View {
     let matchResult: ScentMatchResult
 
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
+    @State private var showContent = false
+    @State private var showShareSheet = false
+    @State private var shareImage: UIImage?
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
-                    // Hero
+                VStack(spacing: 0) {
+                    // Hero photo + score overlay
                     heroSection
 
-                    // Match explanation
-                    explanationSection
+                    VStack(spacing: 20) {
+                        // Fragrance identity
+                        fragranceHeader
+                            .opacity(showContent ? 1 : 0)
+                            .offset(y: showContent ? 0 : 16)
 
-                    // Fragrance details
-                    fragranceDetailsSection
+                        // Why it matches
+                        explanationCard
+                            .opacity(showContent ? 1 : 0)
+                            .offset(y: showContent ? 0 : 16)
 
-                    // Notes pyramid
-                    notesPyramid
+                        // Notes pyramid
+                        notesPyramid
+                            .opacity(showContent ? 1 : 0)
+                            .offset(y: showContent ? 0 : 16)
 
-                    // Affiliate CTA — all fragrances get links via search fallback
-                    affiliateSection
+                        // Details grid
+                        detailsGrid
+                            .opacity(showContent ? 1 : 0)
+                            .offset(y: showContent ? 0 : 16)
 
-                    // All recommendations
-                    allRecommendationsSection
+                        // Affiliate links
+                        affiliateSection
+                            .opacity(showContent ? 1 : 0)
+
+                        // Share + close
+                        actionButtons
+                            .opacity(showContent ? 1 : 0)
+
+                        Spacer(minLength: 32)
+                    }
+                    .padding(.top, 20)
                 }
-                .padding(.bottom, 32)
             }
             .background(Color.smBackground)
-            .navigationTitle(fragrance.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
+                    Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        dismiss()
+                    } label: {
                         Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 24))
                             .foregroundStyle(Color.smTextSecondary)
                     }
                 }
@@ -50,56 +72,123 @@ struct MatchDetailView: View {
                 }
             }
         }
+        .sheet(isPresented: $showShareSheet) {
+            if let image = shareImage {
+                ShareSheet(items: [image])
+            }
+        }
         .preferredColorScheme(.dark)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6).delay(0.2)) {
+                showContent = true
+            }
+        }
     }
 
     // MARK: - Hero
 
     private var heroSection: some View {
         ZStack(alignment: .bottom) {
+            // Photo
             if let image = matchResult.photoImage {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(height: 250)
+                    .frame(height: 280)
                     .clipped()
                     .overlay(
                         LinearGradient(
-                            colors: [.clear, .smBackground],
-                            startPoint: .center,
+                            stops: [
+                                .init(color: .clear, location: 0.3),
+                                .init(color: Color.smBackground.opacity(0.6), location: 0.7),
+                                .init(color: Color.smBackground, location: 1.0),
+                            ],
+                            startPoint: .top,
                             endPoint: .bottom
                         )
                     )
+            } else {
+                Rectangle()
+                    .fill(Color.smSurface)
+                    .frame(height: 280)
             }
 
-            VStack(spacing: 8) {
-                // Vibe score
-                HStack(spacing: 8) {
-                    VibeScoreGauge(score: matchResult.vibeScore, size: 56)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Vibe Score")
-                            .font(SMFont.label())
-                            .foregroundStyle(Color.smTextSecondary)
-                        Text(String(format: "%.0f%% match", recommendation.score * 100))
-                            .font(SMFont.headline(18))
-                            .foregroundStyle(Color.smEmerald)
-                    }
-                    Spacer()
-                    // Region flag
-                    Text("\(fragrance.region.flag)")
-                        .font(.title)
+            // Score + match info overlay
+            HStack(spacing: 16) {
+                VibeScoreGauge(score: matchResult.vibeScore, size: 64, lineWidth: 5)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Vibe Score")
+                        .font(SMFont.label())
+                        .foregroundStyle(Color.smTextSecondary)
+                    Text(String(format: "%.0f%% match", recommendation.score * 100))
+                        .font(SMFont.headline(20))
+                        .foregroundStyle(Color.smEmerald)
                 }
-                .padding(.horizontal)
+
+                Spacer()
+
+                // Region flag
+                Text(fragrance.region.flag)
+                    .font(.system(size: 28))
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 16)
         }
     }
 
-    // MARK: - Explanation
+    // MARK: - Fragrance Header
 
-    private var explanationSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 6) {
+    private var fragranceHeader: some View {
+        VStack(spacing: 12) {
+            HStack(alignment: .top, spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(fragrance.name)
+                        .font(SMFont.display(26))
+                        .foregroundStyle(Color.smTextPrimary)
+
+                    Text("by \(fragrance.house)")
+                        .font(SMFont.body(15))
+                        .foregroundStyle(Color.smTextSecondary)
+                }
+
+                Spacer()
+
+                FragranceBottleView(fragrance: fragrance, size: 56)
+            }
+
+            // Description
+            Text(fragrance.shortDescription)
+                .font(SMFont.body(14))
+                .foregroundStyle(Color.smTextSecondary)
+                .italic()
+                .lineSpacing(3)
+
+            // Accords
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 6) {
+                    ForEach(fragrance.accords, id: \.self) { accord in
+                        Text(accord.rawValue)
+                            .font(SMFont.label(11))
+                            .foregroundStyle(Color.smTextPrimary)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(Color.smTeal.opacity(0.2))
+                            .clipShape(Capsule())
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+
+    // MARK: - Why It Matches
+
+    private var explanationCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 8) {
                 Image(systemName: "wand.and.stars")
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(Color.smEmerald)
                 Text("Why It Matches")
                     .font(SMFont.headline(18))
@@ -107,7 +196,7 @@ struct MatchDetailView: View {
             }
 
             Text(recommendation.explanation)
-                .font(SMFont.body())
+                .font(SMFont.body(15))
                 .foregroundStyle(Color.smTextSecondary)
                 .lineSpacing(4)
 
@@ -115,111 +204,165 @@ struct MatchDetailView: View {
             if !recommendation.matchedMoods.isEmpty {
                 HStack(spacing: 6) {
                     ForEach(recommendation.matchedMoods, id: \.self) { mood in
-                        Text(mood)
-                            .font(SMFont.label())
-                            .foregroundStyle(Color.smTextPrimary)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(Color.smEmerald.opacity(0.15))
-                            .clipShape(Capsule())
+                        HStack(spacing: 4) {
+                            Circle()
+                                .fill(Color.smEmerald)
+                                .frame(width: 5, height: 5)
+                            Text(mood)
+                                .font(SMFont.label(11))
+                                .foregroundStyle(Color.smTextPrimary)
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.smEmerald.opacity(0.12))
+                        .clipShape(Capsule())
+                    }
+                }
+            }
+
+            // Matched colors
+            if !recommendation.matchedColors.isEmpty {
+                HStack(spacing: 6) {
+                    Text("Detected colors:")
+                        .font(SMFont.label(10))
+                        .foregroundStyle(Color.smTextTertiary)
+                    ForEach(recommendation.matchedColors.prefix(5), id: \.self) { hex in
+                        Circle()
+                            .fill(Color(hex: hex) ?? Color.smTextTertiary)
+                            .frame(width: 14, height: 14)
+                            .overlay(
+                                Circle().stroke(Color.smTextTertiary.opacity(0.3), lineWidth: 0.5)
+                            )
                     }
                 }
             }
         }
-        .padding()
+        .padding(16)
         .background(Color.smSurfaceElevated)
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .padding(.horizontal)
-    }
-
-    // MARK: - Fragrance Details
-
-    private var fragranceDetailsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(fragrance.name)
-                        .font(SMFont.display(24))
-                        .foregroundStyle(Color.smTextPrimary)
-                    Text("by \(fragrance.house)")
-                        .font(SMFont.body())
-                        .foregroundStyle(Color.smTextSecondary)
-                }
-                Spacer()
-                FragranceBottleView(fragrance: fragrance, size: 56)
-            }
-
-            Text(fragrance.shortDescription)
-                .font(SMFont.body())
-                .foregroundStyle(Color.smTextSecondary)
-                .italic()
-
-            // Accords
-            HStack(spacing: 6) {
-                ForEach(fragrance.accords, id: \.self) { accord in
-                    Text(accord.rawValue)
-                        .font(SMFont.label())
-                        .foregroundStyle(Color.smTextPrimary)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(Color.smTeal.opacity(0.2))
-                        .clipShape(Capsule())
-                }
-            }
-
-            // Metadata row
-            HStack(spacing: 16) {
-                metadataItem(icon: "dollarsign.circle", text: fragrance.priceTier.priceRange)
-                metadataItem(icon: "person.fill", text: fragrance.gender.rawValue)
-                metadataItem(icon: "calendar", text: fragrance.seasonality.map(\.rawValue).joined(separator: ", "))
-            }
-        }
-        .padding()
-        .background(Color.smSurfaceElevated)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .padding(.horizontal)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.smEmerald.opacity(0.1), lineWidth: 0.5)
+        )
+        .padding(.horizontal, 20)
     }
 
     // MARK: - Notes Pyramid
 
     private var notesPyramid: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 6) {
+            HStack(spacing: 8) {
                 Image(systemName: "triangle.fill")
-                    .foregroundStyle(Color.smEmerald)
                     .font(.system(size: 14))
+                    .foregroundStyle(Color.smEmerald)
                 Text("Fragrance Notes")
                     .font(SMFont.headline(18))
                     .foregroundStyle(Color.smTextPrimary)
             }
 
-            notesRow("Top", notes: fragrance.topNotes, color: .smLightEmerald)
-            notesRow("Heart", notes: fragrance.heartNotes, color: Color.smEmerald)
-            notesRow("Base", notes: fragrance.baseNotes, color: .smTeal)
+            // Visual pyramid layers
+            VStack(spacing: 2) {
+                pyramidLayer(
+                    label: "TOP",
+                    subtitle: "First impression · 15 min",
+                    notes: fragrance.topNotes,
+                    color: Color.smLightEmerald,
+                    widthFraction: 0.6
+                )
+                pyramidLayer(
+                    label: "HEART",
+                    subtitle: "Core character · 2-4 hrs",
+                    notes: fragrance.heartNotes,
+                    color: Color.smEmerald,
+                    widthFraction: 0.8
+                )
+                pyramidLayer(
+                    label: "BASE",
+                    subtitle: "Foundation · 4-8+ hrs",
+                    notes: fragrance.baseNotes,
+                    color: Color.smTeal,
+                    widthFraction: 1.0
+                )
+            }
         }
-        .padding()
+        .padding(16)
         .background(Color.smSurfaceElevated)
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .padding(.horizontal)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.smTeal.opacity(0.1), lineWidth: 0.5)
+        )
+        .padding(.horizontal, 20)
     }
 
-    private func notesRow(_ label: String, notes: [String], color: Color) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(label.uppercased())
-                .font(SMFont.label(10))
-                .foregroundStyle(color)
+    private func pyramidLayer(label: String, subtitle: String, notes: [String], color: Color, widthFraction: CGFloat) -> some View {
+        VStack(spacing: 6) {
+            HStack(spacing: 6) {
+                Text(label)
+                    .font(SMFont.label(10))
+                    .tracking(1.5)
+                    .foregroundStyle(color)
+                Text(subtitle)
+                    .font(SMFont.label(9))
+                    .foregroundStyle(Color.smTextTertiary)
+                Spacer()
+            }
+
             FlowLayout(spacing: 6) {
                 ForEach(notes, id: \.self) { note in
                     Text(note)
                         .font(SMFont.caption(12))
                         .foregroundStyle(Color.smTextPrimary)
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, 9)
                         .padding(.vertical, 4)
                         .background(color.opacity(0.12))
                         .clipShape(Capsule())
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(color.opacity(0.04))
+        )
+    }
+
+    // MARK: - Details Grid
+
+    private var detailsGrid: some View {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+            detailCell(icon: "dollarsign.circle", label: "Price Range", value: fragrance.priceTier.priceRange)
+            detailCell(icon: "person.fill", label: "Style", value: fragrance.gender.rawValue)
+            detailCell(icon: "globe", label: "Region", value: "\(fragrance.region.flag) \(fragrance.region.displayName)")
+            detailCell(icon: "calendar", label: "Season", value: fragrance.seasonality.map(\.rawValue).joined(separator: ", "))
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private func detailCell(icon: String, label: String, value: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 14))
+                .foregroundStyle(Color.smEmerald)
+                .frame(width: 24)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(label)
+                    .font(SMFont.label(10))
+                    .foregroundStyle(Color.smTextTertiary)
+                Text(value)
+                    .font(SMFont.caption(12))
+                    .foregroundStyle(Color.smTextPrimary)
+                    .lineLimit(2)
+            }
+
+            Spacer()
+        }
+        .padding(12)
+        .background(Color.smSurfaceElevated)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     // MARK: - Affiliate
@@ -230,6 +373,7 @@ struct MatchDetailView: View {
             ForEach(links) { link in
                 Button(action: {
                     matchResult.affiliateLinksTapped += 1
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     EventLogger.shared.log(EventLogger.affiliateLinkTapped, metadata: [
                         "fragrance": fragrance.id,
                         "retailer": link.retailer
@@ -246,16 +390,16 @@ struct MatchDetailView: View {
                     }
                     .foregroundStyle(link.retailer == "Amazon" ? Color.smBackground : Color.smTextPrimary)
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, 13)
                     .background(
                         link.retailer == "Amazon"
                             ? AnyShapeStyle(LinearGradient.smGoldGradient)
                             : AnyShapeStyle(Color.smSurfaceElevated)
                     )
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
                         link.retailer != "Amazon"
-                            ? RoundedRectangle(cornerRadius: 12).stroke(Color.smTeal.opacity(0.2), lineWidth: 0.5)
+                            ? RoundedRectangle(cornerRadius: 14).stroke(Color.smTeal.opacity(0.15), lineWidth: 0.5)
                             : nil
                     )
                 }
@@ -266,75 +410,103 @@ struct MatchDetailView: View {
                 .foregroundStyle(Color.smTextTertiary)
                 .multilineTextAlignment(.center)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
+    }
+
+    // MARK: - Action Buttons
+
+    private var actionButtons: some View {
+        VStack(spacing: 10) {
+            // Share story card
+            Button(action: shareStoryCard) {
+                Label("Share Story Card", systemImage: "square.and.arrow.up")
+                    .font(SMFont.headline(16))
+                    .foregroundStyle(Color.smBackground)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: SMTheme.buttonHeight)
+                    .background(LinearGradient.smPrimaryGradient)
+                    .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+            }
+
+            // Other matches from this scan
+            allRecommendationsSection
+        }
+        .padding(.horizontal, 20)
     }
 
     // MARK: - All Recommendations
 
     private var allRecommendationsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Other Matches")
-                .font(SMFont.headline(18))
-                .foregroundStyle(Color.smTextPrimary)
-                .padding(.horizontal)
+        VStack(alignment: .leading, spacing: 10) {
+            if matchResult.recommendations.count > 1 {
+                Text("Other Matches")
+                    .font(SMFont.headline(16))
+                    .foregroundStyle(Color.smTextPrimary)
+                    .padding(.top, 8)
 
-            ForEach(matchResult.recommendations.dropFirst(), id: \.id) { rec in
-                if let frag = rec.fragrance() {
-                    HStack(spacing: 12) {
-                        FragranceBottleView(fragrance: frag, size: 36)
+                ForEach(matchResult.recommendations.filter { $0.id != recommendation.id }, id: \.id) { rec in
+                    if let frag = rec.fragrance() {
+                        HStack(spacing: 12) {
+                            FragranceBottleView(fragrance: frag, size: 36)
 
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(frag.name)
-                                .font(SMFont.headline(14))
-                                .foregroundStyle(Color.smTextPrimary)
-                            Text(frag.house)
-                                .font(SMFont.label(11))
-                                .foregroundStyle(Color.smTextSecondary)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(frag.name)
+                                    .font(SMFont.headline(14))
+                                    .foregroundStyle(Color.smTextPrimary)
+                                    .lineLimit(1)
+                                Text(frag.house)
+                                    .font(SMFont.label(11))
+                                    .foregroundStyle(Color.smTextSecondary)
+                                    .lineLimit(1)
+                            }
+
+                            Spacer()
+
+                            Text(String(format: "%.0f%%", rec.score * 100))
+                                .font(SMFont.mono(14))
+                                .foregroundStyle(Color.smEmerald)
                         }
-
-                        Spacer()
-
-                        Text(String(format: "%.0f%%", rec.score * 100))
-                            .font(SMFont.mono(14))
-                            .foregroundStyle(Color.smEmerald)
+                        .padding(10)
+                        .background(Color.smSurfaceElevated)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                    .padding(.horizontal)
                 }
             }
         }
     }
 
-    // MARK: - Helpers
-
-    private func metadataItem(icon: String, text: String) -> some View {
-        HStack(spacing: 4) {
-            Image(systemName: icon)
-                .font(.system(size: 12))
-                .foregroundStyle(Color.smEmerald)
-            Text(text)
-                .font(SMFont.label(11))
-                .foregroundStyle(Color.smTextSecondary)
-        }
-    }
+    // MARK: - Actions
 
     private func toggleFavorite() {
         matchResult.isFavorited.toggle()
         if matchResult.isFavorited {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             EventLogger.shared.log(EventLogger.matchFavorited, metadata: [
                 "fragrance": fragrance.id
             ])
+            print("[Analytics] match_favorited: \(fragrance.id)")
+        } else {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            print("[Analytics] match_unfavorited: \(fragrance.id)")
         }
-        let impact = UIImpactFeedbackGenerator(style: .light)
-        impact.impactOccurred()
     }
 
-    private func openAffiliateLink() {
-        guard let url = fragrance.affiliateURL else { return }
-        matchResult.affiliateLinksTapped += 1
-        EventLogger.shared.log(EventLogger.affiliateLinkTapped, metadata: [
-            "fragrance": fragrance.id,
-            "asin": fragrance.amazonASIN ?? ""
-        ])
-        UIApplication.shared.open(url)
+    private func shareStoryCard() {
+        let topScore = recommendation.score
+        if let image = ShareCardGenerator.render(
+            matchResult: matchResult,
+            topFragrance: fragrance,
+            score: topScore
+        ) {
+            shareImage = image
+            showShareSheet = true
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            EventLogger.shared.log(EventLogger.shareStoryCard, metadata: [
+                "fragrance": fragrance.id,
+                "vibe_score": String(format: "%.0f", matchResult.vibeScore)
+            ])
+            print("[Analytics] share_story_card_detail: \(fragrance.id)")
+        }
     }
 }
+

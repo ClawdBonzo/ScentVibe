@@ -14,6 +14,7 @@ struct ScanView: View {
     @State private var matchResult: ScentMatchResult?
     @State private var analysisResult: ImageAnalysisResult?
     @State private var recommendations: [RecommendationEntry] = []
+    @State private var moodOverride: String?
 
     private var profile: UserProfile {
         profiles.first ?? UserProfile()
@@ -63,6 +64,14 @@ struct ScanView: View {
                     onRegenerate: {
                         // Re-process the same image with shuffled results
                         if let img = capturedImage ?? (result.photoData.flatMap { UIImage(data: $0) }) {
+                            moodOverride = nil
+                            processImage(img)
+                        }
+                    },
+                    onRegenerateWithMood: { mood in
+                        // Re-process with mood override
+                        if let img = capturedImage ?? (result.photoData.flatMap { UIImage(data: $0) }) {
+                            moodOverride = mood
                             processImage(img)
                         }
                     }
@@ -74,6 +83,7 @@ struct ScanView: View {
         }
         .onChange(of: capturedImage) { _, newImage in
             if let image = newImage {
+                moodOverride = nil
                 processImage(image)
             }
         }
@@ -183,7 +193,8 @@ struct ScanView: View {
                     for: analysis,
                     count: 5,
                     preferredRegion: profile.preferredRegion.flatMap { FragranceRegion(rawValue: $0) },
-                    preferredGender: profile.preferredGender.flatMap { Gender(rawValue: $0) }
+                    preferredGender: profile.preferredGender.flatMap { Gender(rawValue: $0) },
+                    moodOverride: moodOverride
                 )
                 let vibeScore = MatchingEngine.shared.computeVibeScore(
                     for: analysis,
@@ -216,7 +227,8 @@ struct ScanView: View {
                     EventLogger.shared.log(EventLogger.scanCompleted, metadata: [
                         "scan_type": analysis.scanType,
                         "vibe_score": String(format: "%.0f", vibeScore),
-                        "top_match": matches.first?.id ?? "none"
+                        "top_match": matches.first?.id ?? "none",
+                        "mood_override": moodOverride ?? "none"
                     ])
 
                     // Brief delay for scanning animation

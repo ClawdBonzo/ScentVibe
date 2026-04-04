@@ -48,6 +48,10 @@ final class EventLogger {
     static let matchFavorited = "match_favorited"
     static let matchDeleted = "match_deleted"
     static let historyExported = "history_exported"
+    static let savedToWardrobe = "saved_to_wardrobe"
+    static let regenerateMatch = "regenerate_match"
+    static let regenerateWithMood = "regenerate_with_mood"
+    static let shareStoryCard = "share_story_card"
 
     func exportCSV(events: [AnalyticsEvent]) -> String {
         var csv = "event_name,timestamp,metadata\n"
