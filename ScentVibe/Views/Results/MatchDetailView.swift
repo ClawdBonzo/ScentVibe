@@ -485,7 +485,7 @@ struct MatchDetailView: View {
             EventLogger.shared.log(EventLogger.matchFavorited, metadata: [
                 "fragrance": fragrance.id
             ])
-            ReviewRequester.requestIfEligible()
+            ReviewRequester.trackSaveAndRequestIfEligible()
             #if DEBUG
             print("[Analytics] match_favorited: \(fragrance.id)")
             #endif

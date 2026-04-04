@@ -4,16 +4,19 @@ import SwiftUI
 // MARK: - StoreKit Review Helper
 
 /// Manages in-app review requests with a single-ask policy.
-/// Triggers only after the user's first save to My Vibe Wardrobe —
-/// never during onboarding or first launch.
+/// Triggers after the user saves their **second** match to My Vibe Wardrobe,
+/// proving genuine engagement before asking for a rating.
 enum ReviewRequester {
 
+    @AppStorage("numberOfSavedMatches") private static var numberOfSavedMatches = 0
     @AppStorage("hasRequestedReview") private static var hasRequestedReview = false
 
-    /// Call after the user saves a match to their wardrobe.
-    /// The prompt fires at most once per lifetime of the install.
-    static func requestIfEligible() {
-        guard !hasRequestedReview else { return }
+    /// Call each time the user saves a match to their wardrobe.
+    /// The review prompt fires exactly once — after the second save.
+    static func trackSaveAndRequestIfEligible() {
+        numberOfSavedMatches += 1
+
+        guard numberOfSavedMatches >= 2, !hasRequestedReview else { return }
         hasRequestedReview = true
 
         // Brief delay lets the save animation land before the system
