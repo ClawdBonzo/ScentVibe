@@ -763,6 +763,8 @@ struct PersonalizedPaywallView: View {
     @State private var showContent = false
     @State private var proofIdx = 0
 
+    @AppStorage("hasSeenNormalPaywall") private var hasSeenNormalPaywall = false
+
     // Mood-adaptive social proof: bold/mysterious users see confidence/luxury quotes,
     // others see discovery/freshness quotes
     private var proof: [String] {
@@ -951,6 +953,9 @@ struct PersonalizedPaywallView: View {
                 withAnimation(.easeOut(duration: 0.5)) { showContent = true }
             }
             EventLogger.shared.log(EventLogger.paywallShown)
+            // Mark that the user has now seen a paywall — next time they
+            // hit the paywall they'll get the promotional win-back offer.
+            hasSeenNormalPaywall = true
         }
         .onReceive(proofTimer) { _ in
             guard !reduceMotion else { return }

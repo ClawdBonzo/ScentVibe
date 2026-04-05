@@ -66,20 +66,15 @@ struct ContentView: View {
                 showOnboarding = true
             }
         }
-        .fullScreenCover(isPresented: $showOnboarding) {
+        .fullScreenCover(isPresented: $showOnboarding, onDismiss: onOnboardingDismissed) {
             OnboardingView {
+                // Mark onboarding complete in both AppStorage and SwiftData
                 hasCompletedOnboarding = true
                 profile.hasCompletedOnboarding = true
+                // Dismiss the cover — selectedTab is set in onDismiss to avoid race
                 showOnboarding = false
-                selectedTab = 1  // Go to scan after onboarding
-
-                // Show notification permission prompt after a brief delay
-                if !hasAskedNotificationPermission {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                        showNotificationPrompt = true
-                    }
-                }
             }
+            .interactiveDismissDisabled()  // Prevent swipe-to-dismiss during onboarding
         }
         .sheet(isPresented: $showNotificationPrompt) {
             NotificationPermissionSheet(
@@ -102,6 +97,20 @@ struct ContentView: View {
             .presentationDetents([.medium])
             .presentationDragIndicator(.visible)
             .presentationBackground(Color.smBackground)
+        }
+    }
+
+    /// Called after the fullScreenCover finishes its dismissal animation.
+    /// Setting selectedTab here avoids a SwiftUI race where the TabView
+    /// isn't fully visible yet when the state changes.
+    private func onOnboardingDismissed() {
+        selectedTab = 1  // Navigate to Scan tab
+
+        // Show notification permission prompt after a brief delay
+        if !hasAskedNotificationPermission {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                showNotificationPrompt = true
+            }
         }
     }
 

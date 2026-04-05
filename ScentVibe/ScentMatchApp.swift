@@ -3,13 +3,11 @@ import SwiftData
 
 @main
 struct ScentMatchApp: App {
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear {
-                    // Request notification permission on first launch
-                    NotificationManager.shared.requestPermission()
-                }
         }
         .modelContainer(for: [ScentMatchResult.self, UserProfile.self, AnalyticsEvent.self])
     }

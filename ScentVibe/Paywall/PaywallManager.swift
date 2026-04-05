@@ -61,6 +61,31 @@ final class PaywallManager {
 
         try await Task.sleep(nanoseconds: 1_000_000_000)
     }
+
+    // MARK: - Promotional Offer Purchase
+
+    /// Purchase with a promotional discount applied.
+    /// In production this calls RevenueCat's promotional offer API.
+    func purchaseWithPromo(tier: PaywallTier) async throws {
+        isLoading = true
+        defer { isLoading = false }
+
+        // TODO: Replace with RevenueCat promotional offer implementation
+        // let product = try await Purchases.shared.products([tier.productId]).first!
+        // let promoOffer = try await Purchases.shared.promotionalOffer(
+        //     forProductDiscount: product.discounts.first!,
+        //     product: product
+        // )
+        // let (_, customerInfo, _) = try await Purchases.shared.purchase(
+        //     product: product,
+        //     promotionalOffer: promoOffer
+        // )
+        // isPremium = customerInfo.entitlements["premium"]?.isActive ?? false
+
+        // Simulated promo purchase for development
+        try await Task.sleep(nanoseconds: 1_500_000_000)
+        isPremium = true
+    }
 }
 
 // MARK: - Paywall Tier
@@ -114,5 +139,31 @@ enum PaywallTier: CaseIterable, Identifiable {
 
     var isPopular: Bool {
         self == .yearly
+    }
+
+    // MARK: - Promotional Pricing
+
+    var promoPrice: String {
+        switch self {
+        case .monthly: return "$3.49"
+        case .yearly: return "$17.99"
+        case .lifetime: return "$59.99"
+        }
+    }
+
+    var promoPricePerMonth: String {
+        switch self {
+        case .monthly: return "$3.49/mo"
+        case .yearly: return "$1.50/mo"
+        case .lifetime: return "One time"
+        }
+    }
+
+    var promoDiscount: String {
+        switch self {
+        case .monthly: return "30% OFF"
+        case .yearly: return "40% OFF"
+        case .lifetime: return "25% OFF"
+        }
     }
 }
