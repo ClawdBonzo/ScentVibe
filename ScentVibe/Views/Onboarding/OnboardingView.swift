@@ -37,11 +37,15 @@ private struct MoleculeParticleView: View {
     }
 
     @State private var particles: [P]
+    private let tier = DevicePerformance.current
+    private let effectiveCount: Int
 
     init(color: Color = luxGold, count: Int = 25) {
         self.color = color
         self.count = count
-        _particles = State(initialValue: (0..<count).map { _ in
+        let scaled = DevicePerformance.scaledCount(count)
+        self.effectiveCount = scaled
+        _particles = State(initialValue: (0..<scaled).map { _ in
             P(x: .random(in: 0...1), y: .random(in: 0...1),
               size: .random(in: 1.5...5), speed: .random(in: 0.2...0.8),
               phase: .random(in: 0...(.pi * 2)), orbitR: .random(in: 10...30),
@@ -50,7 +54,7 @@ private struct MoleculeParticleView: View {
     }
 
     var body: some View {
-        if reduceMotion {
+        if reduceMotion || !DevicePerformance.shouldRenderEffects {
             // Static fallback: subtle fixed dots, no animation overhead
             Canvas { ctx, sz in
                 for p in particles {
@@ -63,7 +67,7 @@ private struct MoleculeParticleView: View {
                 }
             }
         } else {
-            TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { tl in
+            TimelineView(.animation(minimumInterval: tier.frameInterval)) { tl in
                 Canvas { ctx, sz in
                     let t = tl.date.timeIntervalSinceReferenceDate
                     for p in particles {
@@ -72,10 +76,15 @@ private struct MoleculeParticleView: View {
                         let ox = bx + sin(t * Double(p.speed) + Double(p.phase)) * Double(p.orbitR)
                         let oy = by + cos(t * Double(p.speed) * 0.7 + Double(p.phase)) * Double(p.orbitR)
                         let pulse = 0.6 + 0.4 * sin(t * 1.8 + Double(p.phase))
-                        let gs = p.size * 4
-                        ctx.opacity = p.opacity * 0.25 * pulse
-                        ctx.fill(Circle().path(in: CGRect(x: ox - gs / 2, y: oy - gs / 2, width: gs, height: gs)),
-                                 with: .color(color))
+
+                        // Skip glow pass on low-tier devices for better perf
+                        if tier >= .mid {
+                            let gs = p.size * 4
+                            ctx.opacity = p.opacity * 0.25 * pulse
+                            ctx.fill(Circle().path(in: CGRect(x: ox - gs / 2, y: oy - gs / 2, width: gs, height: gs)),
+                                     with: .color(color))
+                        }
+
                         ctx.opacity = p.opacity * pulse
                         ctx.fill(Circle().path(in: CGRect(x: ox - p.size / 2, y: oy - p.size / 2,
                                                           width: p.size, height: p.size)),
@@ -99,19 +108,31 @@ private struct AuraRing: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var pulse = false
 
+    private var effectiveBlur: CGFloat {
+        min(blurRadius, DevicePerformance.current.maxBlurRadius)
+    }
+
     var body: some View {
-        Circle()
-            .stroke(color.opacity(reduceMotion ? 0.12 : (pulse ? 0.08 : 0.18)), lineWidth: lineWidth)
-            .frame(width: diameter, height: diameter)
-            .blur(radius: blurRadius)
-            .scaleEffect(reduceMotion ? 1.0 : (pulse ? 1.06 : 0.96))
-            .onAppear {
-                guard !reduceMotion else { return }
-                withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
-                    pulse = true
+        if reduceMotion || !DevicePerformance.shouldRenderEffects {
+            // Static ring: no animation, no blur for minimal GPU cost
+            Circle()
+                .stroke(color.opacity(0.12), lineWidth: lineWidth)
+                .frame(width: diameter, height: diameter)
+                .accessibilityHidden(true)
+        } else {
+            Circle()
+                .stroke(color.opacity(pulse ? 0.08 : 0.18), lineWidth: lineWidth)
+                .frame(width: diameter, height: diameter)
+                .blur(radius: effectiveBlur)
+                .scaleEffect(pulse ? 1.06 : 0.96)
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
+                        pulse = true
+                    }
                 }
-            }
-            .accessibilityHidden(true)
+                .drawingGroup()
+                .accessibilityHidden(true)
+        }
     }
 }
 
@@ -122,7 +143,7 @@ private struct ShimmerSweep: View {
     @State private var offset: CGFloat = -200
 
     var body: some View {
-        if reduceMotion {
+        if reduceMotion || !DevicePerformance.shouldRenderEffects {
             Color.clear
         } else {
             GeometryReader { geo in
@@ -138,6 +159,7 @@ private struct ShimmerSweep: View {
                     }
             }
             .allowsHitTesting(false)
+            .drawingGroup()
             .accessibilityHidden(true)
         }
     }
@@ -190,6 +212,7 @@ struct OnboardingScreen1: View {
     @Binding var demoScore: Int
     var animation: Namespace.ID
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var isScanning = false
     @State private var showResult = false
@@ -202,7 +225,9 @@ struct OnboardingScreen1: View {
     var body: some View {
         ZStack {
             LuxuryBackground()
-            MoleculeParticleView(color: luxGold, count: 20).ignoresSafeArea()
+            MoleculeParticleView(color: luxGold, count: 20)
+                .ignoresSafeArea()
+                .accessibilityHidden(true)
 
             VStack(spacing: 0) {
                 OnboardingProgress(current: 0)
@@ -223,6 +248,8 @@ struct OnboardingScreen1: View {
                 .opacity(showContent ? 1 : 0)
                 .offset(y: showContent ? 0 : 24)
                 .padding(.horizontal, 32)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Your Scent, Decoded. Pick a photo and we'll match your fragrance in seconds.")
 
                 Spacer().frame(height: 36)
 
@@ -251,10 +278,12 @@ struct OnboardingScreen1: View {
                         }
                     }
                     .overlay(Circle().stroke(luxGold.opacity(0.15), lineWidth: 1).blur(radius: 5))
-                    .phaseAnimator([false, true]) { content, phase in
-                        content.scaleEffect(phase ? 1.03 : 0.97)
+                    .phaseAnimator(reduceMotion ? [false] : [false, true]) { content, phase in
+                        content.scaleEffect(reduceMotion ? 1.0 : (phase ? 1.03 : 0.97))
                     } animation: { _ in .easeInOut(duration: 3) }
                     .matchedGeometryEffect(id: "photoOrb", in: animation)
+                    .accessibilityLabel(selectedImage != nil ? "Your selected photo" : "Photo placeholder")
+                    .accessibilityHint("Tap to run a demo scent scan")
 
                     if isScanning {
                         Circle()
@@ -387,19 +416,32 @@ struct OnboardingScreen1: View {
         guard !isScanning else { return }
         isScanning = true
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) { scanAngle = 360 }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-            isScanning = false
-            scanAngle = 0
-            demoMood = selectedImage != nil ? "Your Style" : "Bold & Mysterious"
-            demoScore = 41
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+
+        if reduceMotion {
+            // Skip spinning animation; show result immediately
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isScanning = false
+                demoMood = selectedImage != nil ? "Your Style" : "Bold & Mysterious"
+                demoScore = 41
                 showResult = true
                 resultScale = 1.0
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        } else {
+            withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) { scanAngle = 360 }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                isScanning = false
+                scanAngle = 0
+                demoMood = selectedImage != nil ? "Your Style" : "Bold & Mysterious"
+                demoScore = 41
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                    showResult = true
+                    resultScale = 1.0
+                }
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                }
             }
         }
     }
@@ -417,6 +459,7 @@ struct OnboardingScreen2: View {
     @Binding var currentPage: Int
     var animation: Namespace.ID
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var stepDone: [Bool] = [false, false, false]
     @State private var orbRot: Double = 0
@@ -430,7 +473,9 @@ struct OnboardingScreen2: View {
     var body: some View {
         ZStack {
             LuxuryBackground()
-            MoleculeParticleView(color: luxEmerald.opacity(0.6), count: 15).ignoresSafeArea()
+            MoleculeParticleView(color: luxEmerald.opacity(0.6), count: 15)
+                .ignoresSafeArea()
+                .accessibilityHidden(true)
 
             VStack(spacing: 0) {
                 OnboardingProgress(current: 1)
@@ -448,6 +493,8 @@ struct OnboardingScreen2: View {
                 }
                 .opacity(showContent ? 1 : 0)
                 .offset(y: showContent ? 0 : 20)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Powered by Advanced AI. Three layers of intelligence, one perfect match.")
 
                 Spacer().frame(height: 32)
 
@@ -457,11 +504,11 @@ struct OnboardingScreen2: View {
                         Circle()
                             .stroke(luxEmerald.opacity(0.06 + Double(i) * 0.04), lineWidth: 1)
                             .frame(width: CGFloat(80 + i * 40), height: CGFloat(80 + i * 40))
-                            .rotationEffect(.degrees(orbRot * (i % 2 == 0 ? 1 : -1)))
+                            .rotationEffect(reduceMotion ? .zero : .degrees(orbRot * (i % 2 == 0 ? 1 : -1)))
 
                         Circle().fill(orbColors[i]).frame(width: 6, height: 6)
                             .offset(x: CGFloat(40 + i * 20))
-                            .rotationEffect(.degrees(orbRot * (i % 2 == 0 ? 1 : -1)))
+                            .rotationEffect(reduceMotion ? .zero : .degrees(orbRot * (i % 2 == 0 ? 1 : -1)))
                     }
 
                     Circle().fill(RadialGradient(colors: [luxEmerald.opacity(0.25), .clear],
@@ -472,9 +519,11 @@ struct OnboardingScreen2: View {
                         .font(.system(size: 28, weight: .ultraLight))
                         .foregroundStyle(luxEmerald)
                         .matchedGeometryEffect(id: "brainIcon", in: animation)
-                        .phaseAnimator([false, true]) { c, p in
-                            c.scaleEffect(p ? 1.08 : 0.94).opacity(p ? 1 : 0.7)
+                        .phaseAnimator(reduceMotion ? [false] : [false, true]) { c, p in
+                            c.scaleEffect(reduceMotion ? 1.0 : (p ? 1.08 : 0.94))
+                                .opacity(reduceMotion ? 1 : (p ? 1 : 0.7))
                         } animation: { _ in .easeInOut(duration: 2.5) }
+                        .accessibilityLabel("AI brain icon")
                 }
                 .frame(height: 180)
                 .drawingGroup()
@@ -522,12 +571,17 @@ struct OnboardingScreen2: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) { showContent = true }
-            withAnimation(.linear(duration: 8).repeatForever(autoreverses: false)) { orbRot = 360 }
-            for i in 0..<3 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 + Double(i) * 0.8) {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { stepDone[i] = true }
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            if reduceMotion {
+                showContent = true
+                stepDone = [true, true, true]
+            } else {
+                withAnimation(.easeOut(duration: 0.5)) { showContent = true }
+                withAnimation(.linear(duration: 8).repeatForever(autoreverses: false)) { orbRot = 360 }
+                for i in 0..<3 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 + Double(i) * 0.8) {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { stepDone[i] = true }
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    }
                 }
             }
         }
@@ -546,6 +600,7 @@ struct OnboardingScreen3: View {
     @Binding var currentPage: Int
     var animation: Namespace.ID
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var showCard = false
     @State private var scoreValue: Int = 0
@@ -557,7 +612,9 @@ struct OnboardingScreen3: View {
     var body: some View {
         ZStack {
             LuxuryBackground()
-            MoleculeParticleView(color: luxGold, count: 22).ignoresSafeArea()
+            MoleculeParticleView(color: luxGold, count: 22)
+                .ignoresSafeArea()
+                .accessibilityHidden(true)
 
             VStack(spacing: 0) {
                 OnboardingProgress(current: 2)
@@ -652,17 +709,24 @@ struct OnboardingScreen3: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) { showContent = true }
-            withAnimation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.3)) { showCard = true }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            if reduceMotion {
+                showContent = true
+                showCard = true
+                scoreValue = 98
+                showNotes = true
+            } else {
+                withAnimation(.easeOut(duration: 0.5)) { showContent = true }
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.3)) { showCard = true }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                }
+                animateScore()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) { showNotes = true }
+                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                }
+                withAnimation(.linear(duration: 2.2).repeatForever(autoreverses: false).delay(0.4)) { shimmerX = 400 }
             }
-            animateScore()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) { showNotes = true }
-                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-            }
-            withAnimation(.linear(duration: 2.2).repeatForever(autoreverses: false).delay(0.4)) { shimmerX = 400 }
         }
     }
 
@@ -695,6 +759,7 @@ struct PersonalizedPaywallView: View {
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorMessage = ""
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var proofIdx = 0
 
@@ -726,7 +791,9 @@ struct PersonalizedPaywallView: View {
     var body: some View {
         ZStack {
             LuxuryBackground()
-            MoleculeParticleView(color: luxGold.opacity(0.5), count: 12).ignoresSafeArea()
+            MoleculeParticleView(color: luxGold.opacity(0.5), count: 12)
+                .ignoresSafeArea()
+                .accessibilityHidden(true)
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
@@ -756,8 +823,8 @@ struct PersonalizedPaywallView: View {
                                     LinearGradient(colors: [luxGold, luxGoldLight],
                                                    startPoint: .topLeading, endPoint: .bottomTrailing)
                                 )
-                                .phaseAnimator([false, true]) { c, p in
-                                    c.scaleEffect(p ? 1.06 : 0.96)
+                                .phaseAnimator(reduceMotion ? [false] : [false, true]) { c, p in
+                                    c.scaleEffect(reduceMotion ? 1.0 : (p ? 1.06 : 0.96))
                                 } animation: { _ in .easeInOut(duration: 2.5) }
                         }
 
@@ -878,10 +945,15 @@ struct PersonalizedPaywallView: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) { showContent = true }
+            if reduceMotion {
+                showContent = true
+            } else {
+                withAnimation(.easeOut(duration: 0.5)) { showContent = true }
+            }
             EventLogger.shared.log(EventLogger.paywallShown)
         }
         .onReceive(proofTimer) { _ in
+            guard !reduceMotion else { return }
             withAnimation(.easeInOut(duration: 0.4)) { proofIdx = (proofIdx + 1) % proof.count }
         }
         .alert("Error", isPresented: $showError) {
@@ -1011,6 +1083,7 @@ struct PersonalizedPaywallView: View {
 struct ScentVibeOnboardingFlow: View {
     let onComplete: () -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Namespace private var animation
     @State private var currentPage = 0
     @State private var demoMood = ""
@@ -1042,7 +1115,7 @@ struct ScentVibeOnboardingFlow: View {
                 EmptyView()
             }
         }
-        .animation(.spring(response: 0.5, dampingFraction: 0.85), value: currentPage)
+        .animation(reduceMotion ? .none : .spring(response: 0.5, dampingFraction: 0.85), value: currentPage)
     }
 
     private var fwd: AnyTransition {

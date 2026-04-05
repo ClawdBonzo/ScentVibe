@@ -5,11 +5,15 @@ struct MatchDetailView: View {
     let fragrance: Fragrance
     let recommendation: RecommendationEntry
     let matchResult: ScentMatchResult
+    var onDelete: (() -> Void)?
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var showShareSheet = false
     @State private var shareImage: UIImage?
+    @State private var showDeleteConfirmation = false
+    @State private var heartScale: CGFloat = 1.0
 
     var body: some View {
         NavigationStack {
@@ -66,9 +70,27 @@ struct MatchDetailView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: toggleFavorite) {
-                        Image(systemName: matchResult.isFavorited ? "heart.fill" : "heart")
-                            .foregroundStyle(matchResult.isFavorited ? Color.smEmerald : Color.smTextSecondary)
+                    HStack(spacing: 12) {
+                        Button(action: toggleFavorite) {
+                            Image(systemName: matchResult.isFavorited ? "heart.fill" : "heart")
+                                .foregroundStyle(matchResult.isFavorited ? Color.smEmerald : Color.smTextSecondary)
+                                .scaleEffect(heartScale)
+                                .symbolEffect(.bounce, value: matchResult.isFavorited)
+                        }
+                        .accessibilityLabel(matchResult.isFavorited ? "Remove from wardrobe" : "Save to wardrobe")
+                        .accessibilityHint(matchResult.isFavorited ? "Removes this fragrance from your saved wardrobe" : "Saves this fragrance to your wardrobe")
+
+                        if onDelete != nil {
+                            Button {
+                                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                                showDeleteConfirmation = true
+                            } label: {
+                                Image(systemName: "trash")
+                                    .foregroundStyle(Color.smError.opacity(0.8))
+                            }
+                            .accessibilityLabel("Delete match")
+                            .accessibilityHint("Permanently deletes this fragrance match")
+                        }
                     }
                 }
             }
@@ -78,10 +100,23 @@ struct MatchDetailView: View {
                 ShareSheet(items: [image])
             }
         }
+        .confirmationDialog("Delete Match", isPresented: $showDeleteConfirmation) {
+            Button("Delete Permanently", role: .destructive) {
+                onDelete?()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This will permanently delete your \(fragrance.name) match. This cannot be undone.")
+        }
         .preferredColorScheme(.dark)
         .onAppear {
-            withAnimation(.easeOut(duration: 0.6).delay(0.2)) {
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+            if reduceMotion {
                 showContent = true
+            } else {
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.2)) {
+                    showContent = true
+                }
             }
         }
     }
@@ -135,6 +170,8 @@ struct MatchDetailView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Vibe score \(String(format: "%.0f", matchResult.vibeScore)), \(String(format: "%.0f", recommendation.score * 100)) percent match, from \(fragrance.region.displayName)")
         }
     }
 
@@ -181,6 +218,8 @@ struct MatchDetailView: View {
             }
         }
         .padding(.horizontal, 20)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(fragrance.name) by \(fragrance.house). \(fragrance.shortDescription). Accords: \(fragrance.accords.map(\.rawValue).joined(separator: ", "))")
     }
 
     // MARK: - Why It Matches
@@ -246,6 +285,7 @@ struct MatchDetailView: View {
                 .stroke(Color.smEmerald.opacity(0.1), lineWidth: 0.5)
         )
         .padding(.horizontal, 20)
+        .accessibilityElement(children: .combine)
     }
 
     // MARK: - Notes Pyramid
@@ -294,6 +334,8 @@ struct MatchDetailView: View {
                 .stroke(Color.smTeal.opacity(0.1), lineWidth: 0.5)
         )
         .padding(.horizontal, 20)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Fragrance notes. Top notes: \(fragrance.topNotes.joined(separator: ", ")). Heart notes: \(fragrance.heartNotes.joined(separator: ", ")). Base notes: \(fragrance.baseNotes.joined(separator: ", "))")
     }
 
     private func pyramidLayer(label: String, subtitle: String, notes: [String], color: Color, widthFraction: CGFloat) -> some View {
@@ -404,6 +446,8 @@ struct MatchDetailView: View {
                             : nil
                     )
                 }
+                .accessibilityLabel("Shop \(fragrance.name) on \(link.retailer)")
+                .accessibilityHint("Opens \(link.retailer) in your browser")
             }
 
             Text("As an Amazon Associate, we earn from qualifying purchases")
@@ -419,7 +463,10 @@ struct MatchDetailView: View {
     private var actionButtons: some View {
         VStack(spacing: 10) {
             // Share story card
-            Button(action: shareStoryCard) {
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                shareStoryCard()
+            }) {
                 Label("Share Story Card", systemImage: "square.and.arrow.up")
                     .font(SMFont.headline(16))
                     .foregroundStyle(Color.smBackground)
@@ -479,6 +526,17 @@ struct MatchDetailView: View {
     // MARK: - Actions
 
     private func toggleFavorite() {
+        if !reduceMotion {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) {
+                heartScale = 1.35
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                    heartScale = 1.0
+                }
+            }
+        }
+
         matchResult.isFavorited.toggle()
         if matchResult.isFavorited {
             UINotificationFeedbackGenerator().notificationOccurred(.success)

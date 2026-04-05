@@ -4,6 +4,7 @@ import SwiftData
 struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var profiles: [UserProfile]
     @State private var selectedTier: PaywallTier = .yearly
     @State private var isPurchasing = false
@@ -11,6 +12,7 @@ struct PaywallView: View {
     @State private var errorMessage = ""
     @State private var showContent = false
     @State private var socialProofIndex = 0
+    @State private var crownPulse = false
 
     @AppStorage("vibeAlignmentScore") private var storedVibeScore: Int = 0
 
@@ -51,7 +53,10 @@ struct PaywallView: View {
 
                         purchaseButton
 
-                        Button(action: restore) {
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            restore()
+                        }) {
                             Text("Restore Purchases")
                                 .font(SMFont.caption())
                                 .foregroundStyle(Color.smTextTertiary)
@@ -67,7 +72,10 @@ struct PaywallView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        dismiss()
+                    }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 24))
                             .foregroundStyle(Color.smTextSecondary)
@@ -82,10 +90,15 @@ struct PaywallView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) { showContent = true }
+            if reduceMotion {
+                showContent = true
+            } else {
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) { showContent = true }
+            }
             EventLogger.shared.log(EventLogger.paywallShown)
         }
         .onReceive(timer) { _ in
+            guard !reduceMotion else { return }
             withAnimation {
                 socialProofIndex = (socialProofIndex + 1) % socialProofMessages.count
             }
@@ -107,12 +120,20 @@ struct PaywallView: View {
                 Image(systemName: "crown.fill")
                     .font(.system(size: 44))
                     .foregroundStyle(LinearGradient.smGoldGradient)
+                    .scaleEffect(crownPulse ? 1.06 : 0.96)
+                    .onAppear {
+                        guard !reduceMotion else { return }
+                        withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
+                            crownPulse = true
+                        }
+                    }
             }
 
             Text("Unlock ScentVibe Pro")
                 .font(SMFont.display(28))
                 .foregroundStyle(Color.smTextPrimary)
                 .multilineTextAlignment(.center)
+                .accessibilityAddTraits(.isHeader)
 
             Text(socialProofMessages[socialProofIndex])
                 .font(SMFont.caption(12))
@@ -144,6 +165,8 @@ struct PaywallView: View {
                 .foregroundStyle(Color.smTextPrimary)
             Spacer()
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(text)
     }
 
     private func tierCard(tier: PaywallTier) -> some View {
@@ -193,6 +216,10 @@ struct PaywallView: View {
                     .stroke(isSelected ? Color.smGold : Color.clear, lineWidth: 1.5)
             )
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(tier.title), \(tier.price)\(tier.savings.map { ", \($0)" } ?? "")")
+        .accessibilityHint(isSelected ? "Currently selected" : "Double-tap to select this plan")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
     private var purchaseButton: some View {
@@ -214,6 +241,8 @@ struct PaywallView: View {
             .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
         }
         .disabled(isPurchasing)
+        .accessibilityLabel(isPurchasing ? "Purchasing" : "Continue with \(selectedTier.title)")
+        .accessibilityHint("Subscribes to the \(selectedTier.title) plan")
     }
 
     private var legalText: some View {
@@ -236,6 +265,7 @@ struct PaywallView: View {
     // MARK: - Actions
 
     private func purchase() {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         isPurchasing = true
         Task {
             do {
@@ -244,10 +274,12 @@ struct PaywallView: View {
                 EventLogger.shared.log(EventLogger.paywallConverted, metadata: [
                     "tier": selectedTier.title, "price": selectedTier.price,
                 ])
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 dismiss()
             } catch {
                 errorMessage = error.localizedDescription
                 showError = true
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
             }
             isPurchasing = false
         }
@@ -260,11 +292,13 @@ struct PaywallView: View {
                 try await PaywallManager.shared.restorePurchases()
                 if PaywallManager.shared.isPremium {
                     profile?.isPremium = true
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                     dismiss()
                 }
             } catch {
                 errorMessage = error.localizedDescription
                 showError = true
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
             }
             isPurchasing = false
         }

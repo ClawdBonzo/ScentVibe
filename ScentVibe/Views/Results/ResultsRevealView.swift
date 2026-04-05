@@ -7,6 +7,7 @@ struct ResultsRevealView: View {
     let analysisResult: ImageAnalysisResult?
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showContent = false
     @State private var showCards = false
     @State private var revealedCards: Set<Int> = []
@@ -15,6 +16,8 @@ struct ResultsRevealView: View {
     @State private var shareImage: UIImage?
     @State private var showMoodPicker = false
     @State private var isSaved = false
+    @State private var saveButtonScale: CGFloat = 1.0
+    @State private var showConfetti = false
 
     var onRegenerate: (() -> Void)?
     var onRegenerateWithMood: ((String) -> Void)?
@@ -55,7 +58,11 @@ struct ResultsRevealView: View {
                                 recommendationCard(fragrance: fragrance, rec: rec, index: idx)
                                     .opacity(revealedCards.contains(idx) ? 1 : 0)
                                     .offset(y: revealedCards.contains(idx) ? 0 : 40)
+                                    .accessibilityElement(children: .combine)
+                                    .accessibilityLabel("\(fragrance.name) by \(fragrance.house), \(String(format: "%.0f", rec.score * 100)) percent match")
+                                    .accessibilityHint("Tap to view full fragrance details")
                                     .onTapGesture {
+                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                                         selectedRecommendation = rec
                                     }
                             }
@@ -69,12 +76,19 @@ struct ResultsRevealView: View {
                         Spacer(minLength: 32)
                     }
                 }
+
+                // First-save confetti celebration
+                ConfettiView(isActive: $showConfetti)
+                    .zIndex(999)
             }
             .navigationTitle("Your Match")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        dismiss()
+                    }) {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundStyle(Color.smTextSecondary)
                     }
@@ -127,6 +141,7 @@ struct ResultsRevealView: View {
                 HStack(spacing: 8) {
                     Image(systemName: isSaved ? "heart.fill" : "heart")
                         .font(.system(size: 16, weight: .semibold))
+                        .symbolEffect(.bounce, value: isSaved)
                     Text(isSaved ? "Saved to Wardrobe" : "Save to My Wardrobe")
                         .font(SMFont.headline(16))
                 }
@@ -141,10 +156,17 @@ struct ResultsRevealView: View {
                         .stroke(Color.smEmerald.opacity(0.3), lineWidth: 1)
                 )
             }
+            .scaleEffect(saveButtonScale)
             .padding(.horizontal)
+            .animation(reduceMotion ? .none : .spring(response: 0.35, dampingFraction: 0.6), value: isSaved)
+            .accessibilityLabel(isSaved ? "Saved to wardrobe" : "Save to my wardrobe")
+            .accessibilityHint(isSaved ? "Tap to remove from your wardrobe" : "Tap to save this scent match to your wardrobe")
 
             // Share to Stories
-            Button(action: generateShareCard) {
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                generateShareCard()
+            }) {
                 Label("Share to Stories", systemImage: "square.and.arrow.up")
                     .font(SMFont.headline(16))
                     .foregroundStyle(Color.smBackground)
@@ -211,7 +233,10 @@ struct ResultsRevealView: View {
             .padding(.horizontal)
 
             // Done
-            Button(action: { dismiss() }) {
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                dismiss()
+            }) {
                 Text("Done")
                     .font(SMFont.headline(17))
                     .foregroundStyle(Color.smTextSecondary)
@@ -256,6 +281,8 @@ struct ResultsRevealView: View {
                 .foregroundStyle(Color.smEmerald)
         }
         .padding(.top, 20)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Vibe Score: \(String(format: "%.0f", matchResult.vibeScore)) out of 100. \(vibeDescription)")
     }
 
     private var vibeDescription: String {
@@ -315,6 +342,8 @@ struct ResultsRevealView: View {
             }
             .padding(.horizontal)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Detected moods: \(matchResult.detectedMoodTags.prefix(6).joined(separator: ", "))")
     }
 
     // MARK: - Recommendation Card
@@ -390,6 +419,17 @@ struct ResultsRevealView: View {
     // MARK: - Actions
 
     private func saveToWardrobe() {
+        if !reduceMotion {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
+                saveButtonScale = 0.92
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) {
+                    saveButtonScale = 1.0
+                }
+            }
+        }
+
         isSaved.toggle()
         matchResult.isFavorited = isSaved
 
@@ -401,6 +441,12 @@ struct ResultsRevealView: View {
             ])
             WidgetDataBridge.shared.update(with: matchResult)
             ReviewRequester.trackSaveAndRequestIfEligible()
+
+            // Confetti celebration on the very first save
+            if FirstSaveTracker.checkAndMarkFirstSave() {
+                showConfetti = true
+            }
+
             #if DEBUG
             print("[Analytics] save_to_wardrobe: \(matchResult.id)")
             #endif
@@ -432,25 +478,32 @@ struct ResultsRevealView: View {
     // MARK: - Reveal Sequence
 
     private func triggerRevealSequence() {
-        let impact = UIImpactFeedbackGenerator(style: .medium)
-        impact.impactOccurred()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
-        withAnimation(.easeOut(duration: 0.6)) {
+        if reduceMotion {
+            showContent = true
+            showCards = true
+            for i in 0..<min(5, recommendations.count) {
+                revealedCards.insert(i)
+            }
+            return
+        }
+
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             showContent = true
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            withAnimation(.easeOut(duration: 0.4)) {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                 showCards = true
             }
 
             for i in 0..<min(5, recommendations.count) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.15) {
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                    _ = withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                         revealedCards.insert(i)
                     }
-                    let light = UIImpactFeedbackGenerator(style: .light)
-                    light.impactOccurred()
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
                 }
             }
         }
@@ -493,6 +546,7 @@ struct MoodPickerSheet: View {
 
                         ForEach(moods, id: \.name) { mood in
                             Button {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
                                 onSelect(mood.name)
                             } label: {
                                 HStack(spacing: 12) {
@@ -515,6 +569,8 @@ struct MoodPickerSheet: View {
                                 .background(Color.smSurfaceElevated)
                                 .clipShape(RoundedRectangle(cornerRadius: 14))
                             }
+                            .accessibilityLabel("\(mood.name) mood")
+                            .accessibilityHint("Regenerates your match with a \(mood.name.lowercased()) vibe")
                         }
                     }
                     .padding()
