@@ -4,10 +4,13 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
+    @Query private var gamifications: [GamificationProfile]
     @State private var selectedTab = 0
     @State private var previousTab = 0
     @State private var showOnboarding = false
     @State private var showNotificationPrompt = false
+    @State private var showBadgePopup = false
+    @State private var unlockedBadge: Badge?
 
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("hasAskedNotificationPermission") private var hasAskedNotificationPermission = false
@@ -16,6 +19,15 @@ struct ContentView: View {
     private var profile: UserProfile {
         if let existing = profiles.first { return existing }
         let new = UserProfile()
+        modelContext.insert(new)
+        return new
+    }
+
+    private var gamification: GamificationProfile {
+        if let existing = gamifications.first { return existing }
+        let new = GamificationProfile()
+        new.generateDailyQuests()
+        new.generateWeeklyQuests()
         modelContext.insert(new)
         return new
     }
@@ -46,17 +58,43 @@ struct ContentView: View {
                     }
                     .tag(2)
 
+                GamificationDashboardView(
+                    gamification: gamification,
+                    onQuestComplete: { questId in
+                        // Handle quest completion haptic
+                    },
+                    onBadgeUnlock: { badgeIds in
+                        if let badgeId = badgeIds.first, let badge = BadgeManager.badge(forId: badgeId) {
+                            unlockedBadge = badge
+                            showBadgePopup = true
+                        }
+                    }
+                )
+                    .tabItem {
+                        Image(systemName: "star.fill")
+                        Text("Progress")
+                    }
+                    .tag(3)
+
                 SettingsView()
                     .tabItem {
                         Image(systemName: "gearshape.fill")
                         Text("Settings")
                     }
-                    .tag(3)
+                    .tag(4)
             }
             .tint(Color.smEmerald)
             .onChange(of: selectedTab) { oldValue, newValue in
                 previousTab = oldValue
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            }
+
+            // Badge unlock popup
+            if showBadgePopup, let badge = unlockedBadge {
+                BadgeUnlockPopupView(badge: badge)
+                    .onTapGesture {
+                        showBadgePopup = false
+                    }
             }
         }
         .preferredColorScheme(.dark)
@@ -64,6 +102,11 @@ struct ContentView: View {
             setupTabBarAppearance()
             if !hasCompletedOnboarding {
                 showOnboarding = true
+            }
+
+            // Initialize daily quests if needed
+            if gamification.dailyQuests.isEmpty {
+                gamification.generateDailyQuests()
             }
         }
         .fullScreenCover(isPresented: $showOnboarding, onDismiss: onOnboardingDismissed) {

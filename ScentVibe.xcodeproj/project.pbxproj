@@ -54,6 +54,15 @@
 		A1000101000000000000002F /* DevicePerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000032 /* DevicePerformance.swift */; };
 		A10001010000000000000030 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000033 /* ConfettiView.swift */; };
 		A10001010000000000000031 /* DailyVibeNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000034 /* DailyVibeNotificationManager.swift */; };
+		A10001010000000000000032 /* GamificationProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000035 /* GamificationProfile.swift */; };
+		A10001010000000000000033 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000036 /* Badge.swift */; };
+		A10001010000000000000034 /* GamificationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000037 /* GamificationEngine.swift */; };
+		A10001010000000000000035 /* GamificationHaptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000038 /* GamificationHaptics.swift */; };
+		A10001010000000000000036 /* GamificationDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000039 /* GamificationDashboardView.swift */; };
+		A10001010000000000000037 /* GamificationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003A /* GamificationProgressView.swift */; };
+		A10001010000000000000038 /* QuestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003B /* QuestsView.swift */; };
+		A10001010000000000000039 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003C /* BadgesView.swift */; };
+		A1000101000000000000003A /* BadgeUnlockPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003D /* BadgeUnlockPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +142,15 @@
 		A10002010000000000000032 /* DevicePerformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePerformance.swift; sourceTree = "<group>"; };
 		A10002010000000000000033 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		A10002010000000000000034 /* DailyVibeNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyVibeNotificationManager.swift; sourceTree = "<group>"; };
+		A10002010000000000000035 /* GamificationProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationProfile.swift; sourceTree = "<group>"; };
+		A10002010000000000000036 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		A10002010000000000000037 /* GamificationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationEngine.swift; sourceTree = "<group>"; };
+		A10002010000000000000038 /* GamificationHaptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationHaptics.swift; sourceTree = "<group>"; };
+		A10002010000000000000039 /* GamificationDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationDashboardView.swift; sourceTree = "<group>"; };
+		A1000201000000000000003A /* GamificationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationProgressView.swift; sourceTree = "<group>"; };
+		A1000201000000000000003B /* QuestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestsView.swift; sourceTree = "<group>"; };
+		A1000201000000000000003C /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
+		A1000201000000000000003D /* BadgeUnlockPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeUnlockPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +244,8 @@
 				A10002010000000000000022 /* FragranceDB_Mexican.swift */,
 				A10002010000000000000023 /* FragranceDB_Brazilian.swift */,
 				A10002010000000000000024 /* FragranceDB_French.swift */,
+				A10002010000000000000035 /* GamificationProfile.swift */,
+				A10002010000000000000036 /* Badge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -238,6 +258,8 @@
 				A1000201000000000000000A /* ExplanationGenerator.swift */,
 				A10002010000000000000032 /* DevicePerformance.swift */,
 				A10002010000000000000034 /* DailyVibeNotificationManager.swift */,
+				A10002010000000000000037 /* GamificationEngine.swift */,
+				A10002010000000000000038 /* GamificationHaptics.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -253,6 +275,7 @@
 				A10004010000000000000011 /* Settings */,
 				A10004010000000000000012 /* Testing */,
 				A10004010000000000000013 /* Wardrobe */,
+				A1000401000000000000001E /* Gamification */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -322,6 +345,18 @@
 				A10002010000000000000027 /* VibeWardrobeView.swift */,
 			);
 			path = Wardrobe;
+			sourceTree = "<group>";
+		};
+		A1000401000000000000001E /* Gamification */ = {
+			isa = PBXGroup;
+			children = (
+				A10002010000000000000039 /* GamificationDashboardView.swift */,
+				A1000201000000000000003A /* GamificationProgressView.swift */,
+				A1000201000000000000003B /* QuestsView.swift */,
+				A1000201000000000000003C /* BadgesView.swift */,
+				A1000201000000000000003D /* BadgeUnlockPopupView.swift */,
+			);
+			path = Gamification;
 			sourceTree = "<group>";
 		};
 		A10004010000000000000007 /* Components */ = {
@@ -526,6 +561,15 @@
 				A10001010000000000000022 /* FragranceDB_Mexican.swift in Sources */,
 				A10001010000000000000023 /* FragranceDB_Brazilian.swift in Sources */,
 				A10001010000000000000024 /* FragranceDB_French.swift in Sources */,
+				A10001010000000000000032 /* GamificationProfile.swift in Sources */,
+				A10001010000000000000033 /* Badge.swift in Sources */,
+				A10001010000000000000034 /* GamificationEngine.swift in Sources */,
+				A10001010000000000000035 /* GamificationHaptics.swift in Sources */,
+				A10001010000000000000036 /* GamificationDashboardView.swift in Sources */,
+				A10001010000000000000037 /* GamificationProgressView.swift in Sources */,
+				A10001010000000000000038 /* QuestsView.swift in Sources */,
+				A10001010000000000000039 /* BadgesView.swift in Sources */,
+				A1000101000000000000003A /* BadgeUnlockPopupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
