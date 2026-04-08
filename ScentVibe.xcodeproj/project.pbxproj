@@ -63,6 +63,10 @@
 		A10001010000000000000038 /* QuestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003B /* QuestsView.swift */; };
 		A10001010000000000000039 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003C /* BadgesView.swift */; };
 		A1000101000000000000003A /* BadgeUnlockPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003D /* BadgeUnlockPopupView.swift */; };
+		A1000101000000000000003B /* ScentArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003E /* ScentArchetype.swift */; };
+		A1000101000000000000003C /* StreakFlameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000201000000000000003F /* StreakFlameView.swift */; };
+		A1000101000000000000003D /* LevelUpAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000040 /* LevelUpAnimationView.swift */; };
+		A1000101000000000000003E /* QuestCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000041 /* QuestCompletionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +155,10 @@
 		A1000201000000000000003B /* QuestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestsView.swift; sourceTree = "<group>"; };
 		A1000201000000000000003C /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
 		A1000201000000000000003D /* BadgeUnlockPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeUnlockPopupView.swift; sourceTree = "<group>"; };
+		A1000201000000000000003E /* ScentArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScentArchetype.swift; sourceTree = "<group>"; };
+		A1000201000000000000003F /* StreakFlameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakFlameView.swift; sourceTree = "<group>"; };
+		A10002010000000000000040 /* LevelUpAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpAnimationView.swift; sourceTree = "<group>"; };
+		A10002010000000000000041 /* QuestCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestCompletionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +254,7 @@
 				A10002010000000000000024 /* FragranceDB_French.swift */,
 				A10002010000000000000035 /* GamificationProfile.swift */,
 				A10002010000000000000036 /* Badge.swift */,
+				A1000201000000000000003E /* ScentArchetype.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,6 +364,9 @@
 				A1000201000000000000003B /* QuestsView.swift */,
 				A1000201000000000000003C /* BadgesView.swift */,
 				A1000201000000000000003D /* BadgeUnlockPopupView.swift */,
+				A1000201000000000000003F /* StreakFlameView.swift */,
+				A10002010000000000000040 /* LevelUpAnimationView.swift */,
+				A10002010000000000000041 /* QuestCompletionView.swift */,
 			);
 			path = Gamification;
 			sourceTree = "<group>";
@@ -570,6 +582,10 @@
 				A10001010000000000000038 /* QuestsView.swift in Sources */,
 				A10001010000000000000039 /* BadgesView.swift in Sources */,
 				A1000101000000000000003A /* BadgeUnlockPopupView.swift in Sources */,
+				A1000101000000000000003B /* ScentArchetype.swift in Sources */,
+				A1000101000000000000003C /* StreakFlameView.swift in Sources */,
+				A1000101000000000000003D /* LevelUpAnimationView.swift in Sources */,
+				A1000101000000000000003E /* QuestCompletionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,238 +5,300 @@ struct GamificationProgressView: View {
     let shouldAnimate: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var xpBarWidth: CGFloat = 0
+    @State private var orbPulse = false
 
     var body: some View {
-        VStack(spacing: 16) {
-            // Level Card
-            levelCard
+        ScrollView {
+            VStack(spacing: 20) {
+                // ── XP Orb + Level card ──
+                levelOrbCard
 
-            // XP Progress Bar
-            xpProgressBar
+                // ── Streak ──
+                if gamification.currentStreak > 0 {
+                    StreakBadgeRow(
+                        currentStreak: gamification.currentStreak,
+                        bestStreak: gamification.bestStreak,
+                        multiplier: gamification.streakMultiplier
+                    )
+                    .padding(.horizontal)
+                }
 
-            // Streak Flame Display
-            if gamification.currentStreak > 0 {
-                streakDisplay
+                // ── XP Progress bar ──
+                xpProgressSection
+
+                // ── Quest snapshot ──
+                questSnapshot
+
+                Spacer(minLength: 32)
             }
-
-            // Quest Summary
-            questSummary
+            .padding(.vertical, 16)
         }
-        .padding(.horizontal)
     }
 
-    private var levelCard: some View {
-        ZStack {
-            // Background gradient
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color(red: 0.12, green: 0.15, blue: 0.14),
-                    Color(red: 0.08, green: 0.1, blue: 0.09),
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .cornerRadius(12)
+    // MARK: Level Orb Card
 
-            VStack(spacing: 12) {
-                HStack(spacing: 16) {
-                    // Level number in circle
-                    ZStack {
+    private var levelOrbCard: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.10, green: 0.14, blue: 0.14),
+                            Color(red: 0.07, green: 0.09, blue: 0.09),
+                        ],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .strokeBorder(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.98, green: 0.82, blue: 0.28).opacity(0.4),
+                                    Color(red: 0.00, green: 0.85, blue: 0.62).opacity(0.2),
+                                ],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                )
+
+            HStack(spacing: 20) {
+                // Glowing orb
+                ZStack {
+                    // Outer glow
+                    if !reduceMotion {
                         Circle()
                             .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color(red: 0.85, green: 0.72, blue: 0.27),
-                                        Color(red: 0.98, green: 0.83, blue: 0.39),
-                                    ]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
+                                RadialGradient(
+                                    colors: [
+                                        Color(red: 0.98, green: 0.82, blue: 0.28).opacity(orbPulse ? 0.3 : 0.15),
+                                        .clear,
+                                    ],
+                                    center: .center, startRadius: 4, endRadius: 42
                                 )
                             )
-                            .frame(width: 60, height: 60)
-                            .scaleEffect(shouldAnimate && !reduceMotion ? 1.05 : 1.0)
-                            .animation(.easeInOut(duration: 0.6), value: shouldAnimate)
-
-                        Text("\(gamification.level)")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .foregroundStyle(Color.smBackground)
+                            .frame(width: 84, height: 84)
                     }
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(gamification.levelTitle)
-                            .font(.system(size: 16, weight: .semibold, design: .default))
-                            .foregroundStyle(Color.smTextPrimary)
+                    // Orb
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.98, green: 0.84, blue: 0.38),
+                                    Color(red: 0.82, green: 0.65, blue: 0.18),
+                                ],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 64, height: 64)
+                        .scaleEffect(orbPulse && !reduceMotion ? 1.06 : 1.0)
+                        .shadow(color: Color(red: 0.98, green: 0.80, blue: 0.25).opacity(0.4), radius: 10)
 
-                        HStack(spacing: 8) {
-                            Image(systemName: "star.fill")
-                                .font(.system(size: 12))
-                                .foregroundStyle(Color(red: 0.85, green: 0.72, blue: 0.27))
-
-                            Text("\(gamification.totalXP) XP")
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundStyle(Color.smTextSecondary)
-                        }
-                    }
-
-                    Spacer()
+                    // Level number
+                    Text("\(gamification.level)")
+                        .font(.system(size: 28, weight: .black, design: .rounded))
+                        .foregroundStyle(Color(red: 0.2, green: 0.12, blue: 0.0))
                 }
 
-                Divider()
-                    .background(Color.white.opacity(0.1))
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(gamification.levelTitle)
+                        .font(.system(size: 17, weight: .bold, design: .default))
+                        .foregroundStyle(Color.smTextPrimary)
 
-                // Next Level Info
-                HStack {
-                    Text("Next: \(gamification.xpForNextLevel) XP")
+                    HStack(spacing: 6) {
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color(red: 0.98, green: 0.82, blue: 0.28))
+
+                        Text("\(gamification.totalXP) total XP")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(Color.smTextSecondary)
+                    }
+
+                    Text("\(gamification.unlockedBadgeIds.count) badge\(gamification.unlockedBadgeIds.count == 1 ? "" : "s") earned")
                         .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(Color.smTextSecondary)
-
-                    Spacer()
-
-                    Text("\(Int(gamification.xpProgressToNextLevel * 100))%")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.85, green: 0.72, blue: 0.27))
                 }
+
+                Spacer()
             }
-            .padding(12)
+            .padding(16)
         }
-        .frame(height: 120)
+        .frame(height: 110)
+        .padding(.horizontal)
+        .onAppear {
+            guard !reduceMotion else { return }
+            withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
+                orbPulse = true
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Level \(gamification.level), \(gamification.levelTitle), \(gamification.totalXP) total XP")
     }
 
-    private var xpProgressBar: some View {
-        VStack(spacing: 8) {
+    // MARK: XP Progress Bar
+
+    private var xpProgressSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Label("Progress to Level \(gamification.level + 1)", systemImage: "gauge.badge.plus")
-                    .font(.system(size: 12, weight: .semibold))
+                Label("Progress to Level \(gamification.level + 1)", systemImage: "arrow.up.circle")
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(Color.smTextSecondary)
 
                 Spacer()
 
-                Text("\(gamification.currentLevelXP)/\(gamification.xpForNextLevel)")
-                    .font(.system(size: 12, weight: .medium))
+                Text("\(gamification.currentLevelXP) / \(gamification.xpForNextLevel) XP")
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .foregroundStyle(Color.smTextSecondary)
             }
 
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    // Background
+                    // Track
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.white.opacity(0.08))
+                        .fill(Color.white.opacity(0.07))
 
-                    // Progress
+                    // Fill
                     RoundedRectangle(cornerRadius: 6)
                         .fill(
                             LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color(red: 0.85, green: 0.72, blue: 0.27),
+                                colors: [
+                                    Color(red: 0.98, green: 0.82, blue: 0.28),
                                     Color(red: 0.00, green: 0.85, blue: 0.62),
-                                ]),
-                                startPoint: .leading,
-                                endPoint: .trailing
+                                ],
+                                startPoint: .leading, endPoint: .trailing
                             )
                         )
-                        .frame(width: geo.size.width * gamification.xpProgressToNextLevel)
-                        .animation(.easeInOut(duration: 0.5), value: gamification.currentLevelXP)
+                        .frame(
+                            width: shouldAnimate
+                                ? geo.size.width * gamification.xpProgressToNextLevel
+                                : 0
+                        )
+                        .animation(.easeOut(duration: 1.1).delay(0.2), value: shouldAnimate)
                 }
             }
-            .frame(height: 8)
+            .frame(height: 9)
+
+            Text("\(Int(gamification.xpProgressToNextLevel * 100))% complete")
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(Color.smTextSecondary)
         }
+        .padding(.horizontal)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("XP Progress: \(Int(gamification.xpProgressToNextLevel * 100)) percent to level \(gamification.level + 1)")
     }
 
-    private var streakDisplay: some View {
-        HStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(Color(red: 1.0, green: 0.5, blue: 0.2).opacity(0.2))
-                    .frame(width: 50, height: 50)
+    // MARK: Quest Snapshot
 
-                HStack(spacing: 2) {
-                    Text("🔥")
-                        .font(.system(size: 20))
-                        .scaleEffect(shouldAnimate && !reduceMotion ? 1.2 : 1.0)
-                        .animation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true), value: shouldAnimate)
-
-                    Text("\(gamification.currentStreak)")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.2))
-                }
-            }
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Current Streak")
-                    .font(.system(size: 13, weight: .semibold))
+    private var questSnapshot: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Label("Today's Quests", systemImage: "list.bullet.circle.fill")
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Color.smTextPrimary)
 
-                HStack(spacing: 8) {
-                    Text("Best: \(gamification.bestStreak)")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(Color.smTextSecondary)
-
-                    Text("×\(String(format: "%.1f", gamification.streakMultiplier)) XP")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.00, green: 0.85, blue: 0.62))
-                }
-            }
-
-            Spacer()
-        }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 12)
-        .background(Color(red: 0.12, green: 0.15, blue: 0.14))
-        .cornerRadius(10)
-    }
-
-    private var questSummary: some View {
-        HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Daily Quests")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color.smTextPrimary)
+                Spacer()
 
                 let dailyCompleted = gamification.dailyQuests.filter { $0.isCompleted }.count
-                Text("\(dailyCompleted)/\(gamification.dailyQuests.count) completed")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(Color.smTextSecondary)
+                Text("\(dailyCompleted)/\(gamification.dailyQuests.count) done")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(
+                        dailyCompleted == gamification.dailyQuests.count
+                            ? Color(red: 0.00, green: 0.85, blue: 0.62)
+                            : Color(red: 0.98, green: 0.82, blue: 0.28)
+                    )
+            }
+
+            VStack(spacing: 8) {
+                ForEach(gamification.dailyQuests.prefix(3)) { quest in
+                    MiniQuestRow(quest: quest)
+                }
+            }
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(red: 0.09, green: 0.12, blue: 0.12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(Color.white.opacity(0.06), lineWidth: 1)
+                )
+        )
+        .padding(.horizontal)
+    }
+}
+
+// MARK: - Mini Quest Row
+
+private struct MiniQuestRow: View {
+    let quest: QuestData
+
+    var body: some View {
+        HStack(spacing: 12) {
+            // Icon
+            Text(quest.icon)
+                .font(.system(size: 18))
+
+            // Title + bar
+            VStack(alignment: .leading, spacing: 4) {
+                Text(quest.title)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(quest.isCompleted ? Color.smTextSecondary : Color.smTextPrimary)
+                    .strikethrough(quest.isCompleted)
+
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.white.opacity(0.07))
+
+                        RoundedRectangle(cornerRadius: 3)
+                            .fill(
+                                quest.isCompleted
+                                    ? Color(red: 0.00, green: 0.85, blue: 0.62)
+                                    : Color(red: 0.98, green: 0.82, blue: 0.28)
+                            )
+                            .frame(width: geo.size.width * quest.progressRatio)
+                    }
+                }
+                .frame(height: 4)
             }
 
             Spacer()
 
-            VStack(alignment: .trailing, spacing: 4) {
-                Text("Weekly Quests")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color.smTextPrimary)
+            // XP badge
+            Text("+\(quest.xpReward)")
+                .font(.system(size: 12, weight: .bold, design: .rounded))
+                .foregroundStyle(quest.isCompleted ? Color.smTextSecondary : Color(red: 0.98, green: 0.82, blue: 0.28))
 
-                let weeklyCompleted = gamification.weeklyQuests.filter { $0.isCompleted }.count
-                Text("\(weeklyCompleted)/\(gamification.weeklyQuests.count) completed")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(Color.smTextSecondary)
-            }
+            // Status check
+            Image(systemName: quest.isCompleted ? "checkmark.circle.fill" : "circle")
+                .font(.system(size: 16))
+                .foregroundStyle(
+                    quest.isCompleted
+                        ? Color(red: 0.00, green: 0.85, blue: 0.62)
+                        : Color.smTextSecondary
+                )
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 12)
-        .background(Color(red: 0.12, green: 0.15, blue: 0.14))
-        .cornerRadius(10)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(quest.title): \(quest.isCompleted ? "complete" : "\(quest.progress) of \(quest.target)"). +\(quest.xpReward) XP")
     }
 }
 
 #Preview {
     let profile = GamificationProfile()
-    profile.totalXP = 1250
-    profile.level = 8
-    profile.currentLevelXP = 450
-    profile.currentStreak = 5
-    profile.bestStreak = 12
-    profile.streakMultiplier = 1.5
+    profile.totalXP = 3200
+    profile.level = 11
+    profile.currentLevelXP = 550
+    profile.currentStreak = 8
+    profile.bestStreak = 23
+    profile.streakMultiplier = 1.3
+    profile.generateDailyQuests()
 
     return ZStack {
         Color.smBackground.ignoresSafeArea()
-
-        ScrollView {
-            VStack(spacing: 20) {
-                GamificationProgressView(gamification: profile, shouldAnimate: true)
-
-                Spacer()
-            }
-            .padding(.vertical)
-        }
+        GamificationProgressView(gamification: profile, shouldAnimate: true)
     }
 }

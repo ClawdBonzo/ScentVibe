@@ -5,32 +5,43 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
     @Query private var gamifications: [GamificationProfile]
+
     @State private var selectedTab = 0
-    @State private var previousTab = 0
     @State private var showOnboarding = false
     @State private var showNotificationPrompt = false
+
+    // Gamification overlays
     @State private var showBadgePopup = false
     @State private var unlockedBadge: Badge?
+    @State private var showLevelUp = false
+    @State private var levelUpInfo: (level: Int, title: String) = (0, "")
+    @State private var showQuestComplete = false
+    @State private var questCompleteInfo: (title: String, xp: Int) = ("", 0)
+    @State private var lastKnownLevel = 0
 
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("hasAskedNotificationPermission") private var hasAskedNotificationPermission = false
     @AppStorage("dailyVibeEnabled") private var dailyVibeEnabled = false
 
+    // MARK: - Accessors
+
     private var profile: UserProfile {
         if let existing = profiles.first { return existing }
-        let new = UserProfile()
-        modelContext.insert(new)
-        return new
+        let p = UserProfile()
+        modelContext.insert(p)
+        return p
     }
 
     private var gamification: GamificationProfile {
         if let existing = gamifications.first { return existing }
-        let new = GamificationProfile()
-        new.generateDailyQuests()
-        new.generateWeeklyQuests()
-        modelContext.insert(new)
-        return new
+        let g = GamificationProfile()
+        g.generateDailyQuests()
+        g.generateWeeklyQuests()
+        modelContext.insert(g)
+        return g
     }
+
+    // MARK: - Body
 
     var body: some View {
         ZStack {
@@ -60,14 +71,11 @@ struct ContentView: View {
 
                 GamificationDashboardView(
                     gamification: gamification,
-                    onQuestComplete: { questId in
-                        // Handle quest completion haptic
+                    onQuestComplete: { questId, xp in
+                        handleQuestComplete(id: questId, xp: xp)
                     },
-                    onBadgeUnlock: { badgeIds in
-                        if let badgeId = badgeIds.first, let badge = BadgeManager.badge(forId: badgeId) {
-                            unlockedBadge = badge
-                            showBadgePopup = true
-                        }
+                    onBadgeUnlock: { ids in
+                        handleBadgeUnlock(ids: ids)
                     }
                 )
                     .tabItem {
@@ -84,17 +92,40 @@ struct ContentView: View {
                     .tag(4)
             }
             .tint(Color.smEmerald)
-            .onChange(of: selectedTab) { oldValue, newValue in
-                previousTab = oldValue
+            .onChange(of: selectedTab) { _, _ in
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
 
-            // Badge unlock popup
+            // ── Level-up overlay ──
+            if showLevelUp {
+                LevelUpAnimationView(
+                    newLevel: levelUpInfo.level,
+                    levelTitle: levelUpInfo.title
+                ) {
+                    showLevelUp = false
+                }
+                .zIndex(200)
+                .transition(.opacity)
+            }
+
+            // ── Quest completion toast ──
+            if showQuestComplete {
+                QuestCompletionView(
+                    questTitle: questCompleteInfo.title,
+                    xpEarned: questCompleteInfo.xp
+                ) {
+                    showQuestComplete = false
+                }
+                .zIndex(100)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+
+            // ── Badge unlock popup ──
             if showBadgePopup, let badge = unlockedBadge {
                 BadgeUnlockPopupView(badge: badge)
-                    .onTapGesture {
-                        showBadgePopup = false
-                    }
+                    .zIndex(150)
+                    .transition(.opacity)
+                    .onTapGesture { showBadgePopup = false }
             }
         }
         .preferredColorScheme(.dark)
@@ -103,21 +134,29 @@ struct ContentView: View {
             if !hasCompletedOnboarding {
                 showOnboarding = true
             }
-
-            // Initialize daily quests if needed
             if gamification.dailyQuests.isEmpty {
                 gamification.generateDailyQuests()
+            }
+            lastKnownLevel = gamification.level
+        }
+        .onChange(of: gamification.level) { _, newLevel in
+            guard newLevel > lastKnownLevel, lastKnownLevel > 0 else {
+                lastKnownLevel = newLevel; return
+            }
+            lastKnownLevel = newLevel
+            // Delay slightly so XP bar finishes animating first
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                levelUpInfo = (newLevel, gamification.levelTitle)
+                withAnimation { showLevelUp = true }
             }
         }
         .fullScreenCover(isPresented: $showOnboarding, onDismiss: onOnboardingDismissed) {
             OnboardingView {
-                // Mark onboarding complete in both AppStorage and SwiftData
                 hasCompletedOnboarding = true
                 profile.hasCompletedOnboarding = true
-                // Dismiss the cover — selectedTab is set in onDismiss to avoid race
                 showOnboarding = false
             }
-            .interactiveDismissDisabled()  // Prevent swipe-to-dismiss during onboarding
+            .interactiveDismissDisabled()
         }
         .sheet(isPresented: $showNotificationPrompt) {
             NotificationPermissionSheet(
@@ -143,13 +182,29 @@ struct ContentView: View {
         }
     }
 
-    /// Called after the fullScreenCover finishes its dismissal animation.
-    /// Setting selectedTab here avoids a SwiftUI race where the TabView
-    /// isn't fully visible yet when the state changes.
-    private func onOnboardingDismissed() {
-        selectedTab = 1  // Navigate to Scan tab
+    // MARK: - Event Handlers
 
-        // Show notification permission prompt after a brief delay
+    private func handleQuestComplete(id: String, xp: Int) {
+        // Find the quest title for display
+        let quest = gamification.allQuests.first { $0.id == id }
+        questCompleteInfo = (quest?.title ?? "Quest", xp)
+
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
+            showQuestComplete = true
+        }
+    }
+
+    private func handleBadgeUnlock(ids: [String]) {
+        guard let firstId = ids.first, let badge = BadgeManager.badge(forId: firstId) else { return }
+        ids.forEach { gamification.unlockBadge($0) }
+        unlockedBadge = badge
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation { showBadgePopup = true }
+        }
+    }
+
+    private func onOnboardingDismissed() {
+        selectedTab = 1
         if !hasAskedNotificationPermission {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                 showNotificationPrompt = true
@@ -175,12 +230,12 @@ private struct NotificationPermissionSheet: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var bellScale: CGFloat = 0.6
     @State private var bellOpacity: Double = 0
+    @State private var contentOpacity: Double = 0
 
     var body: some View {
         VStack(spacing: 28) {
             Spacer()
 
-            // Bell icon with entrance animation
             ZStack {
                 Circle()
                     .fill(Color.smEmerald.opacity(0.1))
@@ -190,65 +245,69 @@ private struct NotificationPermissionSheet: View {
                     .font(.system(size: 42, weight: .light))
                     .foregroundStyle(
                         LinearGradient(
-                            colors: [.smEmerald, .smLightEmerald],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+                            colors: [Color.smEmerald, Color.smTeal],
+                            startPoint: .topLeading, endPoint: .bottomTrailing
                         )
                     )
-                    .scaleEffect(bellScale)
-                    .opacity(bellOpacity)
             }
+            .scaleEffect(bellScale)
+            .opacity(bellOpacity)
             .accessibilityHidden(true)
 
-            VStack(spacing: 10) {
-                Text("Daily Vibe Check")
+            VStack(spacing: 12) {
+                Text("Daily Vibe Alerts")
                     .font(SMFont.headline(22))
                     .foregroundStyle(Color.smTextPrimary)
-                    .accessibilityAddTraits(.isHeader)
 
-                Text("Get a personalized fragrance suggestion\nevery morning at 9 AM based on your\nsaved wardrobe matches.")
+                Text("Get a daily scent inspiration at 9 AM —\ntailored to your fragrance wardrobe.")
                     .font(SMFont.body(15))
                     .foregroundStyle(Color.smTextSecondary)
                     .multilineTextAlignment(.center)
-                    .lineSpacing(3)
+                    .lineSpacing(2)
             }
+            .opacity(contentOpacity)
+            .padding(.horizontal, 28)
 
-            VStack(spacing: 12) {
+            Spacer()
+
+            VStack(spacing: 14) {
                 Button(action: onAllow) {
-                    Text("Enable Notifications")
-                        .font(SMFont.label())
-                        .foregroundStyle(Color.smBackground)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(LinearGradient.smPrimaryGradient)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    HStack(spacing: 8) {
+                        Image(systemName: "bell.fill")
+                            .font(.system(size: 15, weight: .semibold))
+                        Text("Allow Notifications")
+                            .font(SMFont.headline(17))
+                    }
+                    .foregroundStyle(Color.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: SMTheme.buttonHeight)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.smEmerald, Color.smTeal],
+                            startPoint: .leading, endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(SMTheme.cornerRadius)
                 }
-                .accessibilityLabel("Enable daily vibe notifications")
-                .accessibilityHint("Allows ScentVibe to send you a daily fragrance suggestion at 9 AM")
+                .padding(.horizontal, 28)
 
                 Button(action: onSkip) {
                     Text("Maybe Later")
                         .font(SMFont.body(15))
-                        .foregroundStyle(Color.smTextTertiary)
+                        .foregroundStyle(Color.smTextSecondary)
                 }
-                .accessibilityLabel("Skip notifications for now")
+                .padding(.bottom, 8)
             }
-            .padding(.horizontal, 24)
-
-            Spacer()
+            .opacity(contentOpacity)
         }
-        .padding()
+        .padding(.bottom, 16)
         .onAppear {
-            guard !reduceMotion else {
+            withAnimation(reduceMotion ? .linear(duration: 0) : .interpolatingSpring(mass: 1, stiffness: 100, damping: 14).delay(0.15)) {
                 bellScale = 1.0
                 bellOpacity = 1.0
-                return
             }
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.15)) {
-                bellScale = 1.0
-            }
-            withAnimation(.easeOut(duration: 0.3)) {
-                bellOpacity = 1.0
+            withAnimation(reduceMotion ? .linear(duration: 0) : .easeOut(duration: 0.45).delay(0.35)) {
+                contentOpacity = 1.0
             }
         }
     }

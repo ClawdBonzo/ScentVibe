@@ -2,58 +2,51 @@ import SwiftUI
 
 struct QuestsView: View {
     @Bindable var gamification: GamificationProfile
-    var onQuestComplete: (String) -> Void
+    var onQuestComplete: (String, Int) -> Void    // questId, xpEarned
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.smBackground.ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 24) {
-                        // Daily Quests Section
-                        if !gamification.dailyQuests.isEmpty {
-                            questSection(
-                                title: "Daily Quests",
-                                subtitle: "Complete for bonus XP",
-                                quests: gamification.dailyQuests,
-                                icon: "☀️"
-                            )
-                        }
-
-                        // Weekly Quests Section
-                        if !gamification.weeklyQuests.isEmpty {
-                            questSection(
-                                title: "Weekly Quests",
-                                subtitle: "Major rewards await",
-                                quests: gamification.weeklyQuests,
-                                icon: "📅"
-                            )
-                        }
-
-                        Spacer(minLength: 32)
-                    }
-                    .padding(.vertical)
+        ScrollView {
+            VStack(spacing: 24) {
+                // Daily
+                if !gamification.dailyQuests.isEmpty {
+                    questSection(
+                        title: "Daily Quests",
+                        subtitle: "Resets each day",
+                        icon: "☀️",
+                        quests: gamification.dailyQuests
+                    )
                 }
+
+                // Weekly
+                if !gamification.weeklyQuests.isEmpty {
+                    questSection(
+                        title: "Weekly Quests",
+                        subtitle: "Big rewards await",
+                        icon: "📅",
+                        quests: gamification.weeklyQuests
+                    )
+                }
+
+                Spacer(minLength: 32)
             }
-            .navigationTitle("Quests")
-            .navigationBarTitleDisplayMode(.inline)
+            .padding(.vertical, 16)
         }
     }
 
-    private func questSection(title: String, subtitle: String, quests: [QuestData], icon: String) -> some View {
+    // MARK: Section
+
+    private func questSection(title: String, subtitle: String, icon: String, quests: [QuestData]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            // Header
             HStack(spacing: 8) {
-                Text(icon)
-                    .font(.system(size: 20))
+                Text(icon).font(.system(size: 18))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 15, weight: .bold))
                         .foregroundStyle(Color.smTextPrimary)
-
                     Text(subtitle)
                         .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(Color.smTextSecondary)
@@ -61,13 +54,18 @@ struct QuestsView: View {
 
                 Spacer()
 
-                let completed = quests.filter { $0.isCompleted }.count
-                Text("\(completed)/\(quests.count)")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.85, green: 0.72, blue: 0.27))
+                let done = quests.filter { $0.isCompleted }.count
+                Text("\(done)/\(quests.count)")
+                    .font(.system(size: 13, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        done == quests.count
+                            ? Color(red: 0.00, green: 0.85, blue: 0.62)
+                            : Color(red: 0.98, green: 0.82, blue: 0.28)
+                    )
             }
             .padding(.horizontal)
 
+            // Cards
             VStack(spacing: 10) {
                 ForEach(quests) { quest in
                     questCard(quest)
@@ -77,45 +75,39 @@ struct QuestsView: View {
         }
     }
 
+    // MARK: Quest Card
+
     private func questCard(_ quest: QuestData) -> some View {
         ZStack {
             // Background
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 14)
                 .fill(
                     quest.isCompleted
-                        ? LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 0.00, green: 0.85, blue: 0.62).opacity(0.15),
-                                Color(red: 0.00, green: 0.85, blue: 0.62).opacity(0.08),
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                        : LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 0.12, green: 0.15, blue: 0.14),
-                                Color(red: 0.08, green: 0.1, blue: 0.09),
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+                        ? Color(red: 0.00, green: 0.85, blue: 0.62).opacity(0.08)
+                        : Color(red: 0.09, green: 0.12, blue: 0.12)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(
+                            quest.isCompleted
+                                ? Color(red: 0.00, green: 0.85, blue: 0.62).opacity(0.4)
+                                : Color.white.opacity(0.06),
+                            lineWidth: 1
                         )
                 )
 
-            if quest.isCompleted {
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(Color(red: 0.00, green: 0.85, blue: 0.62), lineWidth: 1)
-            }
-
             VStack(spacing: 10) {
                 HStack(spacing: 12) {
+                    // Emoji icon
                     Text(quest.icon)
-                        .font(.system(size: 24))
+                        .font(.system(size: 26))
 
+                    // Info
                     VStack(alignment: .leading, spacing: 4) {
                         Text(quest.title)
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(Color.smTextPrimary)
-                            .lineLimit(1)
+                            .foregroundStyle(quest.isCompleted ? Color.smTextSecondary : Color.smTextPrimary)
+                            .strikethrough(quest.isCompleted)
 
                         Text(quest.description)
                             .font(.system(size: 12, weight: .medium))
@@ -125,17 +117,18 @@ struct QuestsView: View {
 
                     Spacer()
 
+                    // XP + status
                     VStack(alignment: .trailing, spacing: 4) {
                         Text("+\(quest.xpReward)")
-                            .font(.system(size: 13, weight: .bold))
+                            .font(.system(size: 14, weight: .black, design: .rounded))
                             .foregroundStyle(
                                 quest.isCompleted
                                     ? Color(red: 0.00, green: 0.85, blue: 0.62)
-                                    : Color(red: 0.85, green: 0.72, blue: 0.27)
+                                    : Color(red: 0.98, green: 0.82, blue: 0.28)
                             )
 
                         Image(systemName: quest.isCompleted ? "checkmark.circle.fill" : "circle")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundStyle(
                                 quest.isCompleted
                                     ? Color(red: 0.00, green: 0.85, blue: 0.62)
@@ -144,56 +137,60 @@ struct QuestsView: View {
                     }
                 }
 
-                // Progress bar
-                if !quest.isCompleted && quest.target > 0 {
-                    VStack(spacing: 6) {
+                // Progress bar (only when in progress)
+                if !quest.isCompleted && quest.target > 1 {
+                    VStack(spacing: 5) {
                         GeometryReader { geo in
                             ZStack(alignment: .leading) {
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(Color.white.opacity(0.08))
+                                    .fill(Color.white.opacity(0.07))
 
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(
                                         LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                Color(red: 0.85, green: 0.72, blue: 0.27),
+                                            colors: [
+                                                Color(red: 0.98, green: 0.82, blue: 0.28),
                                                 Color(red: 0.00, green: 0.85, blue: 0.62),
-                                            ]),
-                                            startPoint: .leading,
-                                            endPoint: .trailing
+                                            ],
+                                            startPoint: .leading, endPoint: .trailing
                                         )
                                     )
                                     .frame(width: geo.size.width * quest.progressRatio)
+                                    .animation(.easeOut(duration: 0.5), value: quest.progress)
                             }
                         }
                         .frame(height: 6)
 
                         HStack {
-                            Text("\(quest.progress)/\(quest.target)")
-                                .font(.system(size: 11, weight: .medium))
+                            Text("\(quest.progress) / \(quest.target)")
+                                .font(.system(size: 11, weight: .medium, design: .rounded))
                                 .foregroundStyle(Color.smTextSecondary)
 
                             Spacer()
 
                             Text("\(Int(quest.progressRatio * 100))%")
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(Color(red: 0.85, green: 0.72, blue: 0.27))
+                                .font(.system(size: 11, weight: .bold, design: .rounded))
+                                .foregroundStyle(Color(red: 0.98, green: 0.82, blue: 0.28))
                         }
                     }
                 }
             }
-            .padding(12)
+            .padding(14)
         }
         .onTapGesture {
+            // Only allow completion tap if fully done but not marked yet
             if !quest.isCompleted && quest.progress >= quest.target {
-                completeQuest(quest)
+                handleQuestComplete(quest)
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(quest.title): \(quest.isCompleted ? "complete" : "\(quest.progress) of \(quest.target)")")
+        .accessibilityHint(quest.isCompleted ? "Complete" : "Tap when done to claim \(quest.xpReward) XP")
     }
 
-    private func completeQuest(_ quest: QuestData) {
+    private func handleQuestComplete(_ quest: QuestData) {
         gamification.completeQuest(id: quest.id)
-        onQuestComplete(quest.id)
+        onQuestComplete(quest.id, quest.xpReward)
 
         if !reduceMotion {
             GamificationHaptics.questCompleted()
@@ -206,5 +203,8 @@ struct QuestsView: View {
     profile.generateDailyQuests()
     profile.generateWeeklyQuests()
 
-    return QuestsView(gamification: profile) { _ in }
+    return ZStack {
+        Color.smBackground.ignoresSafeArea()
+        QuestsView(gamification: profile) { _, _ in }
+    }
 }
