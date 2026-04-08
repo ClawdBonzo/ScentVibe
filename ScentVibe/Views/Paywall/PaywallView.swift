@@ -24,7 +24,7 @@ private struct NormalPaywallView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var profiles: [UserProfile]
-    @State private var selectedTier: PaywallTier = .yearly
+    @State private var selectedTier: PaywallTier = .monthly
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorMessage = ""
@@ -221,9 +221,16 @@ private struct NormalPaywallView: View {
                                 .clipShape(Capsule())
                         }
                     }
-                    Text(tier.pricePerMonth)
-                        .font(SMFont.caption(12))
-                        .foregroundStyle(Color.smTextSecondary)
+                    HStack(spacing: 6) {
+                        Text(tier.pricePerMonth)
+                            .font(SMFont.caption(12))
+                            .foregroundStyle(Color.smTextSecondary)
+                        if let note = tier.trialNote {
+                            Text("· \(note)")
+                                .font(SMFont.caption(12))
+                                .foregroundStyle(Color.smEmerald)
+                        }
+                    }
                 }
                 Spacer()
                 Text(tier.price)
@@ -335,7 +342,7 @@ struct PromoPaywallView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var profiles: [UserProfile]
 
-    @State private var selectedTier: PaywallTier = .yearly
+    @State private var selectedTier: PaywallTier = .monthly
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorMessage = ""

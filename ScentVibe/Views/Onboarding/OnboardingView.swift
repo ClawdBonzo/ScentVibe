@@ -1135,11 +1135,11 @@ private struct OnboardingPaywallScreen: View {
 
             // Price
             VStack(spacing: 6) {
-                Text("$4.99 / month")
+                Text("$7.99 / month")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundStyle(ob_priText)
 
-                Text("or $29.99/yr · $79.99 lifetime")
+                Text("or $49.99/yr · $79.99 lifetime")
                     .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(ob_secText)
 
