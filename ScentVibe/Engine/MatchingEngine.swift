@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Matching Engine
 
-final class MatchingEngine {
+final class MatchingEngine: @unchecked Sendable {
 
     static let shared = MatchingEngine()
 

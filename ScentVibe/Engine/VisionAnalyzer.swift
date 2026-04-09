@@ -4,7 +4,7 @@ import CoreImage
 
 // MARK: - Analysis Result
 
-struct ImageAnalysisResult {
+struct ImageAnalysisResult: Sendable {
     let dominantColors: [ColorInfo]  // Up to 5 dominant colors
     let sceneClassifications: [String]  // Scene labels from VNClassifyImageRequest
     let brightness: Double  // 0-1 average brightness
@@ -21,7 +21,7 @@ struct ImageAnalysisResult {
     }
 }
 
-struct ColorInfo: Codable, Hashable {
+struct ColorInfo: Codable, Hashable, Sendable {
     let hue: Double       // 0-360
     let saturation: Double // 0-1
     let brightness: Double // 0-1
@@ -60,7 +60,7 @@ struct ColorInfo: Codable, Hashable {
 
 // MARK: - Vision Analyzer
 
-final class VisionAnalyzer {
+final class VisionAnalyzer: @unchecked Sendable {
 
     static let shared = VisionAnalyzer()
 

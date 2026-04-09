@@ -1,6 +1,6 @@
 import Foundation
 
-final class ExplanationGenerator {
+final class ExplanationGenerator: @unchecked Sendable {
 
     static let shared = ExplanationGenerator()
 

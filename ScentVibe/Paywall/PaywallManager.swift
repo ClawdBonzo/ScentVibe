@@ -2,16 +2,20 @@ import Foundation
 import SwiftUI
 
 // MARK: - Paywall Manager
+//
+// ┌─────────────────────────────────────────────────────────────────┐
+// │  TODO: Replace with live appl_... key before App Store submission  │
+// │  The key "appl_YOUR_API_KEY" below is a PLACEHOLDER.            │
+// │  1. Add the RevenueCat SDK via SPM (RevenueCat/purchases-ios).  │
+// │  2. Replace the placeholder key with your production API key.   │
+// │  3. Uncomment the Purchases.configure / purchase / restore code.│
+// └─────────────────────────────────────────────────────────────────┘
 
-@Observable
+@MainActor @Observable
 final class PaywallManager {
     static let shared = PaywallManager()
 
-    // Product identifiers (must match App Store Connect & RevenueCat dashboard)
-    static let weeklyProductId   = "com.clawdbonzo.scentvibe.weekly"
-    static let monthlyProductId  = "com.clawdbonzo.scentvibe.monthly"
-    static let yearlyProductId   = "com.clawdbonzo.scentvibe.yearly"
-    static let lifetimeProductId = "com.clawdbonzo.scentvibe.lifetime"
+    // Product identifiers are in PaywallTier.productId (non-isolated for safe cross-actor access)
 
     var isPremium: Bool = false
     var isLoading: Bool = false
@@ -25,7 +29,7 @@ final class PaywallManager {
     // MARK: - RevenueCat Integration Points
 
     func configure() {
-        // TODO: Uncomment when RevenueCat SDK is added
+        // TODO: Replace with live appl_... key before App Store submission
         // Purchases.configure(withAPIKey: "appl_YOUR_API_KEY")
         // Purchases.shared.delegate = self
         checkSubscriptionStatus()
@@ -99,12 +103,13 @@ enum PaywallTier: CaseIterable, Identifiable {
 
     var id: String { productId }
 
+    // Product identifiers (must match App Store Connect & RevenueCat dashboard)
     var productId: String {
         switch self {
-        case .weekly: return PaywallManager.weeklyProductId
-        case .monthly: return PaywallManager.monthlyProductId
-        case .yearly: return PaywallManager.yearlyProductId
-        case .lifetime: return PaywallManager.lifetimeProductId
+        case .weekly:   return "com.clawdbonzo.scentvibe.weekly"
+        case .monthly:  return "com.clawdbonzo.scentvibe.monthly"
+        case .yearly:   return "com.clawdbonzo.scentvibe.yearly"
+        case .lifetime: return "com.clawdbonzo.scentvibe.lifetime"
         }
     }
 

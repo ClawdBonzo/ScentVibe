@@ -331,6 +331,7 @@ struct ResultsRevealView: View {
         }
         .padding(.top, 20)
         .onAppear {
+            guard !reduceMotion else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 scoreGlowPulse = true
             }

@@ -15,6 +15,7 @@ struct ScanView: View {
     @State private var analysisResult: ImageAnalysisResult?
     @State private var recommendations: [RecommendationEntry] = []
     @State private var moodOverride: String?
+    @State private var scanTask: Task<Void, Never>?
 
     private var profile: UserProfile {
         profiles.first ?? UserProfile()
@@ -184,9 +185,11 @@ struct ScanView: View {
     // MARK: - Process Image
 
     private func processImage(_ image: UIImage) {
+        // Cancel any in-flight scan before starting a new one
+        scanTask?.cancel()
         isScanning = true
 
-        Task {
+        scanTask = Task {
             do {
                 let analysis = try await VisionAnalyzer.shared.analyze(image: image)
                 let matches = MatchingEngine.shared.findMatches(

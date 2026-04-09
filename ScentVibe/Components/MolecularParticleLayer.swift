@@ -68,15 +68,19 @@ struct MolecularParticleLayer: View {
         Color(red: 1.00, green: 0.843, blue: 0.00),   // #FFD700 hot gold
     ]
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
-        TimelineView(.animation(minimumInterval: interval, paused: false)) { timeline in
-            let t = timeline.date.timeIntervalSinceReferenceDate
-            Canvas { context, size in
-                renderScene(context: context, size: size, time: t)
+        if !reduceMotion && DevicePerformance.shouldRenderEffects {
+            TimelineView(.animation(minimumInterval: interval, paused: false)) { timeline in
+                let t = timeline.date.timeIntervalSinceReferenceDate
+                Canvas { context, size in
+                    renderScene(context: context, size: size, time: t)
+                }
             }
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
         }
-        .allowsHitTesting(false)
-        .accessibilityHidden(true)
     }
 
     // MARK: - Rendering
@@ -150,17 +154,20 @@ struct MolecularParticleLayer: View {
 
 struct GoldenParticleBurst: View {
     let active: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                ForEach(0..<BurstParticle.count, id: \.self) { i in
-                    BurstParticle(index: i, active: active, canvasSize: geo.size)
+        if !reduceMotion && DevicePerformance.shouldRenderEffects {
+            GeometryReader { geo in
+                ZStack {
+                    ForEach(0..<BurstParticle.count, id: \.self) { i in
+                        BurstParticle(index: i, active: active, canvasSize: geo.size)
+                    }
                 }
             }
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
         }
-        .allowsHitTesting(false)
-        .accessibilityHidden(true)
     }
 
     private struct BurstParticle: View {

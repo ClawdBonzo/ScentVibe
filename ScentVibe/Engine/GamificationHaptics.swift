@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 enum GamificationHaptics {
     // MARK: - Haptic Patterns
 
