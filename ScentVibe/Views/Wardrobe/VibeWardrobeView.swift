@@ -486,6 +486,10 @@ private struct WardrobeEmptyState: View {
 struct WardrobeCard: View {
     let match: ScentMatchResult
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var glowPulse = false
+    @State private var bottleGlow = false
+
     private var topFragrance: Fragrance? {
         match.recommendations.first?.fragrance()
     }
@@ -496,22 +500,50 @@ struct WardrobeCard: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Group {
+            // Photo thumbnail with neon border glow
+            ZStack {
                 if let image = match.photoImage {
                     image
                         .resizable()
                         .scaledToFill()
+                        .frame(width: 72, height: 72)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [
+                                            vibeColor.opacity(glowPulse ? 0.50 : 0.18),
+                                            Color.smGold.opacity(glowPulse ? 0.25 : 0.06)
+                                        ],
+                                        startPoint: .topLeading, endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1.2
+                                )
+                        )
+                        .shadow(color: vibeColor.opacity(glowPulse ? 0.35 : 0.10), radius: glowPulse ? 10 : 4)
                 } else {
                     Color.smSurface
+                        .frame(width: 72, height: 72)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay {
                             Image(systemName: "photo")
                                 .font(.system(size: 18))
                                 .foregroundStyle(Color.smTextTertiary)
                         }
                 }
+
+                // Molecular trail shimmer in top-right corner
+                if !reduceMotion {
+                    Circle()
+                        .fill(Color.smGold.opacity(bottleGlow ? 0.55 : 0.15))
+                        .frame(width: 6, height: 6)
+                        .smNeonGlow(color: .smGold, radius: 4, intensity: bottleGlow ? 1.0 : 0.3)
+                        .offset(x: 28, y: -28)
+                        .animation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true), value: bottleGlow)
+                }
             }
             .frame(width: 72, height: 72)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
 
             VStack(alignment: .leading, spacing: 4) {
                 if let frag = topFragrance {
@@ -531,6 +563,7 @@ struct WardrobeCard: View {
                         Circle()
                             .fill(vibeColor)
                             .frame(width: 6, height: 6)
+                            .smNeonGlow(color: vibeColor, radius: 4, intensity: 0.8)
                         Text(String(format: "%.0f", match.vibeScore))
                             .font(SMFont.mono(12))
                             .foregroundStyle(vibeColor)
@@ -556,8 +589,31 @@ struct WardrobeCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.smTeal.opacity(0.1), lineWidth: 0.5)
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            vibeColor.opacity(glowPulse ? 0.30 : 0.10),
+                            Color.smGold.opacity(glowPulse ? 0.15 : 0.04)
+                        ],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    ),
+                    lineWidth: glowPulse ? 1.0 : 0.5
+                )
         )
+        .shadow(color: vibeColor.opacity(glowPulse ? 0.15 : 0.04), radius: 8)
+        .onAppear {
+            guard !reduceMotion else { return }
+            // Stagger glow pulses so all cards don't pulse in sync
+            let jitter = Double.random(in: 0...1.5)
+            DispatchQueue.main.asyncAfter(deadline: .now() + jitter) {
+                withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
+                    glowPulse = true
+                }
+                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true).delay(0.6)) {
+                    bottleGlow = true
+                }
+            }
+        }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(cardAccessibilityLabel)
         .accessibilityHint("Tap to view details. Swipe left for delete options.")

@@ -45,7 +45,23 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
+            // Deep layered background
             Color.smBackground.ignoresSafeArea()
+            LinearGradient(
+                colors: [
+                    Color(red: 0.00, green: 0.08, blue: 0.10),
+                    Color.smBackground,
+                    Color(red: 0.04, green: 0.03, blue: 0.00)
+                ],
+                startPoint: .top, endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            // Global floating molecular particle system (every screen)
+            MolecularParticleLayer(count: 22)
+                .ignoresSafeArea()
+                .opacity(0.55)
+                .allowsHitTesting(false)
 
             TabView(selection: $selectedTab) {
                 DashboardView()

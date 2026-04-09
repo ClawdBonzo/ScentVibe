@@ -3,20 +3,20 @@ import SwiftUI
 // MARK: - Theme Colors
 
 extension Color {
-    // Primary palette - Premium deep teal luxury
-    static let smDeepTeal = Color(red: 0.04, green: 0.24, blue: 0.24)  // #0A3D3D
-    static let smTeal = Color(red: 0.06, green: 0.32, blue: 0.32)
-    static let smLightTeal = Color(red: 0.12, green: 0.50, blue: 0.50)
+    // Primary palette — Vibrant emerald → electric teal → hot gold
+    static let smDeepTeal = Color(red: 0.00, green: 0.20, blue: 0.24)   // deep anchor
+    static let smTeal = Color(red: 0.00, green: 0.56, blue: 0.70)       // vibrant mid-teal
+    static let smLightTeal = Color(red: 0.00, green: 0.75, blue: 0.90)  // bright teal highlight
 
-    // Accent - Vibrant emerald to neon green
-    static let smEmerald = Color(red: 0.00, green: 0.78, blue: 0.33)   // #00C853
-    static let smLightEmerald = Color(red: 0.22, green: 1.00, blue: 0.08)  // #39FF14 neon
+    // Accent — Vibrant emerald (#00D4AA) → electric teal (#00F0FF)
+    static let smEmerald = Color(red: 0.00, green: 0.831, blue: 0.667)  // #00D4AA vibrant emerald
+    static let smLightEmerald = Color(red: 0.00, green: 0.941, blue: 1.00) // #00F0FF electric teal
 
-    // Gold accent for premium
-    static let smGold = Color(red: 0.88, green: 0.75, blue: 0.35)
-    static let smLightGold = Color(red: 0.96, green: 0.87, blue: 0.50)
+    // Hot gold (#FFD700) — electric, premium
+    static let smGold = Color(red: 1.00, green: 0.843, blue: 0.00)      // #FFD700 hot gold
+    static let smLightGold = Color(red: 1.00, green: 0.92, blue: 0.40)  // warm gold highlight
 
-    // Background - Deep dark luxury
+    // Background — Deep dark luxury
     static let smBackground = Color(red: 0.03, green: 0.05, blue: 0.07)
     static let smSurface = Color(red: 0.06, green: 0.08, blue: 0.11)
     static let smSurfaceElevated = Color(red: 0.10, green: 0.12, blue: 0.16)
@@ -27,40 +27,50 @@ extension Color {
     static let smTextTertiary = Color(red: 0.42, green: 0.46, blue: 0.49)
 
     // Status
-    static let smSuccess = Color(red: 0.00, green: 0.78, blue: 0.33)
-    static let smWarning = Color(red: 0.96, green: 0.76, blue: 0.22)
+    static let smSuccess = Color(red: 0.00, green: 0.831, blue: 0.667)
+    static let smWarning = Color(red: 1.00, green: 0.843, blue: 0.00)
     static let smError = Color(red: 0.92, green: 0.28, blue: 0.28)
 
-    // Vibe score gradient (emerald → neon)
-    static let smVibeGradientStart = Color(red: 0.00, green: 0.78, blue: 0.33)  // #00C853
-    static let smVibeGradientEnd = Color(red: 0.06, green: 0.32, blue: 0.32)
+    // Vibe score gradient — vibrant emerald → electric teal
+    static let smVibeGradientStart = Color(red: 0.00, green: 0.831, blue: 0.667)
+    static let smVibeGradientEnd = Color(red: 0.00, green: 0.941, blue: 1.00)
 }
 
 // MARK: - Theme Gradients
 
 extension LinearGradient {
+    /// Hero 3-stop gradient: vibrant emerald → electric teal → hot gold
     static let smPrimaryGradient = LinearGradient(
-        colors: [.smEmerald, .smTeal],
+        colors: [.smEmerald, .smLightEmerald, .smGold],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
 
     static let smBackgroundGradient = LinearGradient(
-        colors: [.smBackground, .smDeepTeal.opacity(0.3)],
+        colors: [.smBackground, Color(red: 0.00, green: 0.10, blue: 0.14)],
         startPoint: .top,
         endPoint: .bottom
     )
 
+    /// Vibe score ring gradient — emerald → electric teal
     static let smVibeGradient = LinearGradient(
         colors: [.smVibeGradientStart, .smVibeGradientEnd],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
 
+    /// Hot gold gradient for premium CTAs
     static let smGoldGradient = LinearGradient(
         colors: [.smGold, .smLightGold],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
+    )
+
+    /// Neon gold → teal gradient for buttons and accents
+    static let smNeonGradient = LinearGradient(
+        colors: [.smGold, .smEmerald, .smLightEmerald],
+        startPoint: .leading,
+        endPoint: .trailing
     )
 
     static let smCardGradient = LinearGradient(
@@ -73,32 +83,21 @@ extension LinearGradient {
 // MARK: - Theme Typography
 
 struct SMFont {
-    // Display — premium serif for hero headlines
     static func display(_ size: CGFloat = 34) -> Font {
         .system(size: size, weight: .bold, design: .serif)
     }
-
-    // Headlines — clean, slightly rounded for modern luxury
     static func headline(_ size: CGFloat = 22) -> Font {
         .system(size: size, weight: .semibold, design: .rounded)
     }
-
-    // Body — crisp and readable
     static func body(_ size: CGFloat = 16) -> Font {
         .system(size: size, weight: .regular, design: .default)
     }
-
-    // Caption
     static func caption(_ size: CGFloat = 13) -> Font {
         .system(size: size, weight: .medium, design: .default)
     }
-
-    // Label — tight tracking for badges
     static func label(_ size: CGFloat = 11) -> Font {
         .system(size: size, weight: .semibold, design: .default)
     }
-
-    // Mono for scores — tabular figures
     static func mono(_ size: CGFloat = 16) -> Font {
         .system(size: size, weight: .bold, design: .monospaced)
     }
@@ -124,11 +123,16 @@ struct SMCardModifier: ViewModifier {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(
                                 LinearGradient(
-                                    colors: [Color.smEmerald.opacity(0.12), Color.smTeal.opacity(0.06), .clear],
+                                    colors: [
+                                        Color.smEmerald.opacity(0.25),
+                                        Color.smLightEmerald.opacity(0.12),
+                                        Color.smGold.opacity(0.06),
+                                        .clear
+                                    ],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
-                                lineWidth: 0.5
+                                lineWidth: 0.8
                             )
                     )
             )
@@ -145,13 +149,27 @@ struct SMGlassModifier: ViewModifier {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(
                         LinearGradient(
-                            colors: [.white.opacity(0.08), .clear],
+                            colors: [Color.smEmerald.opacity(0.15), Color.smGold.opacity(0.08), .clear],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
-                        lineWidth: 0.5
+                        lineWidth: 0.8
                     )
             )
+    }
+}
+
+/// Neon glow shadow modifier — adds a vibrant colored halo
+struct SMNeonGlowModifier: ViewModifier {
+    let color: Color
+    let radius: CGFloat
+    let intensity: Double
+
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: color.opacity(intensity * 0.7), radius: radius * 0.5, x: 0, y: 0)
+            .shadow(color: color.opacity(intensity * 0.4), radius: radius, x: 0, y: 0)
+            .shadow(color: color.opacity(intensity * 0.2), radius: radius * 2, x: 0, y: 0)
     }
 }
 
@@ -162,6 +180,11 @@ extension View {
 
     func smGlass() -> some View {
         modifier(SMGlassModifier())
+    }
+
+    /// Neon glow halo effect — triple-layered shadow for premium electric look
+    func smNeonGlow(color: Color = .smEmerald, radius: CGFloat = 12, intensity: Double = 1.0) -> some View {
+        modifier(SMNeonGlowModifier(color: color, radius: radius, intensity: intensity))
     }
 
     /// Premium entrance animation

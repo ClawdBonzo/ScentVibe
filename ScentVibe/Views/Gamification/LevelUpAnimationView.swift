@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - Level-Up Full-Screen Celebration
-// Duolingo-style: burst of particles, new title reveal, dismiss tap.
+// Luxury perfume-house launch feel: molecular particles, neon orb, particle burst.
 
 struct LevelUpAnimationView: View {
     let newLevel: Int
@@ -18,58 +18,121 @@ struct LevelUpAnimationView: View {
     @State private var bgOpacity = 0.0
     @State private var circleScale: CGFloat = 0.3
     @State private var glowPulse = false
+    @State private var orbRotation: Double = 0
 
-    private let goldenGrad = LinearGradient(
+    // Vibrant hot gold → electric teal gradient for the orb
+    private let neonGrad = LinearGradient(
         colors: [
-            Color(red: 0.98, green: 0.82, blue: 0.38),
-            Color(red: 0.85, green: 0.68, blue: 0.22),
+            Color(red: 1.00, green: 0.843, blue: 0.00),   // hot gold
+            Color(red: 0.00, green: 0.831, blue: 0.667),  // vibrant emerald
+            Color(red: 0.00, green: 0.941, blue: 1.00),   // electric teal
         ],
         startPoint: .topLeading, endPoint: .bottomTrailing
     )
 
+    private let hotGold  = Color(red: 1.00, green: 0.843, blue: 0.00)
+    private let emerald  = Color(red: 0.00, green: 0.831, blue: 0.667)
+    private let elecTeal = Color(red: 0.00, green: 0.941, blue: 1.00)
+
     var body: some View {
         ZStack {
-            // Dim overlay
+            // Dark overlay
             Color.black.opacity(bgOpacity * 0.88)
                 .ignoresSafeArea()
                 .onTapGesture { dismiss() }
 
+            // Molecular particle layer — shows through the celebration
+            if !reduceMotion {
+                MolecularParticleLayer(count: 22)
+                    .ignoresSafeArea()
+                    .opacity(bgOpacity * 0.5)
+            }
+
+            // Ambient radial glow behind orb
+            if !reduceMotion {
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            colors: [
+                                hotGold.opacity(glowPulse ? 0.20 : 0.06),
+                                emerald.opacity(glowPulse ? 0.12 : 0.03),
+                                .clear
+                            ],
+                            center: .center, startRadius: 0, endRadius: 300
+                        )
+                    )
+                    .frame(width: 600, height: 600)
+                    .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: glowPulse)
+            }
+
             VStack(spacing: 0) {
                 Spacer()
 
-                // ── Central burst circle ──
+                // ── Central neon orb ──
                 ZStack {
-                    // Glow rings
+                    // Outer rotating neon ring (electric teal)
+                    if !reduceMotion {
+                        Circle()
+                            .trim(from: 0.0, to: 0.75)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [elecTeal.opacity(0.6), elecTeal.opacity(0.0)],
+                                    startPoint: .leading, endPoint: .trailing
+                                ),
+                                style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
+                            )
+                            .frame(width: 210, height: 210)
+                            .rotationEffect(.degrees(orbRotation))
+
+                        // Counter-rotating emerald ring
+                        Circle()
+                            .trim(from: 0.0, to: 0.5)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [emerald.opacity(0.5), emerald.opacity(0.0)],
+                                    startPoint: .leading, endPoint: .trailing
+                                ),
+                                style: StrokeStyle(lineWidth: 1, lineCap: .round)
+                            )
+                            .frame(width: 185, height: 185)
+                            .rotationEffect(.degrees(-orbRotation * 0.7))
+                    }
+
+                    // Pulsing glow rings
                     if !reduceMotion {
                         ForEach(0..<3, id: \.self) { i in
                             Circle()
-                                .stroke(Color(red: 0.98, green: 0.78, blue: 0.28).opacity(0.12 - Double(i) * 0.03), lineWidth: 1)
-                                .frame(width: CGFloat(160 + i * 36), height: CGFloat(160 + i * 36))
-                                .scaleEffect(glowPulse ? 1.07 : 0.95)
+                                .stroke(
+                                    hotGold.opacity(0.18 - Double(i) * 0.05),
+                                    lineWidth: 1.2 - CGFloat(i) * 0.3
+                                )
+                                .frame(width: CGFloat(162 + i * 32), height: CGFloat(162 + i * 32))
+                                .scaleEffect(glowPulse ? 1.06 + CGFloat(i) * 0.03 : 0.96)
                         }
                     }
 
-                    // Main circle
+                    // Main orb body
                     Circle()
-                        .fill(goldenGrad)
-                        .frame(width: 150, height: 150)
-                        .shadow(color: Color(red: 0.98, green: 0.80, blue: 0.28).opacity(0.55), radius: 30, x: 0, y: 0)
+                        .fill(neonGrad)
+                        .frame(width: 152, height: 152)
+                        .shadow(color: hotGold.opacity(0.55), radius: 28, x: 0, y: 0)
+                        .shadow(color: emerald.opacity(0.35), radius: 50, x: 0, y: 0)
                         .scaleEffect(circleScale)
 
-                    // "LEVEL UP" text inside circle
-                    VStack(spacing: 4) {
+                    // Inner orb content
+                    VStack(spacing: 3) {
                         Text("LEVEL")
                             .font(.system(size: 11, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(red: 0.5, green: 0.35, blue: 0.05))
+                            .foregroundStyle(Color(red: 0.10, green: 0.06, blue: 0.00))
                             .kerning(2.5)
 
                         Text("\(newLevel)")
                             .font(.system(size: 58, weight: .black, design: .rounded))
-                            .foregroundStyle(Color(red: 0.2, green: 0.12, blue: 0.0))
+                            .foregroundStyle(Color(red: 0.06, green: 0.04, blue: 0.00))
 
                         Text("REACHED")
                             .font(.system(size: 10, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(red: 0.5, green: 0.35, blue: 0.05))
+                            .foregroundStyle(Color(red: 0.10, green: 0.06, blue: 0.00))
                             .kerning(2.0)
                     }
                     .scaleEffect(circleScale)
@@ -85,10 +148,16 @@ struct LevelUpAnimationView: View {
                         .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.60))
 
                     Text(levelTitle)
-                        .font(.system(size: 28, weight: .bold, design: .serif))
-                        .foregroundStyle(Color(red: 0.97, green: 0.92, blue: 0.78))
+                        .font(.system(size: 30, weight: .bold, design: .serif))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [hotGold, .smLightGold],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
+                        .smNeonGlow(color: hotGold, radius: 8, intensity: 0.6)
                 }
                 .opacity(showTitle ? 1 : 0)
                 .offset(y: showTitle ? 0 : 20)
@@ -97,14 +166,21 @@ struct LevelUpAnimationView: View {
 
                 // ── CTA button ──
                 Button(action: dismiss) {
-                    Text("Keep Going! 🚀")
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                        .foregroundStyle(Color(red: 0.06, green: 0.06, blue: 0.06))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 52)
-                        .background(goldenGrad)
-                        .cornerRadius(14)
-                        .padding(.horizontal, 32)
+                    HStack(spacing: 10) {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: 15, weight: .bold))
+                        Text("Keep Going!")
+                            .font(.system(size: 17, weight: .bold, design: .rounded))
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 13, weight: .bold))
+                    }
+                    .foregroundStyle(Color(red: 0.06, green: 0.06, blue: 0.06))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(neonGrad)
+                    .cornerRadius(14)
+                    .padding(.horizontal, 32)
+                    .smNeonGlow(color: hotGold, radius: 12, intensity: 0.6)
                 }
                 .opacity(showCTA ? 1 : 0)
                 .offset(y: showCTA ? 0 : 16)
@@ -112,9 +188,9 @@ struct LevelUpAnimationView: View {
                 Spacer()
             }
 
-            // ── Particle burst ──
+            // ── Golden particle burst ──
             if !reduceMotion {
-                LevelUpParticles(active: particlesBurst)
+                GoldenParticleBurst(active: particlesBurst)
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
             }
@@ -135,19 +211,23 @@ struct LevelUpAnimationView: View {
 
         withAnimation(.easeIn(duration: 0.3)) { bgOpacity = 1 }
 
-        withAnimation(.interpolatingSpring(mass: 1, stiffness: 120, damping: 12).delay(0.1)) {
+        withAnimation(.interpolatingSpring(mass: 0.8, stiffness: 130, damping: 11).delay(0.1)) {
             circleScale = 1.0
             showCircle = true
         }
 
-        withAnimation(.easeOut(duration: 0.4).delay(0.5)) {
-            glowPulse = true
-        }
-        withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true).delay(0.5)) {
+        // Glow pulse
+        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true).delay(0.4)) {
             glowPulse = true
         }
 
-        withAnimation(.easeOut(duration: 0.4).delay(0.6)) {
+        // Continuous orb rotation
+        withAnimation(.linear(duration: 12).repeatForever(autoreverses: false).delay(0.4)) {
+            orbRotation = 360
+        }
+
+        // Particle burst
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
             particlesBurst = true
         }
 
@@ -163,72 +243,6 @@ struct LevelUpAnimationView: View {
     private func dismiss() {
         withAnimation(.easeIn(duration: 0.25)) { bgOpacity = 0 }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { onDismiss() }
-    }
-}
-
-// MARK: - Particle Burst
-
-private struct LevelUpParticles: View {
-    let active: Bool
-
-    var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                ForEach(0..<40, id: \.self) { i in
-                    Particle(index: i, active: active, canvasSize: geo.size)
-                }
-            }
-        }
-    }
-
-    private struct Particle: View {
-        let index: Int
-        let active: Bool
-        let canvasSize: CGSize
-
-        @State private var offset: CGSize = .zero
-        @State private var opacity: Double = 0
-        @State private var scale: CGFloat = 0.2
-
-        private let colors: [Color] = [
-            Color(red: 0.98, green: 0.82, blue: 0.28),
-            Color(red: 0.00, green: 0.85, blue: 0.62),
-            Color(red: 1.00, green: 1.00, blue: 1.00),
-            Color(red: 1.00, green: 0.55, blue: 0.15),
-        ]
-
-        private var randomAngle: Double { Double.random(in: 0...360) }
-        private var randomDistance: CGFloat { CGFloat.random(in: 90...220) }
-        private var randomColor: Color { colors.randomElement()! }
-        private var randomSize: CGFloat { CGFloat.random(in: 5...14) }
-        private var randomDelay: Double { Double(index) * 0.015 }
-
-        var body: some View {
-            Circle()
-                .fill(randomColor)
-                .frame(width: randomSize, height: randomSize)
-                .scaleEffect(scale)
-                .opacity(opacity)
-                .offset(offset)
-                .position(x: canvasSize.width / 2, y: canvasSize.height / 2)
-                .onChange(of: active) { _, newVal in
-                    guard newVal else { return }
-                    let angle = randomAngle
-                    let dist = randomDistance
-                    let dx = CGFloat(cos(angle * .pi / 180)) * dist
-                    let dy = CGFloat(sin(angle * .pi / 180)) * dist
-
-                    withAnimation(.easeOut(duration: 0.7).delay(randomDelay)) {
-                        offset = CGSize(width: dx, height: dy)
-                        scale = 1.0
-                        opacity = 0.9
-                    }
-                    withAnimation(.easeIn(duration: 0.5).delay(randomDelay + 0.5)) {
-                        opacity = 0
-                        scale = 0.5
-                    }
-                }
-        }
     }
 }
 

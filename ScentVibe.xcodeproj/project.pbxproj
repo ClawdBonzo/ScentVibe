@@ -53,6 +53,7 @@
 		A1000101000000000000002E /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000031 /* ReviewRequester.swift */; };
 		A1000101000000000000002F /* DevicePerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000032 /* DevicePerformance.swift */; };
 		A10001010000000000000030 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000033 /* ConfettiView.swift */; };
+		A1000101000000000000003F /* MolecularParticleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000042 /* MolecularParticleLayer.swift */; };
 		A10001010000000000000031 /* DailyVibeNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000034 /* DailyVibeNotificationManager.swift */; };
 		A10001010000000000000032 /* GamificationProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000035 /* GamificationProfile.swift */; };
 		A10001010000000000000033 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002010000000000000036 /* Badge.swift */; };
@@ -145,6 +146,7 @@
 		A10002010000000000000031 /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		A10002010000000000000032 /* DevicePerformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePerformance.swift; sourceTree = "<group>"; };
 		A10002010000000000000033 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		A10002010000000000000042 /* MolecularParticleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MolecularParticleLayer.swift; sourceTree = "<group>"; };
 		A10002010000000000000034 /* DailyVibeNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyVibeNotificationManager.swift; sourceTree = "<group>"; };
 		A10002010000000000000035 /* GamificationProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationProfile.swift; sourceTree = "<group>"; };
 		A10002010000000000000036 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				A1000201000000000000001F /* FragranceBottleView.swift */,
 				A10002010000000000000025 /* ShareCardView.swift */,
 				A10002010000000000000033 /* ConfettiView.swift */,
+				A10002010000000000000042 /* MolecularParticleLayer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				A1000101000000000000002E /* ReviewRequester.swift in Sources */,
 				A1000101000000000000002F /* DevicePerformance.swift in Sources */,
 				A10001010000000000000030 /* ConfettiView.swift in Sources */,
+				A1000101000000000000003F /* MolecularParticleLayer.swift in Sources */,
 				A10001010000000000000031 /* DailyVibeNotificationManager.swift in Sources */,
 				A10001010000000000000020 /* FragranceDB_Western.swift in Sources */,
 				A10001010000000000000021 /* FragranceDB_German.swift in Sources */,

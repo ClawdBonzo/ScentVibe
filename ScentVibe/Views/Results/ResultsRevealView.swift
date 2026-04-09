@@ -18,6 +18,8 @@ struct ResultsRevealView: View {
     @State private var isSaved = false
     @State private var saveButtonScale: CGFloat = 1.0
     @State private var showConfetti = false
+    @State private var particleBurst = false
+    @State private var scoreGlowPulse = false
 
     var onRegenerate: (() -> Void)?
     var onRegenerateWithMood: ((String) -> Void)?
@@ -25,7 +27,21 @@ struct ResultsRevealView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // ── Rich layered background ──
                 Color.smBackground.ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color(red: 0.00, green: 0.10, blue: 0.14),
+                        Color.smBackground,
+                        Color(red: 0.04, green: 0.03, blue: 0.00)
+                    ],
+                    startPoint: .top, endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                // Floating molecular particles on every screen
+                MolecularParticleLayer(count: 18)
+                    .ignoresSafeArea()
+                    .opacity(0.6)
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -80,6 +96,11 @@ struct ResultsRevealView: View {
                 // First-save confetti celebration
                 ConfettiView(isActive: $showConfetti)
                     .zIndex(999)
+
+                // Golden particle burst on score reveal
+                GoldenParticleBurst(active: particleBurst)
+                    .ignoresSafeArea()
+                    .zIndex(100)
             }
             .navigationTitle("Your Match")
             .navigationBarTitleDisplayMode(.inline)
@@ -162,18 +183,25 @@ struct ResultsRevealView: View {
             .accessibilityLabel(isSaved ? "Saved to wardrobe" : "Save to my wardrobe")
             .accessibilityHint(isSaved ? "Tap to remove from your wardrobe" : "Tap to save this scent match to your wardrobe")
 
-            // Share to Stories
+            // Share My Signature Scent — viral story card
             Button(action: {
                 UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 generateShareCard()
             }) {
-                Label("Share to Stories", systemImage: "square.and.arrow.up")
-                    .font(SMFont.headline(16))
-                    .foregroundStyle(Color.smBackground)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: SMTheme.buttonHeight)
-                    .background(LinearGradient.smGoldGradient)
-                    .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+                HStack(spacing: 10) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 15, weight: .bold))
+                    Text("Share My Signature Scent")
+                        .font(SMFont.headline(16))
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 13, weight: .semibold))
+                }
+                .foregroundStyle(Color.smBackground)
+                .frame(maxWidth: .infinity)
+                .frame(height: SMTheme.buttonHeight)
+                .background(LinearGradient.smGoldGradient)
+                .clipShape(RoundedRectangle(cornerRadius: SMTheme.cornerRadius))
+                .smNeonGlow(color: .smGold, radius: 12, intensity: 0.7)
             }
             .padding(.horizontal)
 
@@ -252,24 +280,44 @@ struct ResultsRevealView: View {
     private var vibeScoreHero: some View {
         VStack(spacing: 12) {
             ZStack {
+                // Outer ambient glow ring
                 Circle()
-                    .stroke(Color.smTeal.opacity(0.2), lineWidth: 8)
-                    .frame(width: 140, height: 140)
+                    .stroke(Color.smEmerald.opacity(scoreGlowPulse ? 0.18 : 0.06), lineWidth: 1)
+                    .frame(width: 172, height: 172)
+                    .animation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true), value: scoreGlowPulse)
 
+                Circle()
+                    .stroke(Color.smLightEmerald.opacity(scoreGlowPulse ? 0.12 : 0.04), lineWidth: 0.5)
+                    .frame(width: 190, height: 190)
+                    .animation(.easeInOut(duration: 2.8).repeatForever(autoreverses: true), value: scoreGlowPulse)
+
+                // Track ring
+                Circle()
+                    .stroke(Color.smTeal.opacity(0.15), lineWidth: 9)
+                    .frame(width: 144, height: 144)
+
+                // Progress arc — emerald → electric teal
                 Circle()
                     .trim(from: 0, to: showContent ? matchResult.vibeScore / 100.0 : 0)
                     .stroke(
                         LinearGradient.smVibeGradient,
-                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                        style: StrokeStyle(lineWidth: 9, lineCap: .round)
                     )
-                    .frame(width: 140, height: 140)
+                    .frame(width: 144, height: 144)
                     .rotationEffect(.degrees(-90))
                     .animation(.easeOut(duration: 1.5).delay(0.3), value: showContent)
+                    .smNeonGlow(color: .smEmerald, radius: 10, intensity: 0.8)
 
+                // Score text
                 VStack(spacing: 2) {
                     Text(String(format: "%.0f", matchResult.vibeScore))
-                        .font(SMFont.display(40))
-                        .foregroundStyle(Color.smTextPrimary)
+                        .font(SMFont.display(42))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [Color.smLightEmerald, Color.smEmerald],
+                                startPoint: .top, endPoint: .bottom
+                            )
+                        )
                     Text("Vibe Score")
                         .font(SMFont.label())
                         .foregroundStyle(Color.smTextSecondary)
@@ -277,10 +325,16 @@ struct ResultsRevealView: View {
             }
 
             Text(vibeDescription)
-                .font(SMFont.body())
+                .font(SMFont.headline(15))
                 .foregroundStyle(Color.smEmerald)
+                .smNeonGlow(color: .smEmerald, radius: 6, intensity: 0.6)
         }
         .padding(.top, 20)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                scoreGlowPulse = true
+            }
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Vibe Score: \(String(format: "%.0f", matchResult.vibeScore)) out of 100. \(vibeDescription)")
     }
@@ -491,6 +545,11 @@ struct ResultsRevealView: View {
 
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             showContent = true
+        }
+
+        // Golden particle burst as score ring fills
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            particleBurst = true
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
