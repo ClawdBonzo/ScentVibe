@@ -72,6 +72,13 @@ private struct NormalPaywallView: View {
 
                         purchaseButton
 
+                        if selectedTier.hasTrial {
+                            Text("Starts with a 3-day free trial · cancel anytime")
+                                .font(SMFont.caption(12))
+                                .foregroundStyle(Color.smEmerald)
+                                .multilineTextAlignment(.center)
+                        }
+
                         Button(action: {
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             restore()
@@ -130,17 +137,17 @@ private struct NormalPaywallView: View {
     // MARK: - Hero
 
     private var heroSection: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 8) {
             ZStack {
                 Circle()
                     .fill(
-                        RadialGradient(colors: [.smGold.opacity(0.2), .clear],
-                                       center: .center, startRadius: 10, endRadius: 70)
+                        RadialGradient(colors: [.smGold.opacity(0.22), .smEmerald.opacity(0.06), .clear],
+                                       center: .center, startRadius: 8, endRadius: 42)
                     )
-                    .frame(width: 140, height: 140)
+                    .frame(width: 84, height: 84)
 
                 Image(systemName: "crown.fill")
-                    .font(.system(size: 44))
+                    .font(.system(size: 32))
                     .foregroundStyle(LinearGradient.smGoldGradient)
                     .scaleEffect(crownPulse ? 1.06 : 0.96)
                     .onAppear {
@@ -152,7 +159,7 @@ private struct NormalPaywallView: View {
             }
 
             Text("Unlock ScentVibe Pro")
-                .font(SMFont.display(28))
+                .font(SMFont.display(22))
                 .foregroundStyle(Color.smTextPrimary)
                 .multilineTextAlignment(.center)
                 .accessibilityAddTraits(.isHeader)
@@ -169,7 +176,7 @@ private struct NormalPaywallView: View {
 
             if let profile = profile {
                 Text("You've used \(profile.totalMatchesUsed) of \(UserProfile.freeMatchLimit) free matches")
-                    .font(SMFont.body(14))
+                    .font(SMFont.body(13))
                     .foregroundStyle(Color.smTextSecondary)
             }
         }
@@ -193,60 +200,98 @@ private struct NormalPaywallView: View {
 
     private func tierCard(tier: PaywallTier) -> some View {
         let isSelected = selectedTier == tier
+        let isBest = tier == .monthly
         return Button(action: {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { selectedTier = tier }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }) {
-            HStack(spacing: 12) {
-                Circle()
-                    .stroke(isSelected ? Color.smGold : Color.smTextTertiary, lineWidth: 2)
-                    .frame(width: 22, height: 22)
-                    .overlay {
-                        if isSelected {
-                            Circle().fill(Color.smGold).frame(width: 12, height: 12)
+            VStack(spacing: 0) {
+                // Gold banner strip — monthly only
+                if isBest {
+                    HStack(spacing: 0) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 9, weight: .bold))
+                            Text("BEST VALUE")
+                                .fontWeight(.bold)
+                        }
+                        Spacer()
+                        Text("3-day free trial included")
+                    }
+                    .font(SMFont.label(11))
+                    .foregroundStyle(Color.smBackground)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 7)
+                    .background(LinearGradient.smGoldGradient)
+                }
+
+                // Card body
+                HStack(spacing: 12) {
+                    Circle()
+                        .stroke(isSelected ? Color.smGold : Color.smTextTertiary.opacity(0.5), lineWidth: 2)
+                        .frame(width: 22, height: 22)
+                        .overlay {
+                            if isSelected {
+                                Circle().fill(Color.smGold).frame(width: 12, height: 12)
+                            }
+                        }
+
+                    VStack(alignment: .leading, spacing: 3) {
+                        HStack(spacing: 6) {
+                            Text(tier.title)
+                                .font(SMFont.headline(16))
+                                .foregroundStyle(Color.smTextPrimary)
+
+                            // Yearly: emerald savings badge
+                            if let savings = tier.savings, !isBest {
+                                Text(savings)
+                                    .font(SMFont.label(10))
+                                    .foregroundStyle(Color.smEmerald)
+                                    .padding(.horizontal, 7).padding(.vertical, 2)
+                                    .background(Color.smEmerald.opacity(0.15))
+                                    .clipShape(Capsule())
+                            }
+                        }
+
+                        HStack(spacing: 6) {
+                            Text(tier.pricePerMonth)
+                                .font(SMFont.caption(12))
+                                .foregroundStyle(Color.smTextSecondary)
+
+                            // Yearly: show trial note inline
+                            if let note = tier.trialNote, !isBest {
+                                Text("· \(note)")
+                                    .font(SMFont.caption(12))
+                                    .foregroundStyle(Color.smEmerald)
+                            }
                         }
                     }
 
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
-                        Text(tier.title)
-                            .font(SMFont.headline(16))
-                            .foregroundStyle(Color.smTextPrimary)
-                        if let savings = tier.savings {
-                            Text(savings)
-                                .font(SMFont.label(10))
-                                .foregroundStyle(tier.isPopular ? Color.smBackground : Color.smGold)
-                                .padding(.horizontal, 6).padding(.vertical, 2)
-                                .background(tier.isPopular ? Color.smGold : Color.smGold.opacity(0.15))
-                                .clipShape(Capsule())
-                        }
-                    }
-                    HStack(spacing: 6) {
-                        Text(tier.pricePerMonth)
-                            .font(SMFont.caption(12))
-                            .foregroundStyle(Color.smTextSecondary)
-                        if let note = tier.trialNote {
-                            Text("· \(note)")
-                                .font(SMFont.caption(12))
-                                .foregroundStyle(Color.smEmerald)
-                        }
-                    }
+                    Spacer()
+
+                    Text(tier.price)
+                        .font(SMFont.headline(18))
+                        .foregroundStyle(isSelected ? Color.smGold : Color.smTextSecondary)
                 }
-                Spacer()
-                Text(tier.price)
-                    .font(SMFont.headline(18))
-                    .foregroundStyle(isSelected ? Color.smGold : Color.smTextSecondary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(Color.smSurfaceElevated)
             }
-            .padding(14)
-            .background(Color.smSurfaceElevated)
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
-                    .stroke(isSelected ? Color.smGold : Color.clear, lineWidth: 1.5)
+                    .stroke(
+                        isSelected ? Color.smGold : (isBest ? Color.smGold.opacity(0.45) : Color.clear),
+                        lineWidth: isSelected ? 2 : 1.5
+                    )
+            )
+            .shadow(
+                color: isBest ? Color.smGold.opacity(isSelected ? 0.25 : 0.10) : .clear,
+                radius: 8, y: 2
             )
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(tier.title), \(tier.price)\(tier.savings.map { ", \($0)" } ?? "")")
+        .accessibilityLabel("\(tier.title), \(tier.price)\(tier.savings.map { ", \($0)" } ?? "")\(tier.trialNote.map { ", \($0)" } ?? "")")
         .accessibilityHint(isSelected ? "Currently selected" : "Double-tap to select this plan")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }

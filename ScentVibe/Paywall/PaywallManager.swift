@@ -7,11 +7,11 @@ import SwiftUI
 final class PaywallManager {
     static let shared = PaywallManager()
 
-    // Product identifiers (configure in RevenueCat dashboard)
-    static let weeklyProductId = "scentvibe_weekly_499"
-    static let monthlyProductId = "scentvibe_monthly_799"
-    static let yearlyProductId = "scentvibe_yearly_4999"
-    static let lifetimeProductId = "scentvibe_lifetime_7999"
+    // Product identifiers (must match App Store Connect & RevenueCat dashboard)
+    static let weeklyProductId   = "com.clawdbonzo.scentvibe.weekly"
+    static let monthlyProductId  = "com.clawdbonzo.scentvibe.monthly"
+    static let yearlyProductId   = "com.clawdbonzo.scentvibe.yearly"
+    static let lifetimeProductId = "com.clawdbonzo.scentvibe.lifetime"
 
     var isPremium: Bool = false
     var isLoading: Bool = false
@@ -139,15 +139,18 @@ enum PaywallTier: CaseIterable, Identifiable {
     var trialNote: String? {
         switch self {
         case .monthly: return "3-day free trial"
+        case .yearly:  return "3-day free trial"
         default: return nil
         }
     }
 
+    var hasTrial: Bool { trialNote != nil }
+
     var savings: String? {
         switch self {
-        case .weekly: return nil
-        case .monthly: return "BEST VALUE"
-        case .yearly: return "Most Popular"
+        case .weekly:   return nil
+        case .monthly:  return "BEST VALUE"
+        case .yearly:   return "Save 48%"
         case .lifetime: return nil
         }
     }
